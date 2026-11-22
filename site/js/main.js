@@ -19,7 +19,9 @@ import { isInEffect } from './lib/status.js';
 import { geometryBounds } from './lib/geo.js';
 import { clock, relative, statesIn } from './lib/format.js';
 import { createMap } from './map/map.js';
-import { alertFeatures, pathFeatures, trailFeatures } from './map/features.js';
+import { alertFeatures, pathFeatures, trailFeatures, reportFeatures, surveyFeatures, outlookFeatures, tropicalFeatures } from './map/features.js';
+import { createReports, reportPopup, surveyPopup, tropicalPopup } from './ui/reports.js';
+import { createLayersMenu } from './ui/layersMenu.js';
 import { createPanel } from './ui/panel.js';
 import { createTimeline } from './ui/timeline.js';
 import { COUNTS, countAlerts, renderSummary, renderHeadline } from './ui/summary.js';
@@ -31,7 +33,7 @@ import { $, esc, icon, tickTimes, announce, rafThrottle } from './ui/dom.js';
 const storage = safeLocalStorage();
 const KEYS = { settings: 'hook-echo:settings', layers: 'hook-echo:layers' };
 const DEFAULT_SETTINGS = { theme: 'system', dataSaver: 'auto' };
-const DEFAULT_LAYERS = { radar: true, warnings: true, watches: true, others: true, paths: true, trails: true, surveys: true, reports: true, outlook: false, outlookKind: 'cat', tropical: true, places: true };
+const DEFAULT_LAYERS = { radar: true, warnings: true, watches: true, others: true, paths: true, trails: true, surveys: true, reports: true, outlook: false, outlookKind: 'cat', tropical: true, places: true, reportTypes: ['tornado', 'funnel', 'hail', 'wind', 'flood'] };
 
 const store = createStore({
   settings: loadPersisted(storage, KEYS.settings, DEFAULT_SETTINGS),
@@ -121,7 +123,12 @@ function computeTrails(now = new Date()) {
 }
 
 // ---------- UI ----------
-const panel = createPanel({ onSheetChange: (s) => timeline?.setHidden(s === 'full') });
+const panel = createPanel({
+  onSheetChange: (s) => timeline?.setHidden(s === 'full'),
+  onTabChange: (tab) => {
+    if (tab === 'reports') renderReports();
+  },
+});
 const warnings = createWarnings({
   el: $('#view-now'),
   onSelect: (id) => selectAlert(id, { fit: true }),
@@ -130,6 +137,49 @@ const warnings = createWarnings({
 });
 const sources = createSources({ dialog: $('#sources-dialog'), feeds });
 $('#live-status').addEventListener('click', () => sources.open());
+
+const reportTypes = () => new Set(store.get().layers.reportTypes ?? DEFAULT_LAYERS.reportTypes);
+const setLayer = (key, value) => store.set({ layers: { ...store.get().layers, [key]: value } });
+const reportsTab = createReports({
+  el: $('#view-reports'),
+  onToggleType: (type) => {
+    const set = reportTypes();
+    if (set.has(type)) set.delete(type);
+    else set.add(type);
+    setLayer('reportTypes', [...set]);
+  },
+  onShowReport: (id) => {
+    const r = (snap('reports').data ?? []).find((x) => x.id === id);
+    if (!r || !mapApi) return;
+    mapApi.flyTo([r.lon, r.lat], 9, panel.mapPadding());
+    mapApi.popup([r.lon, r.lat], reportPopup(r));
+  },
+  onShowSurvey: (id) => {
+    const s = (snap('surveys').data ?? []).find((x) => x.id === id);
+    if (!s || !mapApi) return;
+    const b = geometryBounds(s.geometry);
+    mapApi.fitBounds(b, panel.mapPadding(), 12);
+    const coords = s.geometry.type === 'LineString' ? s.geometry.coordinates : s.geometry.coordinates.flat();
+    mapApi.popup(coords[Math.floor(coords.length / 2)], surveyPopup(s));
+  },
+  onRetry: () => feeds.reports.refresh(),
+});
+const renderReports = rafThrottle(() => {
+  reportsTab.render({ reports: snap('reports').data, reportFeed: snap('reports'), surveys: snap('surveys').data, surveyFeed: snap('surveys'), enabled: reportTypes(), now: new Date() });
+});
+
+const layersMenu = createLayersMenu({
+  menu: $('#layers-menu'),
+  button: $('#btn-layers'),
+  getLayers: () => store.get().layers,
+  setLayer,
+  getFeed: (id) => snap(id),
+  extraNote: (key) => {
+    if (key === 'tropical' && snap('tropical').status === 'ok' && !snap('tropical').data?.length) return 'No active storms in the Atlantic or Pacific';
+    if (key === 'outlook' && snap('spc1').status === 'ok' && !snap('spc1').data?.cat?.features.length) return 'No thunderstorms expected today';
+    return null;
+  },
+});
 
 function lastTornado() {
   let best = null;
@@ -274,9 +324,55 @@ function pushTrailsToMap() {
   mapApi.setData('trail-dots', f.dots);
 }
 
+function pushReportsToMap() {
+  if (!mapApi) return;
+  mapApi.setData('reports', reportFeatures(snap('reports').data ?? [], new Date(), reportTypes()));
+}
+
+function pushSurveysToMap() {
+  if (!mapApi) return;
+  mapApi.setData('surveys', surveyFeatures(snap('surveys').data ?? []));
+}
+
+function pushOutlookToMap() {
+  if (!mapApi) return;
+  const d = snap('spc1').data;
+  mapApi.setData('spc', outlookFeatures(store.get().layers.outlookKind === 'torn' ? d?.torn : d?.cat));
+}
+
+function pushTropicalToMap() {
+  if (!mapApi) return;
+  const f = tropicalFeatures(snap('tropical').data ?? []);
+  mapApi.setData('trop-cones', f.cones);
+  mapApi.setData('trop-past', f.past);
+  mapApi.setData('trop-tracks', f.tracks);
+  mapApi.setData('trop-points', f.points);
+}
+
+function onMapFeature(layer, feature, lngLat) {
+  if (!feature) return;
+  const id = feature.properties?.id;
+  if (layer === 'reports') {
+    const r = (snap('reports').data ?? []).find((x) => x.id === id);
+    if (r) mapApi.popup([r.lon, r.lat], reportPopup(r));
+  } else if (layer === 'survey-line') {
+    const s = (snap('surveys').data ?? []).find((x) => x.id === String(id));
+    if (s) mapApi.popup(lngLat, surveyPopup(s));
+  } else if (layer === 'trop-points') {
+    const storm = (snap('tropical').data ?? []).find((x) => x.id === feature.properties.storm);
+    const point = storm?.points.find((p) => p.tau === feature.properties.tau);
+    if (storm) mapApi.popup(lngLat, tropicalPopup(storm, point));
+  } else if (layer === 'storm-now') {
+    selectAlert(id);
+  }
+}
+
 function applyLayerVisibility() {
   if (!mapApi) return;
   const l = store.get().layers;
+  pushOutlookToMap();
+  pushReportsToMap();
+  layersMenu.refresh();
   for (const g of ['warnings', 'watches', 'others', 'paths', 'trails', 'surveys', 'reports', 'outlook', 'tropical']) mapApi.setGroupVisible(g, Boolean(l[g]));
   mapApi.ready.then(() => mapApi.radar.setVisible(Boolean(l.radar)));
 }
@@ -348,6 +444,17 @@ function onFeed(id) {
     renderNow();
     renderTop();
   }
+  if (id === 'reports') {
+    pushReportsToMap();
+    renderReports();
+  }
+  if (id === 'surveys') {
+    pushSurveysToMap();
+    renderReports();
+  }
+  if (id === 'spc1') pushOutlookToMap();
+  if (id === 'tropical') pushTropicalToMap();
+  layersMenu.refresh();
   if (id === 'radar' && mapApi) {
     const r = snap('radar');
     mapApi.ready.then(() => {
@@ -388,6 +495,8 @@ setInterval(() => {
 setInterval(() => {
   renderBanners();
   renderTop();
+  layersMenu.refresh();
+  if (panel.tab === 'reports') pushReportsToMap();
 }, 30_000);
 
 // ---------- Boot ----------
@@ -403,6 +512,7 @@ store.subscribe((s, changed) => {
   if (changed.has('layers')) {
     savePersisted(storage, KEYS.layers, s.layers);
     applyLayerVisibility();
+    renderReports();
   }
   if (changed.has('filter')) {
     renderNow();
@@ -414,7 +524,7 @@ mapApi = createMap({
   container: $('#map'),
   theme: effectiveTheme(),
   onSelectAlert: (id) => selectAlert(id),
-  onFeatureClick: () => {},
+  onFeatureClick: onMapFeature,
 });
 $('#zoom-in').addEventListener('click', () => mapApi.map.zoomIn());
 $('#zoom-out').addEventListener('click', () => mapApi.map.zoomOut());

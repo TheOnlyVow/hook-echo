@@ -406,6 +406,9 @@ h1, h2, h3, h4, p { margin: 0; }
 .report-row:hover { background: var(--hover); }
 .report-row:active { background: var(--press); }
 .report-row .rp-shape { margin-top: 4px; }
+.report-row.is-survey { grid-template-columns: 40px 1fr auto; }
+.report-row.is-survey .ef { margin-top: 1px; }
+.tip-title .ef { margin-right: 6px; vertical-align: 1px; }
 .report-title { font-weight: 600; }
 .report-where { font-size: var(--fs-sm); color: var(--ink-2); }
 .report-remark { font-size: var(--fs-sm); color: var(--ink-3); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 2px; }
