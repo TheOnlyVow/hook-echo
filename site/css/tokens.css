@@ -78,6 +78,7 @@
   --path-cone-edge: rgb(244 247 251 / 0.45);
   --casing: rgb(5 9 13 / 0.85);
   --me: #4da3ff;
+  --mcd: #6fb6ff;
 
   /* Type */
   --font-text: 'Barlow', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -141,6 +142,7 @@
     --path-cone-edge: rgb(16 24 32 / 0.45);
     --casing: rgb(255 255 255 / 0.9);
     --me: #1f6fe5;
+    --mcd: #1d5fc4;
   }
 }
 
@@ -184,4 +186,5 @@
   --path-cone-edge: rgb(16 24 32 / 0.45);
   --casing: rgb(255 255 255 / 0.9);
   --me: #1f6fe5;
+  --mcd: #1d5fc4;
 }

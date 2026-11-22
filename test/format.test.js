@@ -29,6 +29,16 @@ test('clock: local clock time with a plain space', () => {
   assert.equal(clock(new Date('2026-11-22T02:32:00Z'), { timeZone: 'America/Chicago' }), '8:32 PM');
 });
 
+test('dayHour, weekdayName and dayNumber: local days for outlook windows', async () => {
+  const { dayHour, weekdayName, dayNumber } = await import('../site/js/lib/format.js');
+  const tz = { timeZone: 'America/Chicago' };
+  assert.equal(dayHour(new Date('2026-11-22T12:00:00Z'), tz), 'Sun 6 AM');
+  assert.equal(dayHour(new Date('2026-11-22T12:30:00Z'), tz), 'Sun 6:30 AM');
+  assert.equal(weekdayName(new Date('2026-11-23T12:00:00Z'), tz), 'Monday');
+  // 8 PM Saturday and 6 AM Sunday, Chicago time, are one local day apart.
+  assert.equal(dayNumber(new Date('2026-11-22T12:00:00Z'), tz) - dayNumber(new Date('2026-11-22T02:00:00Z'), tz), 1);
+});
+
 test('relative: past and future', () => {
   assert.equal(relative(plus(-20_000), NOW), 'just now');
   assert.equal(relative(plus(-3 * MIN), NOW), '3 min ago');

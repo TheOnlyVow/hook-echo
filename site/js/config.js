@@ -4,6 +4,8 @@
 export const NWS = 'https://api.weather.gov';
 export const IEM = 'https://mesonet.agron.iastate.edu';
 export const SPC = 'https://www.spc.noaa.gov/products/outlook';
+export const SPC_DAYS48 = 'https://www.spc.noaa.gov/products/exper/day4-8';
+export const SPC_MD_PAGE = 'https://www.spc.noaa.gov/products/md';
 export const WWA_SHAPES = 'https://mapservices.weather.noaa.gov/eventdriven/rest/services/WWA/watch_warn_adv/MapServer/1/query';
 export const TROPICAL = 'https://mapservices.weather.noaa.gov/tropical/rest/services/tropical/NHC_tropical_weather/MapServer';
 export const DAT_LINES = 'https://services.dat.noaa.gov/arcgis/rest/services/nws_damageassessmenttoolkit/DamageViewer/FeatureServer/1/query';
@@ -60,7 +62,10 @@ export const REFRESH = Object.freeze({
   surveys: { normal: 30 * MIN },
   spcDay1: { normal: 15 * MIN },
   spcDays23: { normal: 60 * MIN },
+  spcDays48: { normal: 3 * 60 * MIN },
+  discussions: { normal: 3 * MIN, saver: 10 * MIN },
   tropical: { normal: 15 * MIN },
+  development: { normal: 30 * MIN },
   forecasts: { normal: 60 * MIN },
 });
 

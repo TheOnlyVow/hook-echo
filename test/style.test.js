@@ -14,6 +14,7 @@ const COLORS = {
   'path-cone': 'rgba(244, 247, 251, 0.09)',
   'path-cone-edge': 'rgba(244, 247, 251, 0.45)',
   me: '#4da3ff',
+  mcd: '#6fb6ff',
   ef0: '#ffc5c9',
   ef1: '#fca0a4',
   ef2: '#f47a7d',

@@ -76,12 +76,71 @@ export function normalizeStorm(slot, { points, track, cone, past }) {
   };
 }
 
+const OUTLOOK_NAMES = { areas: 'Seven-Day: Potential Development Region', points: 'Seven-Day: Current Location' };
+
+/** The layer ids of NHC's seven-day tropical weather outlook, found by name. */
+export function outlookLayerIds(serviceJson) {
+  const find = (name) => (serviceJson?.layers ?? []).find((l) => String(l.name ?? '').trim() === name)?.id ?? null;
+  return { areas: find(OUTLOOK_NAMES.areas), points: find(OUTLOOK_NAMES.points) };
+}
+
+const percent = (v) => {
+  const n = Number.parseInt(String(v ?? '').replace(/[^\d]/g, ''), 10);
+  return Number.isFinite(n) ? Math.min(100, n) : 0;
+};
+/** NHC's categories: low under 40%, medium 40 to 60%, high over 60%. "nearZero" reads as low. */
+const risk = (v) => (/high/i.test(v ?? '') ? 'high' : /med/i.test(v ?? '') ? 'medium' : 'low');
+
+function developmentProps(p, i) {
+  return {
+    id: `${p.basin ?? 'basin'}-${p.objectid ?? i}`,
+    basin: String(p.basin ?? ''),
+    prob2: percent(p.prob2day),
+    prob7: percent(p.prob7day),
+    risk2: risk(p.risk2day),
+    risk7: risk(p.risk7day),
+  };
+}
+
+/**
+ * Areas where a tropical depression or storm could form in the next seven
+ * days, and the current spot of each disturbance NHC is watching.
+ * @param {{areas: object | null, points: object | null}} layers GeoJSON per layer
+ */
+export function normalizeDevelopment({ areas, points }) {
+  return {
+    areas: (areas?.features ?? []).filter((f) => f.geometry && /Polygon/.test(f.geometry.type)).map((f, i) => ({ ...developmentProps(f.properties ?? {}, i), geometry: f.geometry })),
+    points: (points?.features ?? [])
+      .filter((f) => f.geometry?.type === 'Point')
+      .map((f, i) => ({ ...developmentProps(f.properties ?? {}, i), lon: f.geometry.coordinates[0], lat: f.geometry.coordinates[1] })),
+  };
+}
+
+let serviceCache = null;
+/** The service's layer list, fetched once per session. A failed fetch is retried next time. */
+function serviceLayers(signal) {
+  serviceCache ??= fetchJSON(`${TROPICAL}?f=json`, { signal, timeoutMs: 30_000 }).catch((e) => {
+    serviceCache = null;
+    throw e;
+  });
+  return serviceCache;
+}
+
+const queryLayer = (id, signal) => fetchJSON(`${TROPICAL}/${id}/query?where=1%3D1&outFields=*&returnGeometry=true&f=geojson`, { signal, timeoutMs: 30_000 });
+
+/** NHC's seven-day outlook: where storms could form. */
+export async function loadDevelopment(signal) {
+  const ids = outlookLayerIds(await serviceLayers(signal));
+  const [areas, points] = await Promise.all([ids.areas, ids.points].map((id) => (id == null ? null : queryLayer(id, signal))));
+  return normalizeDevelopment({ areas, points });
+}
+
 let layerCache = null;
 
 /** @returns {Promise<object[]>} active storms */
 export async function loadTropical(signal) {
-  layerCache ??= stormLayerIds(await fetchJSON(`${TROPICAL}?f=json`, { signal, timeoutMs: 30_000 }));
-  const query = (id) => fetchJSON(`${TROPICAL}/${id}/query?where=1%3D1&outFields=*&returnGeometry=true&f=geojson`, { signal, timeoutMs: 30_000 });
+  layerCache ??= stormLayerIds(await serviceLayers(signal));
+  const query = (id) => queryLayer(id, signal);
   const pointSets = await Promise.all(layerCache.map((s) => query(s.points).catch(() => null)));
   const active = layerCache.filter((_, i) => pointSets[i]?.features?.length);
   const storms = await Promise.all(

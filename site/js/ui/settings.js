@@ -12,7 +12,7 @@ const seg = (key, value, options, label) => `<div class="segmented" role="radiog
   .map(([v, text]) => `<button type="button" role="radio" data-seg="${key}" data-value="${v}" aria-checked="${value === v}">${esc(text)}</button>`)
   .join('')}</div>`;
 
-export function createSettings({ dialog, getSettings, setSetting, alarm, onOpenSources, getInstall, isStandalone }) {
+export function createSettings({ dialog, getSettings, setSetting, alarm, onOpenSources, getInstall, isStandalone, isDev = () => false, onOpenDev = () => {} }) {
   let note = '';
 
   function render() {
@@ -67,6 +67,13 @@ export function createSettings({ dialog, getSettings, setSetting, alarm, onOpenS
           <p class="switch-help">Live data from the National Weather Service, the Storm Prediction Center, the National Hurricane Center and the Iowa Environmental Mesonet. Not an official warning source.</p>
           <div class="detail-actions"><button class="btn btn-small" type="button" data-sources>Data sources</button><a class="btn btn-small" href="#demo">Open the demo replay</a></div>
         </section>
+        ${
+          isDev()
+            ? `<section class="settings-section"><h3>Developer</h3>
+              <p class="switch-help">Feeds, raw alerts, why each place has its status, map internals, a live log and simulated warnings. On a keyboard, the \` key opens and closes it.</p>
+              <div><button class="btn btn-small" type="button" data-dev>Open the developer console</button></div></section>`
+            : ''
+        }
       </div>
       <div class="dialog-foot"><button class="btn btn-primary" type="button" data-close>Done</button></div>`;
   }
@@ -81,6 +88,10 @@ export function createSettings({ dialog, getSettings, setSetting, alarm, onOpenS
     if (e.target.closest('[data-sources]')) {
       dialog.close();
       return onOpenSources();
+    }
+    if (e.target.closest('[data-dev]')) {
+      dialog.close();
+      return onOpenDev();
     }
     if (e.target.closest('[data-install]')) {
       const p = getInstall();

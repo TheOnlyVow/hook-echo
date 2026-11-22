@@ -4,7 +4,7 @@
 // anything else from another host always go to the network: stale weather
 // must never look current.
 
-const VERSION = '5670a872391b';
+const VERSION = 'f464e0b83f0e';
 const CACHE = `hook-echo-${VERSION}`;
 // The minimum to start; precache.json (written by tools/precache.mjs) lists everything.
 const PRECACHE = [

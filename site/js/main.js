@@ -2,6 +2,8 @@
 // alerts, projected paths, trails) is recomputed when its inputs change and
 // pushed to the map and the panel.
 
+// First, so the developer console's log sees everything from the start.
+import { devlog } from './dev/capture.js';
 import { createStore, loadPersisted, savePersisted, safeLocalStorage } from './state/store.js';
 import { Feed } from './data/http.js';
 import { loadStormAlerts, loadLandAlerts, loadRecentWarnings, loadPointAlerts, mergeAlerts } from './data/alerts.js';
@@ -9,8 +11,9 @@ import { loadShapes } from './data/shapes.js';
 import { loadRadar } from './data/radar.js';
 import { loadReports } from './data/reports.js';
 import { loadSurveys } from './data/surveys.js';
-import { loadDay1, loadDays23 } from './data/spc.js';
-import { loadTropical } from './data/tropical.js';
+import { loadDay1, loadDays23, loadDays48 } from './data/spc.js';
+import { loadTropical, loadDevelopment } from './data/tropical.js';
+import { loadDiscussions, activeDiscussions } from './data/mcd.js';
 import { loadForecast } from './data/points.js';
 import { searchPlaces, reversePlace } from './data/geocode.js';
 import { createDemo } from './data/demo.js';
@@ -26,9 +29,14 @@ import { sanitizePlaces } from './lib/share.js';
 import { splitTrips, localDate } from './lib/trips.js';
 import { decideAlarms } from './lib/alarmRules.js';
 import { allowedEvents } from './lib/alarmText.js';
+import { explainFeature, explainPlace, rankHits, tapAction } from './lib/explain.js';
+import { simulatedTornadoWarning } from './lib/sim.js';
+import { statusReasons } from './lib/why.js';
 import { createMap } from './map/map.js';
-import { alertFeatures, pathFeatures, trailFeatures, reportFeatures, surveyFeatures, outlookFeatures, tropicalFeatures, circlePolygon } from './map/features.js';
-import { createReports, reportPopup, surveyPopup, tropicalPopup } from './ui/reports.js';
+import { alertFeatures, pathFeatures, trailFeatures, reportFeatures, surveyFeatures, outlookFeatures, tropicalFeatures, discussionFeatures, developmentFeatures, circlePolygon } from './map/features.js';
+import { createReports } from './ui/reports.js';
+import { createMapTips } from './ui/mapTips.js';
+import { confirmAction } from './ui/confirm.js';
 import { createLayersMenu } from './ui/layersMenu.js';
 import { createPeople, createPlaceEditor, createPlaceMarkers } from './ui/places.js';
 import { createTrips } from './ui/trips.js';
@@ -47,7 +55,25 @@ import { $, esc, icon, tickTimes, announce, rafThrottle } from './ui/dom.js';
 const storage = safeLocalStorage();
 const KEYS = { settings: 'hook-echo:settings', layers: 'hook-echo:layers', places: 'hook-echo:places' };
 const DEFAULT_SETTINGS = { theme: 'system', dataSaver: 'auto', meOn: false, chimes: true, headsUp: true, notifications: false, keepAwake: false };
-const DEFAULT_LAYERS = { radar: true, warnings: true, watches: true, others: true, paths: true, trails: true, surveys: true, reports: true, outlook: false, outlookKind: 'cat', tropical: true, places: true, reportTypes: ['tornado', 'funnel', 'hail', 'wind', 'flood'] };
+const DEFAULT_LAYERS = {
+  radar: true,
+  warnings: true,
+  watches: true,
+  discussions: true,
+  others: true,
+  paths: true,
+  pathsKind: 'all',
+  trails: true,
+  surveys: true,
+  reports: true,
+  outlook: false,
+  outlookKind: 'cat',
+  outlookDay: 1,
+  tropical: true,
+  development: true,
+  places: true,
+  reportTypes: ['tornado', 'funnel', 'hail', 'wind', 'flood'],
+};
 
 const store = createStore({
   settings: loadPersisted(storage, KEYS.settings, DEFAULT_SETTINGS),
@@ -61,6 +87,7 @@ const store = createStore({
 /** Created once the page is ready; null until then. */
 let mapApi = null;
 let timeline = null;
+let tips = null;
 
 // ---------- Theme ----------
 const lightQuery = matchMedia('(prefers-color-scheme: light)');
@@ -91,8 +118,11 @@ const feeds = {
   reports: new Feed({ id: 'reports', load: demo ? demo.reports : loadReports, intervalMs: REFRESH.reports.normal, staleMs: 20 * MIN }),
   surveys: new Feed({ id: 'surveys', load: demo ? none([]) : (signal) => loadSurveys(signal), intervalMs: REFRESH.surveys.normal, staleMs: 2 * 60 * MIN }),
   spc1: new Feed({ id: 'spc1', load: demo ? none({ cat: null, torn: null }) : loadDay1, intervalMs: REFRESH.spcDay1.normal, staleMs: 60 * MIN }),
-  spc23: new Feed({ id: 'spc23', load: demo ? none({ day2: null, day3: null }) : loadDays23, intervalMs: REFRESH.spcDays23.normal, staleMs: 3 * 60 * MIN }),
+  spc23: new Feed({ id: 'spc23', load: demo ? none({ day2: null, day2torn: null, day3: null }) : loadDays23, intervalMs: REFRESH.spcDays23.normal, staleMs: 3 * 60 * MIN }),
+  spc48: new Feed({ id: 'spc48', load: demo ? none({}) : loadDays48, intervalMs: REFRESH.spcDays48.normal, staleMs: 8 * 60 * MIN }),
+  discussions: new Feed({ id: 'discussions', load: demo ? none([]) : (signal) => loadDiscussions(signal), intervalMs: REFRESH.discussions.normal, saverIntervalMs: REFRESH.discussions.saver, staleMs: 20 * MIN }),
   tropical: new Feed({ id: 'tropical', load: demo ? none([]) : loadTropical, intervalMs: REFRESH.tropical.normal, staleMs: 60 * MIN }),
+  development: new Feed({ id: 'development', load: demo ? none({ areas: [], points: [] }) : loadDevelopment, intervalMs: REFRESH.development.normal, staleMs: 3 * 60 * MIN }),
   // The NWS point check for every watched place, staggered to be gentle on the API.
   points: new Feed({
     id: 'points',
@@ -115,9 +145,28 @@ const feeds = {
   }),
 };
 addEventListener('hashchange', () => {
+  // #dev opens the developer console and never leaves or enters the demo.
+  if (location.hash === '#dev') return;
   if ((location.hash === '#demo') !== Boolean(demo)) location.reload();
 });
 const snap = (id) => feeds[id].snapshot;
+
+// What every feed does goes to the developer console's log.
+for (const [id, feed] of Object.entries(feeds)) {
+  let started = 0;
+  feed.subscribe((s) => {
+    if (s.loading && !started) started = performance.now();
+    if (s.loading || !started) return;
+    const ms = Math.round(performance.now() - started);
+    started = 0;
+    if (s.status === 'error') devlog.push({ level: 'warn', source: id, message: `Failed after ${ms} ms: ${s.error?.message ?? 'unknown error'}${s.data ? ' (keeping the last good data)' : ''}` });
+    else {
+      const d = s.data;
+      const n = Array.isArray(d) ? d.length : d instanceof Map ? d.size : d && typeof d === 'object' ? Object.values(d).filter((v) => v != null).length : null;
+      devlog.push({ level: 'debug', source: id, message: `Updated in ${ms} ms${n != null ? `, ${n} item${n === 1 ? '' : 's'}` : ''}` });
+    }
+  });
+}
 
 function dataSaverOn() {
   const pref = store.get().settings.dataSaver;
@@ -134,6 +183,14 @@ navigator.connection?.addEventListener?.('change', applyDataSaver);
 
 // ---------- Derived data ----------
 const derived = { alerts: [], byId: new Map(), projections: new Map(), trails: [], people: [], meView: null };
+
+/**
+ * Simulated tornado warnings from the developer console. Memory only, so a
+ * reload always ends them; each one is labeled "Simulated" wherever it shows.
+ * @type {{alert: object, history: object[], placeName: string}[]}
+ */
+let simulations = [];
+let simSeq = 0;
 
 /** Every place being watched right now, Where I am included. */
 function watchedPlaces() {
@@ -166,7 +223,8 @@ function computeStatuses(now = new Date()) {
 const everyone = () => [...(derived.meView ? [derived.meView] : []), ...derived.people];
 
 function computeAlerts(now = new Date()) {
-  derived.alerts = mergeAlerts(snap('storm').data, snap('land').data).filter((a) => isInEffect(a, now));
+  simulations = simulations.filter((s) => isInEffect(s.alert, now));
+  derived.alerts = [...mergeAlerts(snap('storm').data, snap('land').data), ...simulations.map((s) => s.alert)].filter((a) => isInEffect(a, now));
   derived.byId = new Map(derived.alerts.map((a) => [a.id, a]));
 }
 
@@ -181,8 +239,47 @@ function computeProjections(now = new Date()) {
 }
 
 function computeTrails(now = new Date()) {
-  const messages = [...(snap('recent').data ?? []), ...(snap('storm').data ?? []).filter((a) => a.vtec && a.motion)];
+  const messages = [...(snap('recent').data ?? []), ...(snap('storm').data ?? []).filter((a) => a.vtec && a.motion), ...simulations.flatMap((s) => [...s.history, s.alert])];
   derived.trails = buildTrails(messages, now);
+}
+
+/** Everything that depends on the alert list, recomputed and redrawn. */
+function refreshAlertsEverywhere() {
+  const now = new Date();
+  computeAlerts(now);
+  computeProjections(now);
+  computeTrails(now);
+  pushAlertsToMap();
+  pushPathsToMap();
+  pushTrailsToMap();
+  computeStatuses(now);
+  runAlarms();
+  renderPeople();
+  renderNow();
+  renderTop();
+  renderBanners();
+  const sel = store.get().selectedId;
+  if (sel && !derived.byId.has(sel) && panel.isDetailOpen()) panel.closeDetail({ restoreFocus: false });
+}
+
+function simulate(placeId, opts = {}) {
+  const view = everyone().find((p) => p.place.id === placeId);
+  if (!view) throw new Error(`No watched place with id ${placeId}`);
+  simSeq += 1;
+  const sim = simulatedTornadoWarning(view.place, { ...opts, now: new Date(), seq: simSeq });
+  simulations.push({ ...sim, placeName: view.place.name });
+  devlog.push({ level: 'warn', source: 'sim', message: `Started a simulated tornado warning for ${view.place.name} (${sim.alert.id})` });
+  refreshAlertsEverywhere();
+  return sim.alert;
+}
+
+function endSimulations(id = null) {
+  const before = simulations.length;
+  simulations = id ? simulations.filter((s) => s.alert.id !== id) : [];
+  if (simulations.length === before) return 0;
+  devlog.push({ level: 'info', source: 'sim', message: id ? `Ended simulation ${id}` : 'Ended every simulation' });
+  refreshAlertsEverywhere();
+  return before - simulations.length;
 }
 
 // ---------- UI ----------
@@ -216,7 +313,7 @@ const reportsTab = createReports({
     const r = (snap('reports').data ?? []).find((x) => x.id === id);
     if (!r || !mapApi) return;
     mapApi.flyTo([r.lon, r.lat], 9, panel.mapPadding());
-    mapApi.popup([r.lon, r.lat], reportPopup(r));
+    tips?.showCard([r.lon, r.lat], explainHits(rankHits([{ layer: 'reports', props: { id: r.id, type: r.type, label: r.label } }])));
   },
   onShowSurvey: (id) => {
     const s = (snap('surveys').data ?? []).find((x) => x.id === id);
@@ -224,7 +321,7 @@ const reportsTab = createReports({
     const b = geometryBounds(s.geometry);
     mapApi.fitBounds(b, panel.mapPadding(), 12);
     const coords = s.geometry.type === 'LineString' ? s.geometry.coordinates : s.geometry.coordinates.flat();
-    mapApi.popup(coords[Math.floor(coords.length / 2)], surveyPopup(s));
+    tips?.showCard(coords[Math.floor(coords.length / 2)], explainHits(rankHits([{ layer: 'survey-line', props: { id: s.id, ef: s.ef } }])));
   },
   onRetry: () => feeds.reports.refresh(),
 });
@@ -232,15 +329,42 @@ const renderReports = rafThrottle(() => {
   reportsTab.render({ reports: snap('reports').data, reportFeed: snap('reports'), surveys: snap('surveys').data, surveyFeed: snap('surveys'), enabled: reportTypes(), now: new Date() });
 });
 
+// ---------- Storm risk forecast: which SPC day and map ----------
+const weekdayShort = (d) => d.toLocaleDateString('en-US', { weekday: 'short' });
+
+/** The SPC outlook chosen in the layers menu, and the feed it comes from. */
+function outlookInfo() {
+  const l = store.get().layers;
+  const day = Math.min(8, Math.max(1, Math.round(Number(l.outlookDay) || 1)));
+  const torn = l.outlookKind === 'torn';
+  let outlook = null;
+  let feedId = 'spc1';
+  if (day === 1) outlook = torn ? snap('spc1').data?.torn : snap('spc1').data?.cat;
+  else if (day <= 3) {
+    feedId = 'spc23';
+    const d = snap('spc23').data;
+    outlook = day === 2 ? (torn ? d?.day2torn : d?.day2) : d?.day3;
+  } else {
+    feedId = 'spc48';
+    outlook = snap('spc48').data?.[`day${day}`] ?? null;
+  }
+  // Day names come from the Day 1 outlook's date when it has loaded.
+  const day1 = snap('spc1').data?.cat?.valid ?? new Date();
+  const days = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({ day: n, label: n === 1 ? 'Today' : n === 2 ? 'Tomorrow' : weekdayShort(new Date(day1.getTime() + (n - 1) * 864e5)) }));
+  return { day, kind: day >= 3 ? (day === 3 ? 'cat' : 'prob') : torn ? 'torn' : 'cat', outlook: outlook ?? null, feedId, days };
+}
+
 const layersMenu = createLayersMenu({
   menu: $('#layers-menu'),
   button: $('#btn-layers'),
   getLayers: () => store.get().layers,
   setLayer,
   getFeed: (id) => snap(id),
+  outlookInfo,
   extraNote: (key) => {
     if (key === 'tropical' && snap('tropical').status === 'ok' && !snap('tropical').data?.length) return 'No active storms in the Atlantic or Pacific';
-    if (key === 'outlook' && snap('spc1').status === 'ok' && !snap('spc1').data?.cat?.features.length) return 'No thunderstorms expected today';
+    if (key === 'development' && snap('development').status === 'ok' && !snap('development').data?.areas.length && !snap('development').data?.points.length) return 'Nothing expected to form in the next 7 days';
+    if (key === 'discussions' && snap('discussions').status === 'ok' && !activeDiscussions(snap('discussions').data ?? [], new Date()).length) return 'None right now. SPC posts these before most watches.';
     return null;
   },
 });
@@ -428,6 +552,7 @@ function updateMeOnMap() {
       const el = document.createElement('div');
       el.className = 'me-marker';
       el.setAttribute('aria-label', 'Where I am');
+      tips?.attach(el, () => (derived.meView ? explainPlace(derived.meView) : null));
       meMarker = mapApi.marker(el, at);
     } else meMarker.setLngLat(at);
     mapApi.setData('me-acc', me.position.accuracy > 60 ? { type: 'FeatureCollection', features: [{ type: 'Feature', geometry: circlePolygon(me.position, me.position.accuracy / 1000), properties: { id: 'me' } }] } : null);
@@ -525,6 +650,8 @@ const settingsDialog = createSettings({
   onOpenSources: () => sources.open(),
   getInstall: () => installPrompt,
   isStandalone,
+  isDev: () => devOn(),
+  onOpenDev: () => openDev(),
 });
 $('#open-settings').addEventListener('click', () => settingsDialog.open());
 
@@ -591,6 +718,11 @@ function renderBanners() {
     html.push(`<div class="banner is-demo" role="status" title="Times are shifted so the event plays as if it were happening now.">${icon('info')}<span><strong>Demo replay:</strong> ${esc(demoInfo.label)}.${demoInfo.finished ? ' The replay has finished.' : ''}</span>
       <span class="banner-actions">${demoInfo.finished ? '<button class="btn btn-small" type="button" data-demo-restart>Restart</button>' : ''}<button class="btn btn-small" type="button" data-demo-leave>Leave demo</button></span></div>`);
   }
+  if (simulations.length) {
+    const who = [...new Set(simulations.map((s) => s.placeName))];
+    html.push(`<div class="banner is-sim" role="status">${icon('alert')}<span><strong>Simulation running.</strong> A test tornado warning for ${esc(who.join(', '))}. No real warning is in effect.</span>
+      <span class="banner-actions"><button class="btn btn-small" type="button" data-sim-end>End ${simulations.length > 1 ? 'simulations' : 'simulation'}</button></span></div>`);
+  }
   if (watchedPlaces().length && !alarm.unlocked()) {
     html.push(`<div class="banner is-warning" role="status">${icon('sound')}<span><strong>Alarm sound is off.</strong> Browsers keep sound off until you tap the page.</span>
       <span class="banner-actions"><button class="btn btn-small" type="button" data-sound-on>Turn on sound</button></span></div>`);
@@ -618,6 +750,10 @@ $('#banners').addEventListener('click', (e) => {
     demo?.restart();
     location.reload();
   }
+  if (e.target.closest('[data-sim-end]')) {
+    endSimulations();
+    toast({ title: 'Simulation ended', tone: 'ok' });
+  }
 });
 async function refreshDemoInfo() {
   if (!demo) return;
@@ -641,10 +777,19 @@ function pushAlertsToMap() {
   mapApi.setData('alerts', alertFeatures(derived.alerts, snap('shapes').data, new Date()));
 }
 
+/** Tornado-warned storms always get paths and trails; severe thunderstorms too unless the menu says tornadoes only. */
+const allStorms = () => store.get().layers.pathsKind !== 'tor';
+
 function pushPathsToMap() {
   if (!mapApi) return;
   const selected = store.get().selectedId;
-  const shown = new Map([...derived.projections].filter(([id]) => derived.byId.get(id)?.event === 'Tornado Warning' || id === selected));
+  const all = allStorms();
+  const shown = new Map(
+    [...derived.projections].filter(([id]) => {
+      const event = derived.byId.get(id)?.event;
+      return event === 'Tornado Warning' || (all && event === 'Severe Thunderstorm Warning') || id === selected;
+    }),
+  );
   const f = pathFeatures(shown, derived.byId);
   mapApi.setData('cones', f.cones);
   mapApi.setData('paths', f.paths);
@@ -658,7 +803,8 @@ function pushTrailsToMap() {
   if (!mapApi) return;
   const selected = store.get().selectedId;
   const sel = derived.byId.get(selected);
-  const shown = derived.trails.filter((t) => t.phenomena === 'TO' || (sel?.vtec && t.keys.includes(sel.vtec.key)));
+  const all = allStorms();
+  const shown = derived.trails.filter((t) => t.phenomena === 'TO' || (all && t.phenomena === 'SV') || (sel?.vtec && t.keys.includes(sel.vtec.key)));
   const f = trailFeatures(shown, new Date());
   mapApi.setData('trails', f.lines);
   mapApi.setData('trail-dots', f.dots);
@@ -676,8 +822,19 @@ function pushSurveysToMap() {
 
 function pushOutlookToMap() {
   if (!mapApi) return;
-  const d = snap('spc1').data;
-  mapApi.setData('spc', outlookFeatures(store.get().layers.outlookKind === 'torn' ? d?.torn : d?.cat));
+  mapApi.setData('spc', outlookFeatures(outlookInfo().outlook));
+}
+
+function pushDiscussionsToMap() {
+  if (!mapApi) return;
+  mapApi.setData('mcd', discussionFeatures(activeDiscussions(snap('discussions').data ?? [], new Date())));
+}
+
+function pushDevelopmentToMap() {
+  if (!mapApi) return;
+  const f = developmentFeatures(snap('development').data);
+  mapApi.setData('dev-areas', f.areas);
+  mapApi.setData('dev-points', f.points);
 }
 
 function pushTropicalToMap() {
@@ -689,22 +846,73 @@ function pushTropicalToMap() {
   mapApi.setData('trop-points', f.points);
 }
 
-function onMapFeature(layer, feature, lngLat) {
-  if (!feature) return;
-  const id = feature.properties?.id;
-  if (layer === 'reports') {
-    const r = (snap('reports').data ?? []).find((x) => x.id === id);
-    if (r) mapApi.popup([r.lon, r.lat], reportPopup(r));
-  } else if (layer === 'survey-line') {
-    const s = (snap('surveys').data ?? []).find((x) => x.id === String(id));
-    if (s) mapApi.popup(lngLat, surveyPopup(s));
-  } else if (layer === 'trop-points') {
-    const storm = (snap('tropical').data ?? []).find((x) => x.id === feature.properties.storm);
-    const point = storm?.points.find((p) => p.tau === feature.properties.tau);
-    if (storm) mapApi.popup(lngLat, tropicalPopup(storm, point));
-  } else if (layer === 'storm-now') {
-    selectAlert(id);
+// ---------- What is on the map: hover tooltips and tap cards ----------
+/** The alert, report, storm or discussion a map feature belongs to. */
+function contextFor(hit, now) {
+  const p = hit.props;
+  const ctx = { now };
+  switch (hit.kind) {
+    case 'alert':
+    case 'path':
+    case 'cone':
+    case 'tick':
+    case 'path-end':
+    case 'storm-now':
+      ctx.alert = derived.byId.get(String(p.id));
+      break;
+    case 'trail':
+    case 'trail-dot':
+      ctx.alert = derived.byId.get(String(p.alertId));
+      break;
+    case 'report':
+      ctx.report = (snap('reports').data ?? []).find((r) => r.id === String(p.id));
+      break;
+    case 'survey':
+      ctx.survey = (snap('surveys').data ?? []).find((s) => s.id === String(p.id));
+      break;
+    case 'mcd':
+      ctx.discussion = (snap('discussions').data ?? []).find((d) => d.id === String(p.id));
+      break;
+    case 'trop-cone':
+    case 'trop-track':
+    case 'trop-past':
+    case 'trop-point':
+      ctx.storm = (snap('tropical').data ?? []).find((s) => s.id === String(p.storm ?? p.id));
+      if (hit.kind === 'trop-point') ctx.point = ctx.storm?.points.find((x) => x.tau === p.tau);
+      break;
+    default:
+      break;
   }
+  return ctx;
+}
+
+function explainHits(ranked) {
+  const now = new Date();
+  return ranked.map((h) => explainFeature(h.layer, h.props, contextFor(h, now))).filter(Boolean);
+}
+
+function onMapHover(hits, point) {
+  if (!tips) return;
+  if (!hits || pickResolve) return tips.hover(null);
+  const ranked = rankHits(hits);
+  const explained = explainHits(ranked.slice(0, 3));
+  if (!explained.length) return tips.hover(null);
+  const action = tapAction(ranked);
+  const main = explained[0];
+  const hint = action?.type === 'select' ? 'Click to open the warning' : main.actions.length || main.details.length || explained.length > 1 ? 'Click for more' : '';
+  tips.hover(point, explained, hint);
+}
+
+function onMapTap(hits, lngLat) {
+  if (pickResolve) return finishPick(lngLat);
+  const ranked = rankHits(hits);
+  const action = tapAction(ranked);
+  if (!action) return tips?.closeCard();
+  if (action.type === 'select') {
+    tips?.closeCard();
+    return selectAlert(action.id);
+  }
+  tips?.showCard(lngLat, explainHits(action.hits.slice(0, 4)));
 }
 
 function applyLayerVisibility() {
@@ -712,8 +920,10 @@ function applyLayerVisibility() {
   const l = store.get().layers;
   pushOutlookToMap();
   pushReportsToMap();
+  pushPathsToMap();
+  pushTrailsToMap();
   layersMenu.refresh();
-  for (const g of ['warnings', 'watches', 'others', 'paths', 'trails', 'surveys', 'reports', 'outlook', 'tropical']) mapApi.setGroupVisible(g, Boolean(l[g]));
+  for (const g of ['warnings', 'watches', 'discussions', 'others', 'paths', 'trails', 'surveys', 'reports', 'outlook', 'tropical', 'development']) mapApi.setGroupVisible(g, Boolean(l[g]));
   mapApi.ready.then(() => mapApi.radar.setVisible(Boolean(l.radar)));
 }
 
@@ -794,7 +1004,9 @@ function onFeed(id) {
     pushSurveysToMap();
     renderReports();
   }
-  if (id === 'spc1') pushOutlookToMap();
+  if (id === 'spc1' || id === 'spc23' || id === 'spc48') pushOutlookToMap();
+  if (id === 'discussions') pushDiscussionsToMap();
+  if (id === 'development') pushDevelopmentToMap();
   if (id === 'tropical') pushTropicalToMap();
   if (['storm', 'land', 'shapes', 'points', 'spc1', 'spc23'].includes(id)) {
     computeStatuses(now);
@@ -849,8 +1061,189 @@ setInterval(() => {
   renderBanners();
   renderTop();
   layersMenu.refresh();
+  pushDiscussionsToMap();
   if (panel.tab === 'reports') pushReportsToMap();
 }, 30_000);
+
+// ---------- Developer console ----------
+// Hidden until #dev turns developer mode on. The console's code loads only when it opens.
+const DEV_KEY = 'hook-echo:dev';
+const devOn = () => {
+  try {
+    return storage?.getItem(DEV_KEY) === '1';
+  } catch {
+    return false;
+  }
+};
+/** Feature counts last drawn per map source, for the console's Map tab. */
+const mapCounts = {};
+let devModule = null;
+const devConsole = async () => (devModule ??= await import('./dev/console.js'));
+
+function itemCount(data) {
+  if (Array.isArray(data)) return data.length;
+  if (data instanceof Map) return data.size;
+  if (data && typeof data === 'object') return Object.values(data).filter((v) => v != null).length;
+  return null;
+}
+
+const devApi = {
+  devlog,
+  feeds,
+  store,
+  derived,
+  demo: Boolean(demo),
+  get mapApi() {
+    return mapApi;
+  },
+  async version() {
+    try {
+      return (await (await fetch('precache.json', { cache: 'no-store' })).json()).version ?? '';
+    } catch {
+      return '';
+    }
+  },
+  everyone,
+  reasons(placeId) {
+    const view = everyone().find((p) => p.place.id === placeId);
+    if (!view) return null;
+    const s = snap('storm');
+    return statusReasons(view.place, {
+      alerts: derived.alerts,
+      shapes: snap('shapes').data ?? new Map(),
+      pointHits: snap('points').data?.get(view.place.id),
+      projections: derived.projections,
+      now: new Date(),
+      stale: Boolean(s.stale) || (s.status === 'error' && !s.data),
+      feedAgeMs: s.updatedAt ? Date.now() - s.updatedAt : null,
+    });
+  },
+  alarmMemory: () => alarmMemory,
+  resetAlarmMemory() {
+    alarmMemory = {};
+    savePersisted(memoryStore, MEMORY_KEY, alarmMemory);
+    devlog.push({ level: 'warn', source: 'alarms', message: 'Alarm memory reset' });
+    runAlarms();
+  },
+  simulate,
+  endSimulations,
+  simulations: () => simulations.slice(),
+  selectAlert: (id) => selectAlert(id, { fit: true }),
+  showPlace,
+  shapeFor: (id) => snap('shapes').data?.get(id) ?? null,
+  testAlarm: () => alarm.test(),
+  mapCounts: () => ({ ...mapCounts }),
+  exportState() {
+    const s = store.get();
+    return {
+      app: 'Hook Echo',
+      exportedAt: new Date().toISOString(),
+      demo: Boolean(demo),
+      online: navigator.onLine,
+      userAgent: navigator.userAgent,
+      settings: s.settings,
+      layers: s.layers,
+      places: s.places,
+      whereIAm: { on: s.me.on, located: Boolean(s.me.position) },
+      feeds: Object.fromEntries(
+        Object.entries(feeds).map(([id, f]) => {
+          const x = f.snapshot;
+          return [id, { status: x.status, stale: x.stale, updatedAt: x.updatedAt ? new Date(x.updatedAt).toISOString() : null, error: x.error?.message ?? null, items: itemCount(x.data) }];
+        }),
+      ),
+      alerts: derived.alerts.map((a) => ({ id: a.id, event: a.event, vtec: a.vtec?.key ?? null, expires: a.expires?.toISOString() ?? null, simulated: Boolean(a.simulated) })),
+      alarmMemory,
+    };
+  },
+  async clearOfflineFiles() {
+    try {
+      for (const r of (await navigator.serviceWorker?.getRegistrations?.()) ?? []) await r.unregister();
+    } catch {
+      // No service worker to remove.
+    }
+    try {
+      for (const k of await caches.keys()) await caches.delete(k);
+    } catch {
+      // Cache storage unavailable.
+    }
+    location.reload();
+  },
+  disable() {
+    try {
+      storage?.removeItem(DEV_KEY);
+    } catch {
+      // Storage blocked: developer mode ends with this page.
+    }
+    delete globalThis.hook;
+    toast({ title: 'Developer mode is off', text: 'Open #dev to turn it back on.', tone: 'info' });
+  },
+  confirm: confirmAction,
+  toast,
+};
+
+/** What the command line can reach as `hook`. */
+devApi.hook = Object.freeze({
+  help: () => ({
+    'hook.alerts()': 'alerts in effect, simulations included',
+    'hook.places()': 'watched places and their status',
+    'hook.simulate(placeId, {minutes, dirFrom, speedKt})': 'start a simulated tornado warning',
+    'hook.endSimulations()': 'end every simulation',
+    'hook.refresh(feedId)': 'reload one feed, or all with no id',
+    'hook.explain(layerId, props)': 'the explanation a map feature would show',
+    'hook.store / hook.feeds / hook.derived': 'app state, feeds and computed data',
+    'hook.map / hook.mapApi': 'the MapLibre map and Hook Echo’s map helpers',
+    'hook.log': 'this console’s log',
+  }),
+  store,
+  feeds,
+  derived,
+  log: devlog,
+  get map() {
+    return mapApi?.map;
+  },
+  get mapApi() {
+    return mapApi;
+  },
+  alerts: () => derived.alerts,
+  places: () => everyone().map((v) => ({ id: v.place.id, name: v.place.name, kind: v.place.kind, level: v.status.level })),
+  simulate: (placeId = everyone()[0]?.place.id, opts) => simulate(placeId, opts),
+  endSimulations,
+  refresh: (id) => (id ? feeds[id]?.refresh() : Promise.all(Object.values(feeds).map((f) => f.refresh()))),
+  explain: (layer, props = {}) => explainFeature(layer, props, { now: new Date() }),
+});
+
+async function openDev() {
+  try {
+    storage?.setItem(DEV_KEY, '1');
+  } catch {
+    // Blocked storage: developer mode lasts for this page only.
+  }
+  try {
+    await (await devConsole()).openConsole(devApi);
+  } catch (e) {
+    console.error('The developer console failed to open:', e);
+    toast({ title: 'The developer console didn’t open', text: 'Reload the page and try again.', tone: 'warning' });
+  }
+}
+
+/** #dev turns developer mode on and opens the console, then leaves the address as it was. */
+function checkDevHash() {
+  if (location.hash !== '#dev') return;
+  history.replaceState(null, '', location.pathname + location.search + (demo ? '#demo' : ''));
+  openDev();
+}
+addEventListener('hashchange', checkDevHash);
+
+// The ` key opens and closes the console once developer mode is on.
+document.addEventListener('keydown', (e) => {
+  if (e.key !== '`' || e.ctrlKey || e.metaKey || e.altKey || !devOn()) return;
+  const t = e.target;
+  if (t instanceof HTMLElement && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+  e.preventDefault();
+  devConsole()
+    .then((m) => m.toggleConsole(devApi))
+    .catch((err) => console.error('The developer console failed to load:', err));
+});
 
 // ---------- Boot ----------
 applyTheme();
@@ -914,8 +1307,8 @@ updateMeOnMap();
 mapApi = createMap({
   container: $('#map'),
   theme: effectiveTheme(),
-  onSelectAlert: (id, lngLat) => (pickResolve ? finishPick(lngLat) : selectAlert(id)),
-  onFeatureClick: (layer, feature, lngLat) => (pickResolve ? finishPick(lngLat) : onMapFeature(layer, feature, lngLat)),
+  onHover: onMapHover,
+  onTap: onMapTap,
   onPick: async (lngLat) => {
     if (pickResolve) return finishPick(lngLat);
     if (store.get().places.length >= 25) return toast({ title: 'You already watch 25 places', text: 'Remove one to add another.', tone: 'warning' });
@@ -924,11 +1317,21 @@ mapApi = createMap({
     editor.open({ kind: 'family', name: r.name, lat: p.lat, lon: p.lon, detail: r.name ? `${r.name}${r.detail ? `, ${r.detail}` : ''}` : r.detail }, { keepDraft: true });
   },
 });
+{
+  // Count what each overlay draws, for the developer console.
+  const draw = mapApi.setData;
+  mapApi.setData = (id, fc) => {
+    mapCounts[id] = fc?.features?.length ?? 0;
+    return draw(id, fc);
+  };
+}
+tips = createMapTips({ host: $('.map-chrome'), mapApi, onOpenAlert: (id) => selectAlert(id, { fit: true }) });
+checkDevHash();
 $('#zoom-in').addEventListener('click', () => mapApi.map.zoomIn());
 $('#zoom-out').addEventListener('click', () => mapApi.map.zoomOut());
 mapApi.ready.then(() => {
   timeline = createTimeline($('#timeline'), mapApi.radar);
-  placeMarkers = createPlaceMarkers(mapApi, focusPlace);
+  placeMarkers = createPlaceMarkers(mapApi, focusPlace, { attach: (el, current) => tips.attach(el, () => (current() ? explainPlace(current()) : null)) });
   updateMeOnMap();
   renderPeople();
   applyLayerVisibility();

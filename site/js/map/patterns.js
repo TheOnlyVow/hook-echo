@@ -106,4 +106,29 @@ export function arrowHead(color, ring, size = 18) {
   return toImage(k);
 }
 
+/** The "X" NHC uses for a disturbance it is watching, with a ring so it reads over water and land. */
+export function crossMark(color, ring, size = 20) {
+  const k = canvas(size);
+  const { g } = k;
+  const a = 5;
+  const b = size - 5;
+  const strokes = () => {
+    g.beginPath();
+    g.moveTo(a, a);
+    g.lineTo(b, b);
+    g.moveTo(b, a);
+    g.lineTo(a, b);
+  };
+  g.lineCap = 'round';
+  strokes();
+  g.lineWidth = 6.4;
+  g.strokeStyle = ring;
+  g.stroke();
+  strokes();
+  g.lineWidth = 3.2;
+  g.strokeStyle = color;
+  g.stroke();
+  return toImage(k);
+}
+
 export const IMAGE_RATIO = RATIO;

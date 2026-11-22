@@ -1,0 +1,26 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "GeometryCollection",
+    "geometries": []
+   },
+   "properties": {
+    "DN": 0,
+    "VALID": "202611241200",
+    "EXPIRE": "202611251200",
+    "ISSUE": "202611210955",
+    "VALID_ISO": "2026-11-24T12:00:00+00:00",
+    "EXPIRE_ISO": "2026-11-25T12:00:00+00:00",
+    "ISSUE_ISO": "2026-11-21T09:55:00+00:00",
+    "FORECASTER": "Lyons",
+    "LABEL": "Potential Too Low",
+    "LABEL2": "",
+    "stroke": "",
+    "fill": ""
+   }
+  }
+ ]
+}

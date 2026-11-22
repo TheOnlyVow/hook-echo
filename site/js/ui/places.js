@@ -114,8 +114,15 @@ export function createPeople({ el, onAdd, onEdit, onShow, onMe, onShare }) {
 }
 
 /** Pins for saved places on the map. */
-export function createPlaceMarkers(mapApi, onSelect) {
+/**
+ * Pins for saved places on the map.
+ * @param {object} mapApi
+ * @param {(id: string) => void} onSelect
+ * @param {{attach?: (el: HTMLElement, current: () => object | undefined) => void}} [hooks] attach: adds a hover explanation to a new pin
+ */
+export function createPlaceMarkers(mapApi, onSelect, { attach } = {}) {
   const markers = new Map();
+  const views = new Map();
   let visible = true;
   return {
     set(people) {
@@ -124,9 +131,11 @@ export function createPlaceMarkers(mapApi, onSelect) {
         if (!keep.has(id)) {
           m.remove();
           markers.delete(id);
+          views.delete(id);
         }
       }
       if (!visible) return;
+      for (const view of people) views.set(view.place.id, view);
       for (const { place, status } of people) {
         let m = markers.get(place.id);
         if (!m) {
@@ -137,6 +146,7 @@ export function createPlaceMarkers(mapApi, onSelect) {
             e.stopPropagation();
             onSelect(place.id);
           });
+          attach?.(el, () => views.get(place.id));
           m = mapApi.marker(el, [place.lon, place.lat], 'center');
           markers.set(place.id, m);
         }

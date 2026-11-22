@@ -18,6 +18,12 @@ export function mostSevere(events) {
   return [...events].sort((a, b) => (KIND_WEIGHT[b.kind] ?? 0) - (KIND_WEIGHT[a.kind] ?? 0) || (b.alert?.rank ?? 0) - (a.alert?.rank ?? 0))[0];
 }
 
+/** Heads-ups worth adding to an alarm: places a storm is heading for that are not already under an alarm. */
+export function alsoApproaching(events) {
+  const alarmed = new Set(events.filter((e) => e.kind === 'alarm').map((e) => e.placeId));
+  return events.filter((e) => e.kind === 'headsup' && !alarmed.has(e.placeId));
+}
+
 /** The one thing to do, by hazard. */
 export function actionFor(alert) {
   switch (alert?.event) {

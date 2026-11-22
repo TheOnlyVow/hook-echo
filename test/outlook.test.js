@@ -42,3 +42,26 @@ test('outlookForDate: matches the day an outlook covers', () => {
   assert.equal(outlookForDate('2026-11-22', [d1, d2]), d1);
   assert.equal(outlookForDate('2026-11-30', [d1, d2]), null);
 });
+
+test('outlookLegend: one entry per area the outlook has, in plain words', async () => {
+  const { outlookLegend } = await import('../site/js/lib/outlook.js');
+  const cat = { kind: 'cat', features: [feature('TSTM', 2, null, '#c1e9c1'), feature('MRGL', 3, null, '#66a366'), feature('MRGL', 3, null, '#66a366'), feature('ENH', 5, null, '#ffa366')] };
+  assert.deepEqual(outlookLegend(cat), [
+    { label: 'Thunderstorms', color: '#c1e9c1', sig: false },
+    { label: '1 Marginal', color: '#66a366', sig: false },
+    { label: '3 Enhanced', color: '#ffa366', sig: false },
+  ]);
+  const torn = { kind: 'torn', features: [feature('0.02', 2, null, '#008b00'), feature('0.10', 10, null, '#ffc800'), feature('SIGN', 0, null, '#000000')] };
+  assert.deepEqual(outlookLegend(torn).map((l) => l.label), ['2%', '10%', 'Strong possible (hatched)']);
+  assert.equal(outlookLegend(torn)[2].color, null);
+  assert.deepEqual(outlookLegend(null), []);
+});
+
+test('emptyOutlookNote: SPC’s reason for an empty outlook, in plain words', async () => {
+  const { emptyOutlookNote } = await import('../site/js/lib/outlook.js');
+  assert.equal(emptyOutlookNote({ kind: 'prob', note: 'Potential Too Low', features: [] }), 'Severe storms unlikely');
+  assert.equal(emptyOutlookNote({ kind: 'prob', note: 'Predictability Too Low', features: [] }), 'Too uncertain to forecast yet');
+  assert.equal(emptyOutlookNote({ kind: 'torn', note: 'Less Than 2% All Areas', features: [] }), 'Tornado chance under 2% everywhere');
+  assert.equal(emptyOutlookNote({ kind: 'cat', note: '', features: [] }), 'No thunderstorms expected');
+  assert.equal(emptyOutlookNote({ kind: 'prob', note: '', features: [] }), 'No severe storm areas');
+});

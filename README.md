@@ -6,10 +6,15 @@ A hook echo is the hook-shaped radar signature of a storm producing, or about to
 
 ## What it does
 
-- **Live map:** NEXRAD radar loop (last 50 minutes), every active NWS warning, watch and advisory in the official hazard colors, the last 24 hours of storm reports, NWS-surveyed tornado damage paths, the SPC storm-risk outlook and active tropical storms.
-- **Tornado paths:**
+- **Live map:** NEXRAD radar loop (last 50 minutes), every active NWS warning, watch and advisory in the official hazard colors, the last 24 hours of storm reports, NWS-surveyed tornado damage paths and active tropical storms.
+- **Explains itself:** hover over anything on the map (on a computer) or tap it (on a phone) for a plain-language explanation: trails, projected paths and cones, warnings, reports, risk areas, discussions and tropical areas. Overlapping things are listed under "Also here".
+- **Storm paths:**
   - Where each warned storm has been: a trail built from each warning update.
-  - Where it's heading: a projected path with clock-time ticks and an uncertainty cone, from the NWS storm motion.
+  - Where it's heading: a projected path with clock-time ticks and an uncertainty cone, from the NWS storm motion. Tornado warnings draw bold; severe thunderstorm warnings draw lighter, or can be turned off.
+- **Forecasts:** official forecasts only, never invented ones.
+  - The SPC storm-risk outlook for today, tomorrow and day 3 (all severe storms or tornadoes), and the chance of severe storms on days 4 to 8.
+  - SPC mesoscale discussions: areas forecasters are watching closely, with the chance a watch follows.
+  - Where tropical storms could form in the next 7 days (NHC), and hurricane forecast cones.
 - **Your people:** save home, family and friends.
   - Each place shows *Take shelter*, *Warning*, *Watch*, *Advisory*, *Clear* or *Unknown*.
   - Each card also shows the nearest warned storm and whether it's heading toward the place, today's storm risk and the next forecast periods.
@@ -19,6 +24,7 @@ A hook echo is the hook-shaped radar signature of a storm producing, or about to
 - **Share:** send your list of places to family as a link. It carries the places after the `#`, so nothing goes to a server.
 - **Installable:** add it to your home screen. The app itself works offline; weather data needs a connection.
 - **Demo:** open `#demo` to replay the South Florida tornado warnings of November 21, 2026, with times shifted to now.
+- **Developer console:** open `#dev` once to turn on developer mode. Then the ` key (or Settings) opens a console with feed health, raw alerts, why each place has its status, map debug views, a live log, simulated tornado warnings and a JavaScript command line (`hook.help()`). It works on a phone as a bottom sheet, and it loads only when opened.
 
 Hook Echo is **not an official warning source**. It only alarms while it's open. Keep Wireless Emergency Alerts on, since they reach your phone even when it's locked.
 
@@ -53,8 +59,9 @@ All feeds are public and read directly by the browser:
 | Radar | Iowa Environmental Mesonet NEXRAD mosaic |
 | Storm reports | Iowa Environmental Mesonet Local Storm Reports |
 | Damage surveys | NWS Damage Assessment Toolkit |
-| Storm risk | Storm Prediction Center convective outlooks |
-| Tropical storms | National Hurricane Center (NOAA map services) |
+| Storm risk, days 1 to 8 | Storm Prediction Center convective outlooks |
+| Mesoscale discussions | Storm Prediction Center, through the Iowa Environmental Mesonet API |
+| Tropical storms and development areas | National Hurricane Center (NOAA map services) |
 | Place search | Photon (komoot) and Open-Meteo geocoding |
 | Basemap | OpenFreeMap vector tiles (OpenMapTiles, OpenStreetMap data) |
 

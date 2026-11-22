@@ -1,9 +1,9 @@
 // The Reports tab: storm reports from the last 24 hours (filterable by
-// type) and NWS damage surveys from the last 14 days. Also the map popups
-// for reports, surveys and tropical storms.
+// type) and NWS damage surveys from the last 14 days.
 
 import { esc, icon } from './dom.js';
-import { relative, clock } from '../lib/format.js';
+import { relative, reportWhere } from '../lib/format.js';
+import { office } from '../lib/offices.js';
 
 export const REPORT_TYPES = [
   { key: 'tornado', label: 'Tornado' },
@@ -28,71 +28,7 @@ export const shapeIcon = (type) => `<span class="rp-shape" aria-hidden="true"><s
 const EF_VAR = { EF0: '--ef0', EF1: '--ef1', EF2: '--ef2', EF3: '--ef3', EF4: '--ef4', EF5: '--ef5' };
 export const efBadge = (ef) => `<span class="ef" style="--efc: var(${EF_VAR[ef] ?? '--efu'})">${esc(ef === 'EFU' ? 'EF?' : ef)}</span>`;
 
-const OFFICES = {
-  OUN: 'Norman',
-  TSA: 'Tulsa',
-  FWD: 'Fort Worth',
-  IND: 'Indianapolis',
-  MLB: 'Melbourne',
-  MFL: 'Miami',
-  TBW: 'Tampa Bay',
-  JAN: 'Jackson',
-  BMX: 'Birmingham',
-  HUN: 'Huntsville',
-  LZK: 'Little Rock',
-  SHV: 'Shreveport',
-  LCH: 'Lake Charles',
-  LIX: 'New Orleans',
-  MEG: 'Memphis',
-  OHX: 'Nashville',
-  DMX: 'Des Moines',
-  DVN: 'Quad Cities',
-  ICT: 'Wichita',
-  TOP: 'Topeka',
-  EAX: 'Kansas City',
-  SGF: 'Springfield',
-  LSX: 'St. Louis',
-  ILX: 'Lincoln',
-  LOT: 'Chicago',
-  IWX: 'Northern Indiana',
-  ILN: 'Wilmington',
-  PAH: 'Paducah',
-  HNX: 'Hanford',
-  MTR: 'San Francisco',
-};
-const office = (wfo) => (OFFICES[wfo] ? `NWS ${OFFICES[wfo]}` : wfo ? `NWS office ${wfo}` : 'NWS');
-
-function where(r) {
-  const parts = [r.city, r.county ? `${r.county} County` : '', r.state].filter(Boolean);
-  return parts.join(', ');
-}
-
-export function reportPopup(r, now = new Date()) {
-  return `<div class="tip-title">${esc(r.label)}${r.magnitudeText ? `, ${esc(r.magnitudeText)}` : ''}</div>
-    <div class="tip-text">${esc(where(r))}</div>
-    <div class="tip-text">${esc(clock(r.time))}, ${esc(relative(r.time, now))}</div>
-    ${r.remark ? `<div class="tip-text">${esc(r.remark)}</div>` : ''}
-    ${r.source ? `<div class="tip-text">Reported by ${esc(r.source.toLowerCase())}</div>` : ''}`;
-}
-
-export function surveyPopup(s) {
-  const size = [s.lengthMi ? `${s.lengthMi.toFixed(1)} mi long` : '', s.widthYd ? `up to ${Math.round(s.widthYd)} yd wide` : ''].filter(Boolean).join(', ');
-  const harm = [s.injuries ? `${s.injuries} injured` : '', s.fatalities ? `${s.fatalities} killed` : ''].filter(Boolean).join(', ');
-  return `<div class="tip-title">${efBadge(s.ef)} Tornado</div>
-    <div class="tip-text">${esc(s.start.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }))}, ${esc(clock(s.start))}</div>
-    ${size ? `<div class="tip-text">${esc(size)}</div>` : ''}
-    ${s.maxWindMph ? `<div class="tip-text">Peak wind about ${Math.round(s.maxWindMph)} mph</div>` : ''}
-    ${harm ? `<div class="tip-text">${esc(harm)}</div>` : ''}
-    <div class="tip-text">Surveyed by ${esc(office(s.wfo))}</div>`;
-}
-
-export function tropicalPopup(storm, point) {
-  return `<div class="tip-title">${esc(storm.name)}</div>
-    <div class="tip-text">${esc(storm.label)}${storm.maxWindMph ? `, ${storm.maxWindMph} mph winds` : ''}</div>
-    ${point && point.tau > 0 ? `<div class="tip-text">Forecast for ${esc(point.when)}: ${point.windMph ? `${point.windMph} mph` : 'winds unknown'}</div>` : ''}
-    ${storm.movement ? `<div class="tip-text">Moving about ${storm.movement.mph} mph</div>` : ''}
-    <div class="tip-text">Advisory ${esc(storm.advisory)}, ${esc(storm.advisoryTime)}</div>`;
-}
+const where = reportWhere;
 
 export function createReports({ el, onShowReport, onShowSurvey, onToggleType, onRetry }) {
   el.addEventListener('click', (e) => {

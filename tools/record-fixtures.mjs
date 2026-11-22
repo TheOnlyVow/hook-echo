@@ -1,6 +1,8 @@
 // Records real feed samples into test/fixtures/ so normalizers are tested
 // against what the servers actually send. Public weather data only; large
-// collections are trimmed to keep the repo small. Run: npm run fixtures
+// collections are trimmed to keep the repo small.
+// Run: npm run fixtures                    (every fixture)
+//      npm run fixtures -- spc-mcd.json    (only the named ones)
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
@@ -61,20 +63,39 @@ const jobs = {
     return { points: await pick(6), track: await pick(7), cone: await pick(8), pastPoints: await pick(11) };
   },
   'nws-points.json': async () => await getJSON(`${NWS}/points/36.154,-95.993`),
+  'nws-forecast.json': async () => {
+    // The forecast URL comes from the points lookup.
+    const points = await getJSON(`${NWS}/points/36.154,-95.993`);
+    const forecast = await getJSON(points.properties.forecast);
+    return { properties: { periods: forecast.properties.periods } };
+  },
+  'spc-day2-torn.json': async () => await getJSON('https://www.spc.noaa.gov/products/outlook/day2otlk_torn.nolyr.geojson'),
+  'spc-day4-prob.json': async () => await getJSON('https://www.spc.noaa.gov/products/exper/day4-8/day4prob.nolyr.geojson'),
+  // Mesoscale discussions from the last three days (the live feed is often empty).
+  'spc-mcd.json': async () => trim(await getJSON('https://mesonet.agron.iastate.edu/api/1/nws/spc_mcd.geojson?hours=72'), 6),
+  'tropical-outlook.json': async () => {
+    const base = 'https://mapservices.weather.noaa.gov/tropical/rest/services/tropical/NHC_tropical_weather/MapServer';
+    const layers = (await getJSON(`${base}?f=pjson`)).layers;
+    const query = async (name) => {
+      const id = layers.find((l) => l.name === name)?.id;
+      if (id == null) throw new Error(`no layer named ${name}`);
+      return await getJSON(`${base}/${id}/query?where=1%3D1&outFields=*&returnGeometry=true&geometryPrecision=3&f=geojson`);
+    };
+    return {
+      points2: await query('Two-Day: Current Location'),
+      points7: await query('Seven-Day: Current Location'),
+      areas7: await query('Seven-Day: Potential Development Region'),
+      motion7: await query('Seven-Day: Development Motion'),
+    };
+  },
 };
 
-const results = await Promise.allSettled(
-  Object.entries(jobs).map(async ([name, job]) => {
-    save(name, await job());
-  }),
-);
-for (const [i, r] of results.entries()) if (r.status === 'rejected') console.error(`FAILED ${Object.keys(jobs)[i]}: ${r.reason?.message}`);
-
-// The forecast URL comes from the points lookup.
-try {
-  const points = await getJSON(`${NWS}/points/36.154,-95.993`);
-  const forecast = await getJSON(points.properties.forecast);
-  save('nws-forecast.json', { properties: { periods: forecast.properties.periods } });
-} catch (e) {
-  console.error(`FAILED nws-forecast.json: ${e.message}`);
+const only = process.argv.slice(2);
+const unknown = only.filter((name) => !jobs[name]);
+if (unknown.length) {
+  console.error(`Unknown fixture${unknown.length > 1 ? 's' : ''}: ${unknown.join(', ')}. Known: ${Object.keys(jobs).join(', ')}`);
+  process.exit(1);
 }
+const chosen = Object.entries(jobs).filter(([name]) => !only.length || only.includes(name));
+const results = await Promise.allSettled(chosen.map(async ([name, job]) => save(name, await job())));
+for (const [i, r] of results.entries()) if (r.status === 'rejected') console.error(`FAILED ${chosen[i][0]}: ${r.reason?.message}`);

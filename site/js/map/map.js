@@ -1,21 +1,29 @@
 // The map: our own vector basemap (basemap.js), every overlay from
-// layers.js, map images, hover and click handling, and the slow pulse on
+// layers.js, map images, hover and tap handling, and the slow pulse on
 // tornado warnings.
 
-import { installLayers, applyColors, readColors, setData, setGroupVisible, setSelected, ALERT_LAYERS, RADAR_SLOT, GROUPS } from './layers.js';
+import { installLayers, applyColors, readColors, setData, setGroupVisible, setSelected, RADAR_SLOT, GROUPS } from './layers.js';
 import { OMT_SOURCE, GLYPHS, baseLayers, themePaint } from './basemap.js';
-import { hatch, reportIcon, arrowHead, IMAGE_RATIO } from './patterns.js';
+import { hatch, reportIcon, arrowHead, crossMark, IMAGE_RATIO } from './patterns.js';
 import { RadarLoop } from './radarLoop.js';
+import { RISK_COLORS } from './features.js';
+import { EXPLAINED_LAYERS } from '../lib/explain.js';
 import { prefersReducedMotion, isWide } from '../ui/dom.js';
 
 const ML = globalThis.maplibregl;
 const REPORT_TYPES = ['tornado', 'funnel', 'hail', 'wind', 'flood', 'other'];
+/** Sources whose areas light up under the pointer. */
+const HOVER_SOURCES = { 'warn-fill': 'alerts', 'watch-fill': 'alerts', 'zones-fill': 'alerts', 'mcd-fill': 'mcd' };
+
+/** @typedef {{layer: string, props: object}} MapHit */
 
 /**
- * @param {{container: HTMLElement, theme: 'dark'|'light', onSelectAlert: (id: string, lngLat: object) => void,
- *   onFeatureClick?: (layer: string, feature: object, lngLat: object) => void, onPick?: (lngLat: object) => void}} opts
+ * @param {{container: HTMLElement, theme: 'dark'|'light',
+ *   onHover?: (hits: MapHit[] | null, point: {x: number, y: number}) => void,
+ *   onTap?: (hits: MapHit[], lngLat: object, point: {x: number, y: number}) => void,
+ *   onPick?: (lngLat: object) => void}} opts
  */
-export function createMap({ container, theme, onSelectAlert, onFeatureClick = () => {}, onPick = () => {} }) {
+export function createMap({ container, theme, onHover = () => {}, onTap = () => {}, onPick = () => {} }) {
   const map = new ML.Map({
     container,
     style: { version: 8, glyphs: GLYPHS, sources: { omt: OMT_SOURCE }, layers: baseLayers(theme) },
@@ -64,40 +72,61 @@ export function createMap({ container, theme, onSelectAlert, onFeatureClick = ()
       map.addImage(id, img, { pixelRatio: IMAGE_RATIO });
     };
     put('hatch-life', hatch(currentTheme === 'light' ? '#8a0010' : '#ff5a6e'));
+    put('hatch-sig', hatch(currentTheme === 'light' ? '#0f1720' : '#e7edf4', 10));
     put('path-arrow', arrowHead(colors['path-line'], colors.casing));
     for (const t of REPORT_TYPES) put(`rp-${t}`, reportIcon(t, colors[`rp-${t}`], ring));
+    for (const [risk, color] of Object.entries(RISK_COLORS)) put(`dev-x-${risk}`, crossMark(color, '#161b22'));
+  }
+
+  /** Everything explainable under a point, topmost first. `pad` widens the hit area for fingers. */
+  function hitsAt(point, pad) {
+    const layers = EXPLAINED_LAYERS.filter((id) => map.getLayer(id) && map.getLayoutProperty(id, 'visibility') !== 'none');
+    const box = [[point.x - pad, point.y - pad], [point.x + pad, point.y + pad]];
+    return map.queryRenderedFeatures(box, { layers }).map((f) => ({ layer: f.layer.id, props: { ...f.properties, id: f.properties?.id ?? f.id } }));
   }
 
   function wireInteractions() {
-    const interactive = [...ALERT_LAYERS, 'reports', 'survey-line', 'trop-points', 'storm-now'];
-    let hovered = null;
-    map.on('mousemove', (e) => {
-      const hits = map.queryRenderedFeatures(e.point, { layers: interactive.filter((id) => map.getLayoutProperty(id, 'visibility') !== 'none') });
-      map.getCanvas().style.cursor = hits.length ? 'pointer' : '';
-      const alert = hits.find((f) => ALERT_LAYERS.includes(f.layer.id));
-      const id = alert?.id ?? null;
-      if (id === hovered) return;
-      if (hovered != null) map.setFeatureState({ source: 'alerts', id: hovered }, { hover: false });
-      hovered = id;
-      if (id != null) map.setFeatureState({ source: 'alerts', id }, { hover: true });
-    });
-    map.on('mouseleave', () => {
-      if (hovered != null) map.setFeatureState({ source: 'alerts', id: hovered }, { hover: false });
-      hovered = null;
-    });
-    map.on('click', (e) => {
-      const box = [[e.point.x - 6, e.point.y - 6], [e.point.x + 6, e.point.y + 6]];
-      const visible = (ids) => ids.filter((id) => map.getLayer(id) && map.getLayoutProperty(id, 'visibility') !== 'none');
-      const point = map.queryRenderedFeatures(box, { layers: visible(['reports', 'trop-points', 'storm-now', 'survey-line']) });
-      if (point.length) {
-        onFeatureClick(point[0].layer.id, point[0], e.lngLat);
-        return;
+    // Highlight the area under the pointer, explain what is there, and say what a click will do.
+    const lit = new Map();
+    const light = (hits) => {
+      const next = new Map();
+      for (const h of hits) {
+        const source = HOVER_SOURCES[h.layer];
+        if (source && h.props.id != null && !next.has(source)) next.set(source, h.props.id);
       }
-      const alerts = map.queryRenderedFeatures(e.point, { layers: visible(ALERT_LAYERS) });
-      if (alerts.length) {
-        const top = alerts.reduce((a, b) => ((b.properties.rank ?? 0) > (a.properties.rank ?? 0) ? b : a));
-        onSelectAlert(String(top.properties.id), e.lngLat);
-      } else onFeatureClick(null, null, e.lngLat);
+      for (const [source, id] of lit) if (next.get(source) !== id) map.setFeatureState({ source, id }, { hover: false });
+      for (const [source, id] of next) if (lit.get(source) !== id) map.setFeatureState({ source, id }, { hover: true });
+      lit.clear();
+      for (const [k, v] of next) lit.set(k, v);
+    };
+    let queued = null;
+    let frame = 0;
+    const finePointer = globalThis.matchMedia?.('(hover: hover) and (pointer: fine)');
+    map.on('mousemove', (e) => {
+      // Touch screens fire a mouse move after each tap; only a real mouse hovers.
+      if (e.originalEvent?.sourceCapabilities?.firesTouchEvents || !finePointer?.matches) return;
+      queued = e.point;
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        if (!queued) return;
+        const hits = hitsAt(queued, 4);
+        map.getCanvas().style.cursor = hits.length ? 'pointer' : '';
+        light(hits);
+        onHover(hits.length ? hits : null, queued);
+      });
+    });
+    const leave = () => {
+      queued = null;
+      light([]);
+      map.getCanvas().style.cursor = '';
+      onHover(null, null);
+    };
+    map.on('mouseout', leave);
+    map.on('movestart', (e) => e.originalEvent && onHover(null, null));
+    map.on('click', (e) => {
+      const touch = e.originalEvent?.pointerType === 'touch' || e.originalEvent?.sourceCapabilities?.firesTouchEvents || !finePointer?.matches;
+      onTap(hitsAt(e.point, touch ? 12 : 5), e.lngLat, e.point);
     });
     map.on('contextmenu', (e) => onPick(e.lngLat));
     // Long press on touch screens picks a spot too.
@@ -176,8 +205,14 @@ export function createMap({ container, theme, onSelectAlert, onFeatureClick = ()
     flyTo(lngLat, zoom, padding) {
       map.easeTo({ center: lngLat, zoom: zoom ?? Math.max(map.getZoom(), 8), padding, duration: prefersReducedMotion() ? 0 : 900 });
     },
-    popup(lngLat, html) {
-      return new ML.Popup({ closeButton: false, maxWidth: '280px', offset: 12, focusAfterOpen: false }).setLngLat(lngLat).setHTML(html).addTo(map);
+    hitsAt,
+    set debug({ tiles = false, collisions = false, padding = false }) {
+      map.showTileBoundaries = tiles;
+      map.showCollisionBoxes = collisions;
+      map.showPadding = padding;
+    },
+    get debug() {
+      return { tiles: map.showTileBoundaries, collisions: map.showCollisionBoxes, padding: map.showPadding };
     },
     marker(el, lngLat, anchor = 'center') {
       return new ML.Marker({ element: el, anchor }).setLngLat(lngLat).addTo(map);

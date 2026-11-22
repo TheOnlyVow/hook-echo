@@ -13,7 +13,11 @@ export const FEED_INFO = {
   surveys: { name: 'Damage surveys', by: 'NWS Damage Assessment Toolkit' },
   spc1: { name: 'Storm risk today', by: 'Storm Prediction Center' },
   spc23: { name: 'Storm risk, days 2 and 3', by: 'Storm Prediction Center' },
+  spc48: { name: 'Storm risk, days 4 to 8', by: 'Storm Prediction Center' },
+  discussions: { name: 'Areas forecasters are watching', by: 'Storm Prediction Center, through the Iowa Environmental Mesonet' },
   tropical: { name: 'Tropical storms', by: 'National Hurricane Center' },
+  development: { name: 'Where tropical storms could form', by: 'National Hurricane Center' },
+  points: { name: 'Checks for your places', by: 'National Weather Service' },
 };
 
 /** "live" | "stale" | "error" | "loading" for a feed snapshot. */

@@ -24,6 +24,37 @@ export function clock(d, opts = {}) {
   return fmt.format(d).replace(/[  ]/g, ' ');
 }
 
+const formats = new Map();
+/** One cached Intl formatter per option set and time zone. */
+function formatter(opts, timeZone) {
+  const key = `${JSON.stringify(opts)}|${timeZone ?? ''}`;
+  let fmt = formats.get(key);
+  if (!fmt) {
+    fmt = new Intl.DateTimeFormat('en-US', { ...opts, ...(timeZone ? { timeZone } : {}) });
+    formats.set(key, fmt);
+  }
+  return fmt;
+}
+
+/** "Sun 6 AM" or "Sun 6:30 AM": a short local day and hour. */
+export function dayHour(d, opts = {}) {
+  const day = formatter({ weekday: 'short' }, opts.timeZone).format(d);
+  const minutes = Number(formatter({ minute: 'numeric' }, opts.timeZone).format(d));
+  const time = formatter(minutes ? { hour: 'numeric', minute: '2-digit' } : { hour: 'numeric' }, opts.timeZone).format(d);
+  return `${day} ${time.replace(/[  ]/g, ' ')}`;
+}
+
+/** "Monday". */
+export function weekdayName(d, opts = {}) {
+  return formatter({ weekday: 'long' }, opts.timeZone).format(d);
+}
+
+/** A whole number per local calendar day, so two dates can be compared by day. */
+export function dayNumber(d, opts = {}) {
+  const parts = Object.fromEntries(formatter({ year: 'numeric', month: 'numeric', day: 'numeric' }, opts.timeZone).formatToParts(d).map((p) => [p.type, p.value]));
+  return Math.round(Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day)) / 864e5);
+}
+
 /** "23 min", "1 h 5 min", "2 h", "under 1 min". */
 export function duration(ms) {
   if (ms < 60_000) return 'under 1 min';
@@ -106,6 +137,11 @@ export function statesIn(desc) {
     if (m && !out.includes(m[2])) out.push(m[2]);
   }
   return out;
+}
+
+/** Where a storm report came from: "Hialeah, Miami-Dade County, FL". */
+export function reportWhere(r) {
+  return [r.city, r.county ? `${r.county} County` : '', r.state].filter(Boolean).join(', ');
 }
 
 /** "NE at 35 mph" without the arrow, for places that draw their own. */

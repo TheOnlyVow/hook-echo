@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { alertFeatures, pathFeatures, trailFeatures, reportFeatures, circlePolygon, tropicalFeatures } from '../site/js/map/features.js';
+import { alertFeatures, pathFeatures, trailFeatures, reportFeatures, circlePolygon, tropicalFeatures, outlookFeatures, discussionFeatures, developmentFeatures } from '../site/js/map/features.js';
 import { projectMotion } from '../site/js/lib/paths.js';
 import { distanceKm } from '../site/js/lib/geo.js';
 import { NOW, MIN, PLACE, makeAlert, squareAround } from './helpers.js';
@@ -44,6 +44,21 @@ test('pathFeatures: cone, center line, arrow pointing the way, ticks with clock 
   assert.equal(f.storms.features[0].properties.id, alert.id);
 });
 
+test('pathFeatures: every piece carries what its explanation needs', () => {
+  const motion = { time: new Date(NOW.getTime() - 4 * MIN), dirFrom: 225, speedKt: 26, points: [{ lat: 35, lon: -97 }] };
+  const alert = makeAlert({ event: 'Severe Thunderstorm Warning', motion, color: '#FFA500' });
+  const until = new Date(NOW.getTime() + 25 * MIN);
+  const f = pathFeatures(new Map([[alert.id, projectMotion(motion, NOW, until)]]), new Map([[alert.id, alert]]));
+  for (const fc of [f.cones, f.paths, f.ends, f.ticks, f.storms]) {
+    const p = fc.features[0].properties;
+    assert.equal(p.event, 'Severe Thunderstorm Warning');
+    assert.equal(p.until, until.getTime());
+    assert.equal(p.dirFrom, 225);
+    assert.equal(p.speedKt, 26);
+    assert.equal(p.motionTime, motion.time.getTime());
+  }
+});
+
 test('trailFeatures: lines need two points; older dots fade', () => {
   const trails = [
     { id: 'a', phenomena: 'TO', points: [{ pos: { lat: 35, lon: -97.5 }, time: new Date(NOW.getTime() - 60 * MIN) }, { pos: { lat: 35, lon: -97 }, time: NOW }], latestAlertId: 'x' },
@@ -54,6 +69,64 @@ test('trailFeatures: lines need two points; older dots fade', () => {
   assert.equal(f.dots.features.length, 3);
   const [old, fresh] = f.dots.features;
   assert.ok(old.properties.opacity < fresh.properties.opacity);
+});
+
+test('trailFeatures: lines and dots say which warning they belong to and when', () => {
+  const trails = [{ id: 'a', phenomena: 'TO', points: [{ pos: { lat: 35, lon: -97.5 }, time: new Date(NOW.getTime() - 40 * MIN) }, { pos: { lat: 35, lon: -97 }, time: NOW }], latestAlertId: 'x' }];
+  const f = trailFeatures(trails, NOW);
+  assert.deepEqual(
+    { ...f.lines.features[0].properties },
+    { id: 'a', phenomena: 'TO', event: 'Tornado Warning', alertId: 'x', since: NOW.getTime() - 40 * MIN, last: NOW.getTime(), count: 2 },
+  );
+  assert.equal(f.dots.features[0].properties.alertId, 'x');
+  assert.equal(f.dots.features[0].properties.event, 'Tornado Warning');
+  assert.equal(trailFeatures([{ ...trails[0], phenomena: 'SV' }], NOW).lines.features[0].properties.event, 'Severe Thunderstorm Warning');
+});
+
+test('outlookFeatures: each area knows its day, kind, window and percent', () => {
+  const outlook = {
+    day: 2,
+    kind: 'torn',
+    valid: new Date('2026-11-22T12:00:00Z'),
+    expire: new Date('2026-11-23T12:00:00Z'),
+    features: [
+      { label: '0.05', label2: '5% Tornado Risk', dn: 5, geometry: squareAround(PLACE, 2), fill: '#8b4726', stroke: '#000' },
+      { label: 'SIGN', label2: 'Significant Tornado Risk', dn: 0, geometry: squareAround(PLACE, 1), fill: '#000', stroke: '#000' },
+    ],
+  };
+  const [five, sign] = outlookFeatures(outlook).features.map((f) => f.properties);
+  assert.equal(five.day, 2);
+  assert.equal(five.kind, 'torn');
+  assert.equal(five.pct, 5);
+  assert.equal(five.valid, outlook.valid.getTime());
+  assert.equal(five.expire, outlook.expire.getTime());
+  assert.equal(sign.pct, -1, 'significant areas have no percent');
+  assert.equal(sign.sig, true);
+  assert.equal(outlookFeatures(null).features.length, 0);
+});
+
+test('discussionFeatures: outline and label text for each discussion', () => {
+  const d = { id: 'md1', num: 2462, year: 2026, issue: new Date(NOW.getTime() - 20 * MIN), expire: new Date(NOW.getTime() + 60 * MIN), watchChance: 80, concerning: 'SEVERE POTENTIAL...TORNADO WATCH LIKELY', geometry: squareAround(PLACE, 1) };
+  const p = discussionFeatures([d, { ...d, id: 'md2', num: 7, watchChance: null }]).features.map((f) => f.properties);
+  assert.equal(p[0].num, 2462);
+  assert.equal(p[0].chance, 80);
+  assert.equal(p[0].label, 'MD 2462\n80% watch chance');
+  assert.equal(p[1].chance, -1);
+  assert.equal(p[1].label, 'MD 7');
+  assert.equal(p[0].expire, d.expire.getTime());
+});
+
+test('developmentFeatures: areas and disturbance marks, colored by NHC risk', () => {
+  const dev = {
+    areas: [{ id: 'a', basin: 'Atlantic', prob2: 10, prob7: 50, risk2: 'low', risk7: 'medium', geometry: squareAround(PLACE, 3) }],
+    points: [{ id: 'p', basin: 'Atlantic', prob2: 70, prob7: 90, risk2: 'high', risk7: 'high', lat: 25, lon: -70 }],
+  };
+  const f = developmentFeatures(dev);
+  assert.equal(f.areas.features[0].properties.color, '#ffa500');
+  assert.equal(f.areas.features[0].properties.prob7, 50);
+  assert.equal(f.points.features[0].properties.color, '#ff0000');
+  assert.deepEqual(f.points.features[0].geometry.coordinates, [-70, 25]);
+  assert.equal(developmentFeatures(null).areas.features.length, 0);
 });
 
 test('reportFeatures: only enabled types, with age and a sort key that puts tornadoes on top', () => {

@@ -45,3 +45,17 @@ test('notificationFor: title names the hazard and the place; one tag per event',
   assert.equal(hu.title, 'A tornado could reach Home in about 12 min');
   assert.equal(hu.requireInteraction, false);
 });
+
+test('alsoApproaching: heads-ups only for places not already told to take shelter', async () => {
+  const { alsoApproaching } = await import('../site/js/lib/alarmText.js');
+  const tor = { id: 'a', event: 'Tornado Warning', vtec: { key: 'K.TO.W.1.2026' }, rank: 90 };
+  const home = { id: 'home', name: 'Home' };
+  const school = { id: 'school', name: 'School' };
+  const events = [
+    { kind: 'alarm', placeId: 'home', place: home, alert: tor },
+    { kind: 'headsup', placeId: 'home', place: home, alert: tor, headsUp: { minutes: 10 } },
+    { kind: 'headsup', placeId: 'school', place: school, alert: tor, headsUp: { minutes: 18 } },
+  ];
+  assert.deepEqual(alsoApproaching(events).map((e) => e.placeId), ['school']);
+  assert.deepEqual(alsoApproaching([]), []);
+});
