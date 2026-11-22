@@ -188,6 +188,17 @@ test('searchPlaces: falls back to Open-Meteo when Photon fails', async (t) => {
   assert.deepEqual(results, [{ name: 'Wichita Falls', detail: 'Texas', lat: 33.9137, lon: -98.4934 }]);
 });
 
+test('reversePlace: names a picked spot, and never fails the caller', async (t) => {
+  const { reversePlace } = await import('../site/js/data/geocode.js');
+  const seen = stubFetch(t, [['photon.komoot.io/reverse', { features: [{ geometry: { coordinates: [-97.49, 35.34] }, properties: { name: 'Moore', state: 'Oklahoma', countrycode: 'US', type: 'city' } }] }]]);
+  assert.deepEqual(await reversePlace({ lat: 35.33921, lon: -97.48677 }), { name: 'Moore', detail: 'Oklahoma' });
+  assert.ok(seen[0].includes('lat=35.339&lon=-97.487'), seen[0]);
+  globalThis.fetch = async () => {
+    throw new TypeError('offline');
+  };
+  assert.deepEqual(await reversePlace({ lat: 35.3, lon: -97.4 }), { name: '', detail: '35.300, -97.400' });
+});
+
 test('loadForecast: points lookup, then the 7-day forecast', async (t) => {
   const points = fixture('nws-points.json');
   const forecast = fixture('nws-forecast.json');

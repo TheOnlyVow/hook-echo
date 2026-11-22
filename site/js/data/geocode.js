@@ -3,7 +3,25 @@
 // warnings come from the National Weather Service.
 
 import { fetchJSON } from './http.js';
-import { PHOTON, OPEN_METEO_GEOCODE } from '../config.js';
+import { PHOTON, OPEN_METEO_GEOCODE, roundCoord } from '../config.js';
+
+/**
+ * A friendly name for a picked spot ("Moore, Oklahoma"). Falls back to the
+ * coordinates, so picking a spot never fails because of the name lookup.
+ * @returns {Promise<{name: string, detail: string}>}
+ */
+export async function reversePlace(p, signal) {
+  const lat = roundCoord(p.lat);
+  const lon = roundCoord(p.lon);
+  try {
+    const fc = await fetchJSON(`${PHOTON.replace('/api/', '/reverse')}?lat=${lat}&lon=${lon}&lang=en&limit=1`, { signal, timeoutMs: 8000 });
+    const hit = fc.features?.map(photonResult).find(Boolean);
+    if (hit) return { name: hit.name, detail: hit.detail };
+  } catch (e) {
+    if (e?.code === 'aborted') throw e;
+  }
+  return { name: '', detail: `${lat.toFixed(3)}, ${lon.toFixed(3)}` };
+}
 
 /** @typedef {{name: string, detail: string, lat: number, lon: number}} PlaceResult */
 

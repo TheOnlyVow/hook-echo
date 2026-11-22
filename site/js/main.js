@@ -22,6 +22,18 @@ import { createMap } from './map/map.js';
 import { alertFeatures, pathFeatures, trailFeatures, reportFeatures, surveyFeatures, outlookFeatures, tropicalFeatures } from './map/features.js';
 import { createReports, reportPopup, surveyPopup, tropicalPopup } from './ui/reports.js';
 import { createLayersMenu } from './ui/layersMenu.js';
+import { createPeople, createPlaceEditor, createPlaceMarkers } from './ui/places.js';
+import { sharePlaces, importFromHash } from './ui/shareFlow.js';
+import { toast } from './ui/toasts.js';
+import { placeStatus } from './lib/status.js';
+import { nearestStorm } from './lib/paths.js';
+import { riskAt } from './lib/outlook.js';
+import { headlineFor, coversByAlert, worstLevel, sortBySeverity } from './lib/people.js';
+import { sanitizePlaces } from './lib/share.js';
+import { loadPointAlerts } from './data/alerts.js';
+import { loadForecast } from './data/points.js';
+import { searchPlaces, reversePlace } from './data/geocode.js';
+import { circlePolygon } from './map/features.js';
 import { createPanel } from './ui/panel.js';
 import { createTimeline } from './ui/timeline.js';
 import { COUNTS, countAlerts, renderSummary, renderHeadline } from './ui/summary.js';
@@ -31,13 +43,15 @@ import { $, esc, icon, tickTimes, announce, rafThrottle } from './ui/dom.js';
 
 // ---------- Persistent settings ----------
 const storage = safeLocalStorage();
-const KEYS = { settings: 'hook-echo:settings', layers: 'hook-echo:layers' };
-const DEFAULT_SETTINGS = { theme: 'system', dataSaver: 'auto' };
+const KEYS = { settings: 'hook-echo:settings', layers: 'hook-echo:layers', places: 'hook-echo:places' };
+const DEFAULT_SETTINGS = { theme: 'system', dataSaver: 'auto', meOn: false };
 const DEFAULT_LAYERS = { radar: true, warnings: true, watches: true, others: true, paths: true, trails: true, surveys: true, reports: true, outlook: false, outlookKind: 'cat', tropical: true, places: true, reportTypes: ['tornado', 'funnel', 'hail', 'wind', 'flood'] };
 
 const store = createStore({
   settings: loadPersisted(storage, KEYS.settings, DEFAULT_SETTINGS),
   layers: loadPersisted(storage, KEYS.layers, DEFAULT_LAYERS),
+  places: sanitizePlaces(loadPersisted(storage, KEYS.places, { list: [] }).list),
+  me: { on: false, supported: 'geolocation' in navigator, position: null, error: null },
   selectedId: null,
   filter: null,
 });
@@ -77,6 +91,26 @@ const feeds = {
   spc1: new Feed({ id: 'spc1', load: demo ? none({ cat: null, torn: null }) : loadDay1, intervalMs: REFRESH.spcDay1.normal, staleMs: 60 * MIN }),
   spc23: new Feed({ id: 'spc23', load: demo ? none({ day2: null, day3: null }) : loadDays23, intervalMs: REFRESH.spcDays23.normal, staleMs: 3 * 60 * MIN }),
   tropical: new Feed({ id: 'tropical', load: demo ? none([]) : loadTropical, intervalMs: REFRESH.tropical.normal, staleMs: 60 * MIN }),
+  // The NWS point check for every watched place, staggered to be gentle on the API.
+  points: new Feed({
+    id: 'points',
+    load: demo
+      ? none(new Map())
+      : async (signal) => {
+          const out = new Map();
+          for (const p of watchedPlaces()) {
+            try {
+              out.set(p.id, await loadPointAlerts(p, signal));
+            } catch (e) {
+              if (e?.code === 'aborted') throw e;
+            }
+            await new Promise((r) => setTimeout(r, 250));
+          }
+          return out;
+        },
+    intervalMs: REFRESH.pointChecks.normal,
+    staleMs: 20 * MIN,
+  }),
 };
 addEventListener('hashchange', () => {
   if ((location.hash === '#demo') !== Boolean(demo)) location.reload();
@@ -97,7 +131,37 @@ function applyDataSaver() {
 navigator.connection?.addEventListener?.('change', applyDataSaver);
 
 // ---------- Derived data ----------
-const derived = { alerts: [], byId: new Map(), projections: new Map(), trails: [] };
+const derived = { alerts: [], byId: new Map(), projections: new Map(), trails: [], people: [], meView: null };
+
+/** Every place being watched right now, Where I am included. */
+function watchedPlaces() {
+  const me = store.get().me;
+  const mePlace = me.on && me.position ? [{ id: 'me', kind: 'me', name: 'Where I am', lat: me.position.lat, lon: me.position.lon }] : [];
+  return [...mePlace, ...store.get().places];
+}
+
+function accuracyText(m) {
+  if (!m) return '';
+  return m < 1609 ? `Accurate to about ${Math.max(10, Math.round((m * 3.28084) / 10) * 10)} ft` : `Accurate to about ${Math.round(m / 1609)} mi`;
+}
+
+function computeStatuses(now = new Date()) {
+  const s = snap('storm');
+  const stale = Boolean(s.stale) || (s.status === 'error' && !s.data);
+  const checking = s.status === 'idle';
+  const ctx = { alerts: derived.alerts, shapes: snap('shapes').data ?? new Map(), projections: derived.projections, now, stale };
+  const cat = snap('spc1').data?.cat ?? null;
+  const view = (place) => {
+    let status = placeStatus(place, { ...ctx, pointHits: snap('points').data?.get(place.id) });
+    if (checking) status = { ...status, level: 'checking' };
+    return { place, status, nearest: nearestStorm(place, derived.projections), risk: riskAt(place, cat) };
+  };
+  derived.people = store.get().places.map(view);
+  const me = store.get().me;
+  derived.meView = me.on && me.position ? view({ id: 'me', kind: 'me', name: 'Where I am', lat: me.position.lat, lon: me.position.lon, detail: accuracyText(me.position.accuracy) }) : null;
+}
+
+const everyone = () => [...(derived.meView ? [derived.meView] : []), ...derived.people];
 
 function computeAlerts(now = new Date()) {
   const merged = new Map();
@@ -127,6 +191,7 @@ const panel = createPanel({
   onSheetChange: (s) => timeline?.setHidden(s === 'full'),
   onTabChange: (tab) => {
     if (tab === 'reports') renderReports();
+    if (tab === 'people' || tab === 'trips') ensureForecasts();
   },
 });
 const warnings = createWarnings({
@@ -181,6 +246,178 @@ const layersMenu = createLayersMenu({
   },
 });
 
+// ---------- People: places, Where I am, forecasts ----------
+const forecasts = new Map();
+let forecastQueue = Promise.resolve();
+function ensureForecasts() {
+  for (const p of watchedPlaces()) {
+    const f = forecasts.get(p.id);
+    const near = f && Math.abs(f.lat - p.lat) < 0.05 && Math.abs(f.lon - p.lon) < 0.05;
+    if (f?.pending || (near && Date.now() - f.at < 60 * MIN)) continue;
+    forecasts.set(p.id, { ...(f ?? { periods: [] }), pending: true });
+    forecastQueue = forecastQueue.then(async () => {
+      try {
+        const data = await loadForecast(p);
+        forecasts.set(p.id, { ...data, at: Date.now(), lat: p.lat, lon: p.lon });
+      } catch {
+        // Try again in about ten minutes.
+        forecasts.set(p.id, { periods: [], at: Date.now() - 50 * MIN, lat: p.lat, lon: p.lon });
+      }
+      renderPeople();
+    });
+  }
+}
+
+let placeMarkers = null;
+let meMarker = null;
+let pickResolve = null;
+
+function pickOnMap() {
+  return new Promise((resolve) => {
+    pickResolve = resolve;
+    const hint = $('#map-hint');
+    hint.innerHTML = '<span>Tap the map where this place is.</span><button type="button" data-cancel-pick>Cancel</button>';
+    hint.hidden = false;
+    panel.setSheet('peek');
+  });
+}
+function finishPick(lngLat) {
+  const resolve = pickResolve;
+  pickResolve = null;
+  $('#map-hint').hidden = true;
+  resolve?.(lngLat ? { lat: lngLat.lat, lon: lngLat.lng } : null);
+}
+$('#map-hint').addEventListener('click', (e) => e.target.closest('[data-cancel-pick]') && finishPick(null));
+
+function locateOnce() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) return reject(new Error('unsupported'));
+    navigator.geolocation.getCurrentPosition((pos) => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }), reject, { enableHighAccuracy: true, timeout: 15_000, maximumAge: 60_000 });
+  });
+}
+
+const editor = createPlaceEditor({
+  dialog: $('#place-dialog'),
+  search: searchPlaces,
+  reverse: (p) => reversePlace(p),
+  locateOnce,
+  pickOnMap,
+  onSave: (place) => {
+    const list = store.get().places;
+    const exists = list.some((p) => p.id === place.id);
+    store.set({ places: exists ? list.map((p) => (p.id === place.id ? place : p)) : [...list, place] });
+    toast({ title: exists ? `Updated ${place.name}` : `Now watching ${place.name}`, tone: 'ok' });
+  },
+  onDelete: (id) => {
+    const gone = store.get().places.find((p) => p.id === id);
+    store.set({ places: store.get().places.filter((p) => p.id !== id) });
+    toast({ title: `Stopped watching ${gone?.name ?? 'that place'}`, tone: 'info' });
+  },
+});
+
+function showPlace(id) {
+  const p = id === 'me' ? derived.meView?.place : store.get().places.find((x) => x.id === id);
+  if (p) mapApi?.flyTo([p.lon, p.lat], 9, panel.mapPadding());
+}
+
+function focusPlace(id) {
+  const p = store.get().places.find((x) => x.id === id);
+  panel.selectTab(p?.kind === 'trip' ? 'trips' : 'people');
+  requestAnimationFrame(() => {
+    const card = document.querySelector(`[data-place="${CSS.escape(id)}"]`);
+    if (!card) return;
+    card.scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    card.classList.remove('is-flash');
+    void card.offsetWidth;
+    card.classList.add('is-flash');
+    card.focus({ preventScroll: true });
+  });
+}
+
+const peopleTab = createPeople({
+  el: $('#view-people'),
+  onAdd: () => editor.open(null, { kind: 'family' }),
+  onEdit: (id) => {
+    const p = store.get().places.find((x) => x.id === id);
+    if (p) editor.open(p);
+  },
+  onShow: showPlace,
+  onMe: (on) => (on ? startMe() : stopMe()),
+  onShare: () => sharePlaces(store.get().places),
+});
+
+const renderPeople = rafThrottle(() => {
+  const outlookLoaded = snap('spc1').status === 'ok' && Boolean(snap('spc1').data?.cat);
+  peopleTab.render({
+    people: sortBySeverity(derived.people.filter((p) => p.place.kind !== 'trip')),
+    meView: derived.meView,
+    me: store.get().me,
+    forecasts,
+    outlookLoaded,
+    now: new Date(),
+    count: store.get().places.length,
+  });
+  placeMarkers?.set(store.get().layers.places ? derived.people : []);
+  const { level, count } = worstLevel(everyone().map((p) => p.status));
+  $('#tab-people').innerHTML = `People${count ? `<span class="tab-badge is-${level === 'shelter' ? 'shelter' : 'warning'}" aria-label="${count} in danger">${count}</span>` : ''}`;
+});
+
+let watchId = null;
+function startMe() {
+  if (!navigator.geolocation) return;
+  store.set({ me: { ...store.get().me, on: true, error: null }, settings: { ...store.get().settings, meOn: true } });
+  watchId = navigator.geolocation.watchPosition(
+    (pos) => {
+      const first = !store.get().me.position;
+      const position = { lat: pos.coords.latitude, lon: pos.coords.longitude, accuracy: pos.coords.accuracy };
+      store.set({ me: { ...store.get().me, position, error: null } });
+      if (first) {
+        mapApi?.flyTo([position.lon, position.lat], 8.5, panel.mapPadding());
+        feeds.points.refresh();
+      }
+    },
+    (err) => {
+      if (err.code === 1) {
+        stopMe();
+        store.set({ me: { ...store.get().me, error: 'denied' } });
+      } else store.set({ me: { ...store.get().me, error: 'unavailable' } });
+    },
+    { enableHighAccuracy: false, maximumAge: 60_000, timeout: 30_000 },
+  );
+}
+function stopMe() {
+  if (watchId != null) navigator.geolocation.clearWatch(watchId);
+  watchId = null;
+  store.set({ me: { ...store.get().me, on: false, position: null, error: null }, settings: { ...store.get().settings, meOn: false } });
+}
+
+function updateMeOnMap() {
+  const me = store.get().me;
+  $('#btn-locate').setAttribute('aria-pressed', String(me.on));
+  $('#btn-locate').classList.toggle('is-busy', me.on && !me.position && !me.error);
+  if (!mapApi) return;
+  if (me.on && me.position) {
+    const at = [me.position.lon, me.position.lat];
+    if (!meMarker) {
+      const el = document.createElement('div');
+      el.className = 'me-marker';
+      el.setAttribute('aria-label', 'Where I am');
+      meMarker = mapApi.marker(el, at);
+    } else meMarker.setLngLat(at);
+    mapApi.setData('me-acc', me.position.accuracy > 60 ? { type: 'FeatureCollection', features: [{ type: 'Feature', geometry: circlePolygon(me.position, me.position.accuracy / 1000), properties: { id: 'me' } }] } : null);
+  } else {
+    meMarker?.remove();
+    meMarker = null;
+    mapApi.setData('me-acc', null);
+  }
+}
+
+$('#btn-locate').addEventListener('click', () => {
+  const me = store.get().me;
+  if (!me.on) startMe();
+  else if (me.position) mapApi?.flyTo([me.position.lon, me.position.lat], 9, panel.mapPadding());
+});
+
 function lastTornado() {
   let best = null;
   for (const a of snap('recent').data ?? []) {
@@ -199,7 +436,7 @@ const renderNow = rafThrottle(() => {
     feed: snap('storm'),
     filter: filterDef ? { key: filterDef.key, label: filterDef.label, match: filterDef.match } : null,
     selectedId: s.selectedId,
-    covers: new Map(),
+    covers: coversByAlert(everyone()),
     lastTornado: lastTornado(),
     now: new Date(),
   });
@@ -222,24 +459,7 @@ const renderTop = rafThrottle(() => {
 
 function headline() {
   if (snap('storm').status === 'idle') return null;
-  const tors = derived.alerts.filter((a) => a.event === 'Tornado Warning').sort((a, b) => b.rank - a.rank);
-  if (tors.length) {
-    const states = [...new Set(tors.flatMap((a) => statesIn(a.areaDesc)))];
-    return {
-      tone: 'national',
-      icon: 'tornado',
-      title: `${tors.length} tornado warning${tors.length > 1 ? 's' : ''} right now`,
-      text: states.length ? `In ${states.join(', ')}. Tap to see the most serious.` : 'Tap to see the most serious.',
-      alertId: tors[0].id,
-    };
-  }
-  const last = lastTornado();
-  return {
-    tone: 'quiet',
-    icon: 'check',
-    title: 'No tornado warnings right now',
-    text: last ? `The last one ended ${relative(last.ended, new Date())}.` : 'Hook Echo is watching the whole country.',
-  };
+  return headlineFor({ people: everyone(), tornadoes: derived.alerts.filter((a) => a.event === 'Tornado Warning'), lastTornado: lastTornado(), now: new Date() });
 }
 
 function renderLive() {
@@ -385,7 +605,9 @@ function selectAlert(id, { fit = false } = {}) {
   mapApi?.setSelected(id);
   pushPathsToMap();
   pushTrailsToMap();
-  panel.showDetail(warnings.detailHtml(a, { projection: derived.projections.get(id), now: new Date() }), {
+  const people = everyone();
+  const headsUps = people.filter((p) => p.status.headsUp?.alertId === id).map((p) => ({ name: p.place.name, eta: p.status.headsUp.eta }));
+  panel.showDetail(warnings.detailHtml(a, { projection: derived.projections.get(id), headsUps, covers: coversByAlert(people).get(id) ?? [], now: new Date() }), {
     label: a.event,
     onBack: () => {
       store.set({ selectedId: null });
@@ -454,6 +676,12 @@ function onFeed(id) {
   }
   if (id === 'spc1') pushOutlookToMap();
   if (id === 'tropical') pushTropicalToMap();
+  if (['storm', 'land', 'shapes', 'points', 'spc1'].includes(id)) {
+    computeStatuses(now);
+    renderPeople();
+    renderNow();
+    renderTop();
+  }
   layersMenu.refresh();
   if (id === 'radar' && mapApi) {
     const r = snap('radar');
@@ -485,6 +713,9 @@ setInterval(() => {
   computeAlerts(now);
   computeProjections(now);
   pushPathsToMap();
+  computeStatuses(now);
+  renderPeople();
+  renderTop();
   if (derived.alerts.length !== countLast) {
     countLast = derived.alerts.length;
     pushAlertsToMap();
@@ -518,18 +749,63 @@ store.subscribe((s, changed) => {
     renderNow();
     renderTop();
   }
+  if (changed.has('places')) {
+    savePersisted(storage, KEYS.places, { list: s.places });
+    feeds.points.refresh();
+    ensureForecasts();
+  }
+  if (changed.has('places') || changed.has('me')) {
+    computeStatuses();
+    renderPeople();
+    renderNow();
+    renderTop();
+    updateMeOnMap();
+  }
+  if (changed.has('layers')) renderPeople();
 });
+
+addEventListener('hashchange', () => {
+  if (location.hash.startsWith('#import=')) runImport();
+});
+async function runImport() {
+  const adding = await importFromHash(store.get().places);
+  if (adding.length) {
+    store.set({ places: [...store.get().places, ...adding] });
+    toast({ title: `Added ${adding.length} place${adding.length === 1 ? '' : 's'}`, text: 'Hook Echo is watching them now.', tone: 'ok' });
+    panel.selectTab('people');
+  }
+}
+runImport();
+
+// Resume Where I am only when location is already allowed, so loading the page never prompts.
+if (store.get().settings.meOn && navigator.geolocation && !demo) {
+  navigator.permissions
+    ?.query({ name: 'geolocation' })
+    .then((p) => p.state === 'granted' && startMe())
+    .catch(() => {});
+}
+updateMeOnMap();
 
 mapApi = createMap({
   container: $('#map'),
   theme: effectiveTheme(),
-  onSelectAlert: (id) => selectAlert(id),
-  onFeatureClick: onMapFeature,
+  onSelectAlert: (id, lngLat) => (pickResolve ? finishPick(lngLat) : selectAlert(id)),
+  onFeatureClick: (layer, feature, lngLat) => (pickResolve ? finishPick(lngLat) : onMapFeature(layer, feature, lngLat)),
+  onPick: async (lngLat) => {
+    if (pickResolve) return finishPick(lngLat);
+    if (store.get().places.length >= 25) return toast({ title: 'You already watch 25 places', text: 'Remove one to add another.', tone: 'warning' });
+    const p = { lat: lngLat.lat, lon: lngLat.lng };
+    const r = await reversePlace(p);
+    editor.open({ kind: 'family', name: r.name, lat: p.lat, lon: p.lon, detail: r.name ? `${r.name}${r.detail ? `, ${r.detail}` : ''}` : r.detail }, { keepDraft: true });
+  },
 });
 $('#zoom-in').addEventListener('click', () => mapApi.map.zoomIn());
 $('#zoom-out').addEventListener('click', () => mapApi.map.zoomOut());
 mapApi.ready.then(() => {
   timeline = createTimeline($('#timeline'), mapApi.radar);
+  placeMarkers = createPlaceMarkers(mapApi, focusPlace);
+  updateMeOnMap();
+  renderPeople();
   applyLayerVisibility();
   for (const id of Object.keys(feeds)) onFeed(id);
   if (demo) {

@@ -31,6 +31,27 @@ function fromBase64Url(s) {
   return new TextDecoder('utf-8', { fatal: true }).decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)));
 }
 
+const validPlace = (p) =>
+  p &&
+  typeof p === 'object' &&
+  typeof p.id === 'string' &&
+  p.id &&
+  KINDS.has(p.kind) &&
+  typeof p.name === 'string' &&
+  p.name.trim() &&
+  p.name.length <= MAX_NAME &&
+  Number.isFinite(p.lat) &&
+  Number.isFinite(p.lon) &&
+  Math.abs(p.lat) <= 90 &&
+  Math.abs(p.lon) <= 180 &&
+  (p.from === undefined || DATE_RE.test(p.from)) &&
+  (p.to === undefined || DATE_RE.test(p.to));
+
+/** Places read back from storage: keeps the valid ones, at most MAX_PLACES. */
+export function sanitizePlaces(list) {
+  return (Array.isArray(list) ? list : []).filter(validPlace).slice(0, MAX_PLACES);
+}
+
 /** @param {Place[]} places */
 export function encodePlaces(places) {
   if (places.length > MAX_PLACES) throw new Error('too many places');

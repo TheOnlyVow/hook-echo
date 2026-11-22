@@ -29,6 +29,17 @@ test('more than 25 places is rejected both ways', () => {
   assert.throws(() => decodePlaces(craft({ v: 1, p: many.map((p) => [p.kind, p.name, p.lat, p.lon]) })), /invalid share link/);
 });
 
+test('sanitizePlaces: keeps valid stored places, drops broken ones, caps at 25', async () => {
+  const { sanitizePlaces } = await import('../site/js/lib/share.js');
+  const good = { id: 'a', kind: 'home', name: 'Home', lat: 36.15, lon: -95.99, detail: 'Tulsa, Oklahoma' };
+  const trip = { id: 'b', kind: 'trip', name: 'Stop', lat: 35, lon: -97, from: '2026-11-24', to: '2026-11-25' };
+  const bad = [null, 'x', { id: 'c', kind: 'boss', name: 'X', lat: 1, lon: 1 }, { id: 'd', kind: 'home', name: '', lat: 1, lon: 1 }, { id: 'e', kind: 'home', name: 'Y', lat: 'north', lon: 1 }, { id: 'f', kind: 'trip', name: 'Z', lat: 1, lon: 1, from: 'soon' }];
+  assert.deepEqual(sanitizePlaces([good, ...bad, trip]), [good, trip]);
+  const many = Array.from({ length: 30 }, (_, i) => ({ ...good, id: String(i) }));
+  assert.equal(sanitizePlaces(many).length, MAX_PLACES);
+  assert.deepEqual(sanitizePlaces(undefined), []);
+});
+
 test('out-of-range coordinates and long names are rejected', () => {
   assert.throws(() => decodePlaces(craft({ v: 1, p: [['home', 'Home', 95, -97]] })), /invalid share link/);
   assert.throws(() => decodePlaces(craft({ v: 1, p: [['home', 'x'.repeat(61), 35, -97]] })), /invalid share link/);
