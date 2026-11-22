@@ -14,8 +14,6 @@ const VENDORED = [
   'site/fonts/barlow-condensed-latin-500-normal.woff2',
   'site/fonts/barlow-condensed-latin-600-normal.woff2',
   'site/fonts/barlow-condensed-latin-700-normal.woff2',
-  'site/fonts/jetbrains-mono-latin-400-normal.woff2',
-  'site/fonts/jetbrains-mono-latin-600-normal.woff2',
   'site/fonts/LICENSE-fonts.txt',
 ];
 

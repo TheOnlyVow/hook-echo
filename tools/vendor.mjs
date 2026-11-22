@@ -23,7 +23,6 @@ copy(nm('maplibre-gl', 'LICENSE.txt'), site('vendor', 'maplibre-gl', 'LICENSE.tx
 const FONTS = {
   barlow: [400, 500, 600],
   'barlow-condensed': [500, 600, 700],
-  'jetbrains-mono': [400, 600],
 };
 const licenses = [];
 for (const [family, weights] of Object.entries(FONTS)) {

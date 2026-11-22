@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hook Echo</title>
+<meta name="description" content="Live US storms, tornado paths and warnings, watching the places your people are.">
+<meta name="theme-color" content="#0d1217">
+<meta name="color-scheme" content="dark light">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Hook Echo">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preload" href="fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/barlow-condensed-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="vendor/maplibre-gl/maplibre-gl.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/app.css">
+<script>
+  // Apply the saved theme before first paint so the page never flashes the wrong one.
+  try {
+    var saved = JSON.parse(localStorage.getItem('hook-echo:settings') || '{}').theme;
+    if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved;
+  } catch (e) {}
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="hook-grad" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#2fd27a"/>
+      <stop offset="0.45" stop-color="#ffd43b"/>
+      <stop offset="0.75" stop-color="#ff4b3e"/>
+      <stop offset="1" stop-color="#e040fb"/>
+    </linearGradient>
+  </defs>
+  <symbol id="i-hook" viewBox="0 0 32 32"><path d="M5 24.5C4.3 14.6 11.3 6.3 19.6 7.1c6.3.6 9 7.3 5.3 11.4-2.6 2.9-7.2 2.6-8.6-.4-1-2.2.4-4.4 2.6-4.5" fill="none" stroke="url(#hook-grad)" stroke-width="3.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3.5 3 8.4l9 4.9 9-4.9-9-4.9Z"/><path d="m3 12.6 9 4.9 9-4.9"/><path d="m3 16.7 9 4.8 9-4.8" opacity=".55"/></symbol>
+  <symbol id="i-locate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.25"/><path d="M12 2.5v3.2M12 18.3v3.2M2.5 12h3.2M18.3 12h3.2"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7.5h9.5M18.5 7.5H20M4 16.5h3.5M12.5 16.5H20"/><circle cx="16" cy="7.5" r="2.4"/><circle cx="10" cy="16.5" r="2.4"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M14.5 5.5 8 12l6.5 6.5"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8.5 5.8v12.4a.8.8 0 0 0 1.2.7l9.8-6.2a.8.8 0 0 0 0-1.4L9.7 5.1a.8.8 0 0 0-1.2.7Z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><rect x="7" y="5.5" width="3.4" height="13" rx="1" fill="currentColor" stroke="none"/><rect x="13.6" y="5.5" width="3.4" height="13" rx="1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4.5 11 12 4.5l7.5 6.5v8.3a.7.7 0 0 1-.7.7H14.5v-5.5h-5V20H5.2a.7.7 0 0 1-.7-.7V11Z"/></symbol>
+  <symbol id="i-family" viewBox="0 0 24 24"><circle cx="9" cy="8.2" r="3"/><circle cx="16.8" cy="9.6" r="2.3"/><path d="M3.6 19.2c.6-3.3 2.7-5.2 5.4-5.2s4.8 1.9 5.4 5.2"/><path d="M15.2 14.4c2.7-.3 4.8 1.2 5.3 4.8"/></symbol>
+  <symbol id="i-friend" viewBox="0 0 24 24"><circle cx="12" cy="8.2" r="3.3"/><path d="M5.6 19.8c.7-3.7 3.2-5.8 6.4-5.8s5.7 2.1 6.4 5.8"/></symbol>
+  <symbol id="i-trip" viewBox="0 0 24 24"><path d="M12 20.8s-6.2-5.4-6.2-10.3a6.2 6.2 0 1 1 12.4 0c0 4.9-6.2 10.3-6.2 10.3Z"/><circle cx="12" cy="10.5" r="2.2"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m20 20-4.7-4.7"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 3.5v11.5M7.8 7.6 12 3.5l4.2 4.1"/><path d="M5 12.5v6.8a.7.7 0 0 0 .7.7h12.6a.7.7 0 0 0 .7-.7v-6.8"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l.9 12.4a.7.7 0 0 0 .7.6h7.8a.7.7 0 0 0 .7-.6L17.5 7"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4.5 19.5h3.7L19 8.7a1.4 1.4 0 0 0 0-2l-1.7-1.7a1.4 1.4 0 0 0-2 0L4.5 15.8v3.7Z"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6.2 16.2v-5a5.8 5.8 0 0 1 11.6 0v5l1.7 1.8H4.5l1.7-1.8Z"/><path d="M10 20.2a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.6 4.4 4.4L19 7.4"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4.2 2.9 19.6h18.2L12 4.2Z"/><path d="M12 10.2v4.6M12 17.3v.2"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M12 11v5.2M12 7.9v.2"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6.5 9.5 5.5 5.5 5.5-5.5"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4.5h5.5V10M19.5 4.5 11 13"/><path d="M17.5 14v4.8a.7.7 0 0 1-.7.7H5.2a.7.7 0 0 1-.7-.7V7.2a.7.7 0 0 1 .7-.7H10"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.2"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></symbol>
+  <symbol id="i-heading" viewBox="0 0 24 24"><path d="M12 19.5V5M6.5 10.5 12 5l5.5 5.5"/></symbol>
+  <symbol id="i-tornado" viewBox="0 0 24 24"><path d="M3.5 5h17M5.5 9h13M8 13h8.5M10 17h4.6M11.3 20.8h2"/></symbol>
+  <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4.5 9.3h3.8l4.9-4v13.4l-4.9-4H4.5V9.3Z"/><path d="M16.3 8.8a4.6 4.6 0 0 1 0 6.4M18.8 6.2a8.2 8.2 0 0 1 0 11.6"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M19.5 11.2a7.6 7.6 0 1 0-2.2 5.6"/><path d="M19.8 4.8v5.8H14"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14.5" rx="1.6"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
+  <symbol id="i-offline" viewBox="0 0 24 24"><path d="M3.5 9a13 13 0 0 1 17 0M6.6 12.4a8.6 8.6 0 0 1 10.8 0M9.7 15.8a4 4 0 0 1 4.6 0"/><path d="M4 4l16 16"/></symbol>
+</svg>
+
+<div class="app" id="app">
+  <div id="map" class="map" role="region" aria-label="Storm map. Use the panel to browse warnings and places."></div>
+
+  <div class="map-chrome">
+    <div class="map-controls" id="map-controls">
+      <button class="map-btn" id="btn-layers" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="layers-menu" title="Map layers">
+        <svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg><span class="sr-only">Map layers</span>
+      </button>
+      <button class="map-btn" id="btn-locate" type="button" aria-pressed="false" title="Follow where I am">
+        <svg class="icon" aria-hidden="true"><use href="#i-locate"/></svg><span class="sr-only">Follow where I am</span>
+      </button>
+      <div class="map-zoom" role="group" aria-label="Zoom">
+        <button class="map-btn" id="zoom-in" type="button" title="Zoom in"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg><span class="sr-only">Zoom in</span></button>
+        <button class="map-btn" id="zoom-out" type="button" title="Zoom out"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg><span class="sr-only">Zoom out</span></button>
+      </div>
+    </div>
+    <div id="layers-menu" class="popover layers-menu" role="dialog" aria-label="Map layers" hidden></div>
+    <div id="timeline" class="timeline" role="group" aria-label="Radar loop"></div>
+    <div id="map-hint" class="map-hint" role="status" hidden></div>
+  </div>
+
+  <aside id="panel" class="panel" aria-label="Storms and your places" data-sheet="peek">
+    <button class="sheet-grip" id="sheet-grip" type="button" aria-controls="panel" aria-expanded="false">
+      <span class="sheet-grip-bar" aria-hidden="true"></span><span class="sr-only">Show more of the panel</span>
+    </button>
+    <header class="panel-head" id="panel-head">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><use href="#i-hook"/></svg>
+        <span class="brand-name">Hook Echo</span>
+      </div>
+      <button class="live" id="live-status" type="button" aria-haspopup="dialog" aria-controls="sources-dialog">
+        <span class="live-dot" aria-hidden="true"></span><span class="live-text">Loading</span>
+      </button>
+      <button class="icon-btn" id="open-settings" type="button" aria-haspopup="dialog" aria-controls="settings-dialog" title="Settings">
+        <svg class="icon" aria-hidden="true"><use href="#i-settings"/></svg><span class="sr-only">Settings</span>
+      </button>
+    </header>
+    <div id="banners" class="banners"></div>
+    <section id="summary" class="summary" aria-label="Active right now"></section>
+    <div id="headline" class="headline"></div>
+    <nav class="tabs" role="tablist" aria-label="Panel">
+      <button class="tab" role="tab" id="tab-now" aria-controls="view-now" aria-selected="true" type="button">Now</button>
+      <button class="tab" role="tab" id="tab-people" aria-controls="view-people" aria-selected="false" tabindex="-1" type="button">People</button>
+      <button class="tab" role="tab" id="tab-trips" aria-controls="view-trips" aria-selected="false" tabindex="-1" type="button">Trips</button>
+      <button class="tab" role="tab" id="tab-reports" aria-controls="view-reports" aria-selected="false" tabindex="-1" type="button">Reports</button>
+    </nav>
+    <div class="views" id="views">
+      <section class="view" id="view-now" role="tabpanel" aria-labelledby="tab-now" tabindex="0"></section>
+      <section class="view" id="view-people" role="tabpanel" aria-labelledby="tab-people" tabindex="0" hidden></section>
+      <section class="view" id="view-trips" role="tabpanel" aria-labelledby="tab-trips" tabindex="0" hidden></section>
+      <section class="view" id="view-reports" role="tabpanel" aria-labelledby="tab-reports" tabindex="0" hidden></section>
+      <section class="view view-detail" id="view-detail" aria-live="polite" tabindex="-1" hidden></section>
+    </div>
+    <footer class="panel-foot">Not an official warning source. Keep Wireless Emergency Alerts on.</footer>
+  </aside>
+
+  <div id="toasts" class="toasts" aria-live="polite" aria-atomic="false"></div>
+  <div id="announcer" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+</div>
+
+<dialog id="takeover" class="takeover" aria-labelledby="takeover-title" aria-describedby="takeover-body"></dialog>
+<dialog id="settings-dialog" class="dialog" aria-labelledby="settings-title"></dialog>
+<dialog id="sources-dialog" class="dialog" aria-labelledby="sources-title"></dialog>
+<dialog id="place-dialog" class="dialog" aria-labelledby="place-title"></dialog>
+<dialog id="confirm-dialog" class="dialog dialog-small" aria-labelledby="confirm-title"></dialog>
+
+<script src="vendor/maplibre-gl/maplibre-gl.js"></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

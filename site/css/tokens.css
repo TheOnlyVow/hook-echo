@@ -1,0 +1,187 @@
+/*
+  Hook Echo: a night-shift radar console.
+  Layout: the live map is the scope and fills the screen; one glass panel
+  (a floating column on wide screens, a bottom sheet on phones) is the log.
+  Color is information: only the official hazard, radar and SPC palettes and
+  the place-status colors are saturated. Chrome stays slate and ice.
+  Type: Barlow Condensed for names and numbers that must read at a glance,
+  Barlow for everything else; tabular figures wherever digits change.
+*/
+
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 400; font-display: swap; src: url('../fonts/barlow-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 500; font-display: swap; src: url('../fonts/barlow-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow'; font-style: normal; font-weight: 600; font-display: swap; src: url('../fonts/barlow-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-style: normal; font-weight: 500; font-display: swap; src: url('../fonts/barlow-condensed-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-style: normal; font-weight: 600; font-display: swap; src: url('../fonts/barlow-condensed-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-style: normal; font-weight: 700; font-display: swap; src: url('../fonts/barlow-condensed-latin-700-normal.woff2') format('woff2'); }
+
+:root {
+  color-scheme: dark;
+
+  /* Ground and glass */
+  --ground: #0d1217;
+  --glass: rgb(14 20 27 / 0.86);
+  --glass-solid: #111820;
+  --raised: #18212b;
+  --raised-2: #202a36;
+  --hover: rgb(200 220 245 / 0.06);
+  --press: rgb(200 220 245 / 0.11);
+  --line: rgb(166 184 204 / 0.14);
+  --line-strong: rgb(166 184 204 / 0.28);
+  --scrim: rgb(4 7 10 / 0.62);
+  --shadow: 0 18px 48px rgb(0 0 0 / 0.46), 0 2px 8px rgb(0 0 0 / 0.32);
+
+  /* Ink */
+  --ink: #e7edf4;
+  --ink-2: #a5b2c0;
+  --ink-3: #758395;
+
+  /* Ice: primary actions and focus */
+  --ice: #d4e4ff;
+  --ice-ink: #0a1422;
+  --ice-soft: rgb(212 228 255 / 0.13);
+  --focus: #9cc2ff;
+
+  /* Place status (always shown with a word and an icon) */
+  --st-shelter: #ff4b4b;
+  --st-shelter-fill: #d7262d;
+  --st-shelter-ink: #ffffff;
+  --st-warning: #ff9f1c;
+  --st-warning-ink: #1f1200;
+  --st-watch: #ffd43b;
+  --st-watch-ink: #1d1700;
+  --st-advisory: #93b2ff;
+  --st-advisory-ink: #0a1630;
+  --st-clear: #3ccb8e;
+  --st-unknown: #8d99a8;
+
+  /* Storm report types (validated for both themes, all pairs; shape is the backup encoding) */
+  --rp-tornado: #d42325;
+  --rp-funnel: #c58500;
+  --rp-hail: #007834;
+  --rp-wind: #2e62c9;
+  --rp-flood: #00a6b5;
+  --rp-other: #8d99a8;
+
+  /* EF scale: one hue, light to deep (validated per theme) */
+  --ef0: #ffc5c9;
+  --ef1: #fca0a4;
+  --ef2: #f47a7d;
+  --ef3: #eb5154;
+  --ef4: #d72630;
+  --ef5: #bc0012;
+  --efu: #8d99a8;
+
+  /* Map overlays */
+  --path-line: #f4f7fb;
+  --path-cone: rgb(244 247 251 / 0.09);
+  --path-cone-edge: rgb(244 247 251 / 0.45);
+  --casing: rgb(5 9 13 / 0.85);
+  --me: #4da3ff;
+
+  /* Type */
+  --font-text: 'Barlow', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Barlow Condensed', 'Barlow', 'Arial Narrow', system-ui, sans-serif;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.8125rem;
+  --fs-md: 0.9375rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 2.125rem;
+  --lh-tight: 1.15;
+  --lh-text: 1.45;
+
+  /* Shape and motion */
+  --r-panel: 18px;
+  --r-ctl: 10px;
+  --r-chip: 999px;
+  --panel-w: 404px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur: 220ms;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    color-scheme: light;
+    --ground: #eef2f6;
+    --glass: rgb(250 252 254 / 0.9);
+    --glass-solid: #f8fafc;
+    --raised: #ffffff;
+    --raised-2: #f1f4f8;
+    --hover: rgb(16 36 60 / 0.05);
+    --press: rgb(16 36 60 / 0.09);
+    --line: rgb(20 40 64 / 0.12);
+    --line-strong: rgb(20 40 64 / 0.24);
+    --scrim: rgb(14 22 32 / 0.42);
+    --shadow: 0 16px 40px rgb(15 30 50 / 0.16), 0 2px 6px rgb(15 30 50 / 0.1);
+    --ink: #0f1720;
+    --ink-2: #435163;
+    --ink-3: #66748a;
+    --ice: #1b3f94;
+    --ice-ink: #ffffff;
+    --ice-soft: rgb(27 63 148 / 0.1);
+    --focus: #2457d6;
+    --st-shelter: #c81e24;
+    --st-shelter-fill: #c81e24;
+    --st-warning: #b85f00;
+    --st-watch: #8a6d00;
+    --st-advisory: #3155b8;
+    --st-advisory-ink: #ffffff;
+    --st-clear: #12865a;
+    --st-unknown: #66748a;
+    --ef0: #eb898f;
+    --ef1: #e4686f;
+    --ef2: #da454d;
+    --ef3: #cb1b2c;
+    --ef4: #ae0013;
+    --ef5: #8d0005;
+    --efu: #7a8696;
+    --path-line: #101820;
+    --path-cone: rgb(16 24 32 / 0.08);
+    --path-cone-edge: rgb(16 24 32 / 0.45);
+    --casing: rgb(255 255 255 / 0.9);
+    --me: #1f6fe5;
+  }
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --ground: #eef2f6;
+  --glass: rgb(250 252 254 / 0.9);
+  --glass-solid: #f8fafc;
+  --raised: #ffffff;
+  --raised-2: #f1f4f8;
+  --hover: rgb(16 36 60 / 0.05);
+  --press: rgb(16 36 60 / 0.09);
+  --line: rgb(20 40 64 / 0.12);
+  --line-strong: rgb(20 40 64 / 0.24);
+  --scrim: rgb(14 22 32 / 0.42);
+  --shadow: 0 16px 40px rgb(15 30 50 / 0.16), 0 2px 6px rgb(15 30 50 / 0.1);
+  --ink: #0f1720;
+  --ink-2: #435163;
+  --ink-3: #66748a;
+  --ice: #1b3f94;
+  --ice-ink: #ffffff;
+  --ice-soft: rgb(27 63 148 / 0.1);
+  --focus: #2457d6;
+  --st-shelter: #c81e24;
+  --st-shelter-fill: #c81e24;
+  --st-warning: #b85f00;
+  --st-watch: #8a6d00;
+  --st-advisory: #3155b8;
+  --st-advisory-ink: #ffffff;
+  --st-clear: #12865a;
+  --st-unknown: #66748a;
+  --ef0: #eb898f;
+  --ef1: #e4686f;
+  --ef2: #da454d;
+  --ef3: #cb1b2c;
+  --ef4: #ae0013;
+  --ef5: #8d0005;
+  --efu: #7a8696;
+  --path-line: #101820;
+  --path-cone: rgb(16 24 32 / 0.08);
+  --path-cone-edge: rgb(16 24 32 / 0.45);
+  --casing: rgb(255 255 255 / 0.9);
+  --me: #1f6fe5;
+}
