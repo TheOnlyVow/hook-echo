@@ -962,6 +962,14 @@ mapApi.ready.then(() => {
   }
 });
 
+// Installable app: the service worker keeps the app shell available offline.
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+  navigator.serviceWorker.addEventListener('message', (e) => {
+    if (e.data?.type === 'select-alert' && e.data.id) selectAlert(e.data.id, { fit: true });
+  });
+}
+
 // Keyboard: space toggles the radar loop when focus is on the map.
 $('#map').addEventListener('keydown', (e) => {
   if (e.key === ' ' && mapApi?.radar) {
