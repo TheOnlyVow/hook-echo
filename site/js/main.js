@@ -24,6 +24,10 @@ import { createReports, reportPopup, surveyPopup, tropicalPopup } from './ui/rep
 import { createLayersMenu } from './ui/layersMenu.js';
 import { createPeople, createPlaceEditor, createPlaceMarkers } from './ui/places.js';
 import { createTrips } from './ui/trips.js';
+import { createAlarm } from './ui/alarm.js';
+import { createSettings } from './ui/settings.js';
+import { decideAlarms } from './lib/alarmRules.js';
+import { allowedEvents } from './lib/alarmText.js';
 import { splitTrips, localDate } from './lib/trips.js';
 import { sharePlaces, importFromHash } from './ui/shareFlow.js';
 import { toast } from './ui/toasts.js';
@@ -46,7 +50,7 @@ import { $, esc, icon, tickTimes, announce, rafThrottle } from './ui/dom.js';
 // ---------- Persistent settings ----------
 const storage = safeLocalStorage();
 const KEYS = { settings: 'hook-echo:settings', layers: 'hook-echo:layers', places: 'hook-echo:places' };
-const DEFAULT_SETTINGS = { theme: 'system', dataSaver: 'auto', meOn: false };
+const DEFAULT_SETTINGS = { theme: 'system', dataSaver: 'auto', meOn: false, chimes: true, headsUp: true, notifications: false, keepAwake: false };
 const DEFAULT_LAYERS = { radar: true, warnings: true, watches: true, others: true, paths: true, trails: true, surveys: true, reports: true, outlook: false, outlookKind: 'cat', tropical: true, places: true, reportTypes: ['tornado', 'funnel', 'hail', 'wind', 'flood'] };
 
 const store = createStore({
@@ -447,6 +451,89 @@ $('#btn-locate').addEventListener('click', () => {
   else if (me.position) mapApi?.flyTo([me.position.lon, me.position.lat], 9, panel.mapPadding());
 });
 
+// ---------- Alarms ----------
+const alarm = createAlarm({ dialog: $('#takeover'), onShowOnMap: (id) => selectAlert(id, { fit: true }), demo: Boolean(demo) });
+let sessionStore = null;
+try {
+  sessionStore = globalThis.sessionStorage;
+} catch {
+  sessionStore = null;
+}
+// The demo keeps its own alarm memory for the session, so a replay never silences a real alarm.
+const memoryStore = demo ? sessionStore : storage;
+const MEMORY_KEY = demo ? 'hook-echo:alarm-memory-demo' : 'hook-echo:alarm-memory';
+let alarmMemory = loadPersisted(memoryStore, MEMORY_KEY, {});
+
+function runAlarms() {
+  if (snap('storm').status === 'idle') return;
+  const people = everyone();
+  const statuses = Object.fromEntries(people.map((p) => [p.place.id, p.status]));
+  const { events, memory } = decideAlarms(alarmMemory, statuses, derived.alerts);
+  alarmMemory = memory;
+  savePersisted(memoryStore, MEMORY_KEY, memory);
+  const placeById = new Map(people.map((p) => [p.place.id, p.place]));
+  const allowed = allowedEvents(
+    events.map((e) => ({ ...e, place: placeById.get(e.placeId) })),
+    store.get().settings,
+  );
+  if (allowed.length) alarm.trigger(allowed);
+}
+
+const unlockSound = () => {
+  if (!alarm.unlocked() && alarm.unlock()) renderBanners();
+};
+document.addEventListener('pointerdown', unlockSound, { capture: true });
+document.addEventListener('keydown', unlockSound, { capture: true });
+
+// ---------- Settings ----------
+let installPrompt = null;
+addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  installPrompt = e;
+});
+addEventListener('appinstalled', () => {
+  installPrompt = null;
+  toast({ title: 'Hook Echo is installed', text: 'Open it from your home screen or app list.', tone: 'ok' });
+});
+const isStandalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+
+let wakeLock = null;
+async function applyWakeLock() {
+  const want = store.get().settings.keepAwake && document.visibilityState === 'visible';
+  if (want && !wakeLock && 'wakeLock' in navigator) {
+    try {
+      wakeLock = await navigator.wakeLock.request('screen');
+      wakeLock.addEventListener('release', () => {
+        wakeLock = null;
+      });
+    } catch {
+      wakeLock = null;
+    }
+  } else if (!want && wakeLock) {
+    wakeLock.release().catch(() => {});
+    wakeLock = null;
+  }
+}
+document.addEventListener('visibilitychange', applyWakeLock);
+
+function setSetting(key, value) {
+  store.set({ settings: { ...store.get().settings, [key]: value } });
+  if (key === 'theme') applyTheme();
+  if (key === 'dataSaver') applyDataSaver();
+  if (key === 'keepAwake') applyWakeLock();
+}
+
+const settingsDialog = createSettings({
+  dialog: $('#settings-dialog'),
+  getSettings: () => store.get().settings,
+  setSetting,
+  alarm,
+  onOpenSources: () => sources.open(),
+  getInstall: () => installPrompt,
+  isStandalone,
+});
+$('#open-settings').addEventListener('click', () => settingsDialog.open());
+
 function lastTornado() {
   let best = null;
   for (const a of snap('recent').data ?? []) {
@@ -510,6 +597,10 @@ function renderBanners() {
     html.push(`<div class="banner is-demo" role="status">${icon('info')}<span><strong>Demo replay.</strong> ${esc(demoInfo.label)}, with times shifted to now.${demoInfo.finished ? ' The replay has finished.' : ''}</span>
       <span class="banner-actions">${demoInfo.finished ? '<button class="btn btn-small" type="button" data-demo-restart>Restart</button>' : ''}<button class="btn btn-small" type="button" data-demo-leave>Leave demo</button></span></div>`);
   }
+  if (watchedPlaces().length && !alarm.unlocked()) {
+    html.push(`<div class="banner is-warning" role="status">${icon('sound')}<span><strong>Alarm sound is off.</strong> Browsers keep sound off until you tap the page.</span>
+      <span class="banner-actions"><button class="btn btn-small" type="button" data-sound-on>Turn on sound</button></span></div>`);
+  }
   if (!navigator.onLine) {
     html.push(`<div class="banner is-error" role="status">${icon('offline')}<span><strong>You're offline.</strong> Showing the last data received${snap('storm').updatedAt ? `, from ${esc(clock(new Date(snap('storm').updatedAt)))}` : ''}.</span></div>`);
   } else if (snap('storm').stale && snap('storm').data) {
@@ -518,6 +609,12 @@ function renderBanners() {
   $('#banners').innerHTML = html.join('');
 }
 $('#banners').addEventListener('click', (e) => {
+  if (e.target.closest('[data-sound-on]')) {
+    alarm.unlock();
+    alarm.chime();
+    renderBanners();
+    toast({ title: 'Alarm sound is on', text: 'Keep your volume up on storm nights.', tone: 'ok' });
+  }
   if (e.target.closest('[data-demo-leave]')) {
     demo?.restart();
     history.replaceState(null, '', location.pathname + location.search);
@@ -707,6 +804,7 @@ function onFeed(id) {
   if (id === 'tropical') pushTropicalToMap();
   if (['storm', 'land', 'shapes', 'points', 'spc1', 'spc23'].includes(id)) {
     computeStatuses(now);
+    runAlarms();
     renderPeople();
     renderNow();
     renderTop();
@@ -743,6 +841,7 @@ setInterval(() => {
   computeProjections(now);
   pushPathsToMap();
   computeStatuses(now);
+  runAlarms();
   renderPeople();
   renderTop();
   if (derived.alerts.length !== countLast) {
@@ -762,6 +861,7 @@ setInterval(() => {
 // ---------- Boot ----------
 applyTheme();
 applyDataSaver();
+applyWakeLock();
 renderTop();
 renderNow();
 renderLive();
@@ -785,6 +885,8 @@ store.subscribe((s, changed) => {
   }
   if (changed.has('places') || changed.has('me')) {
     computeStatuses();
+    runAlarms();
+    renderBanners();
     renderPeople();
     renderNow();
     renderTop();
