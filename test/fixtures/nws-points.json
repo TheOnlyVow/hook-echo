@@ -1,0 +1,112 @@
+{
+ "@context": [
+  "https://geojson.org/geojson-ld/geojson-context.jsonld",
+  {
+   "@version": "1.1",
+   "wx": "https://api.weather.gov/ontology#",
+   "s": "https://schema.org/",
+   "geo": "http://www.opengis.net/ont/geosparql#",
+   "unit": "http://codes.wmo.int/common/unit/",
+   "@vocab": "https://api.weather.gov/ontology#",
+   "geometry": {
+    "@id": "s:GeoCoordinates",
+    "@type": "geo:wktLiteral"
+   },
+   "city": "s:addressLocality",
+   "state": "s:addressRegion",
+   "distance": {
+    "@id": "s:Distance",
+    "@type": "s:QuantitativeValue"
+   },
+   "bearing": {
+    "@type": "s:QuantitativeValue"
+   },
+   "value": {
+    "@id": "s:value"
+   },
+   "unitCode": {
+    "@id": "s:unitCode",
+    "@type": "@id"
+   },
+   "forecastOffice": {
+    "@type": "@id"
+   },
+   "forecastGridData": {
+    "@type": "@id"
+   },
+   "publicZone": {
+    "@type": "@id"
+   },
+   "county": {
+    "@type": "@id"
+   }
+  }
+ ],
+ "id": "https://api.weather.gov/points/36.154,-95.993",
+ "type": "Feature",
+ "geometry": {
+  "type": "Point",
+  "coordinates": [
+   -95.993,
+   36.154
+  ]
+ },
+ "properties": {
+  "@id": "https://api.weather.gov/points/36.154,-95.993",
+  "@type": "wx:Point",
+  "cwa": "TSA",
+  "type": "land",
+  "forecastOffice": "https://api.weather.gov/offices/TSA",
+  "gridId": "TSA",
+  "gridX": 41,
+  "gridY": 105,
+  "forecast": "https://api.weather.gov/gridpoints/TSA/41,105/forecast",
+  "forecastHourly": "https://api.weather.gov/gridpoints/TSA/41,105/forecast/hourly",
+  "forecastGridData": "https://api.weather.gov/gridpoints/TSA/41,105",
+  "observationStations": "https://api.weather.gov/gridpoints/TSA/41,105/stations",
+  "relativeLocation": {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.9023162,
+     36.1279488
+    ]
+   },
+   "properties": {
+    "city": "Tulsa",
+    "state": "OK",
+    "distance": {
+     "unitCode": "wmoUnit:m",
+     "value": 0
+    },
+    "bearing": {
+     "unitCode": "wmoUnit:degree_(angle)",
+     "value": 0
+    }
+   }
+  },
+  "forecastZone": "https://api.weather.gov/zones/forecast/OKZ060",
+  "county": "https://api.weather.gov/zones/county/OKC143",
+  "fireWeatherZone": "https://api.weather.gov/zones/fire/OKZ060",
+  "timeZone": "America/Chicago",
+  "radarStation": "KINX",
+  "astronomicalData": {
+   "sunrise": "2026-11-21T07:07:02-06:00",
+   "sunset": "2026-11-21T17:12:45-06:00",
+   "transit": "2026-11-21T12:09:53-06:00",
+   "civilTwilightBegin": "2026-11-21T06:39:27-06:00",
+   "civilTwilightEnd": "2026-11-21T17:40:20-06:00",
+   "nauticalTwilightBegin": "2026-11-21T06:08:08-06:00",
+   "nauticalTwilightEnd": "2026-11-21T18:11:39-06:00",
+   "astronomicalTwilightBegin": "2026-11-21T05:37:28-06:00",
+   "astronomicalTwilightEnd": "2026-11-21T18:42:18-06:00"
+  },
+  "nwr": {
+   "transmitter": "KIH27",
+   "sameCode": "040143",
+   "areaBroadcast": "https://api.weather.gov/radio/KIH27/broadcast",
+   "pointBroadcast": "https://api.weather.gov/points/36.154,-95.993/radio"
+  }
+ }
+}

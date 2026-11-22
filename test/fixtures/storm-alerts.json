@@ -1,0 +1,1416 @@
+{
+ "@context": [
+  "https://geojson.org/geojson-ld/geojson-context.jsonld",
+  {
+   "@version": "1.1",
+   "wx": "https://api.weather.gov/ontology#",
+   "@vocab": "https://api.weather.gov/ontology#"
+  }
+ ],
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.da3efd62a2de79c9163b6ce7aa308fb1b1d01886.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -79.39,
+       25.83
+      ],
+      [
+       -79.6,
+       25.92
+      ],
+      [
+       -79.49,
+       26.2
+      ],
+      [
+       -79.21,
+       26.15
+      ],
+      [
+       -79.39,
+       25.83
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.da3efd62a2de79c9163b6ce7aa308fb1b1d01886.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.da3efd62a2de79c9163b6ce7aa308fb1b1d01886.001.1",
+    "areaDesc": "Waters from Deerfield Beach to Ocean Reef FL from 20 to 60 NM excluding the territorial waters of Bahamas",
+    "geocode": {
+     "SAME": [
+      "075671"
+     ],
+     "UGC": [
+      "AMZ671"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/AMZ671"
+    ],
+    "references": [],
+    "sent": "2026-11-21T21:13:00-05:00",
+    "effective": "2026-11-21T21:13:00-05:00",
+    "onset": "2026-11-21T21:13:00-05:00",
+    "expires": "2026-11-21T22:00:00-05:00",
+    "ends": "2026-11-21T22:00:00-05:00",
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Severe",
+    "certainty": "Likely",
+    "urgency": "Immediate",
+    "event": "Special Marine Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Miami FL",
+    "headline": "Special Marine Warning issued November 21 at 9:13PM EST until November 21 at 10:00PM EST by NWS Miami FL",
+    "description": "SMWMFL\n\nThe National Weather Service in Miami has issued a\n\n* Special Marine Warning for...\nWaters from Deerfield Beach to Ocean Reef FL from 20 to 60 NM\nexcluding the territorial waters of Bahamas...\n\n* Until 1000 PM EST.\n\n* At 913 PM EST, a severe thunderstorm capable of producing\nwaterspouts was located 33 nm east of Sunny Isles, moving northeast\nat 20 knots.\n\nHAZARD...Waterspouts and wind gusts 34 knots or greater.\n\nSOURCE...Radar.\n\nIMPACT...Waterspouts can easily overturn boats and create locally\nhazardous seas. Small craft could be damaged in briefly\nhigher winds and suddenly higher waves.\n\n* The severe thunderstorm will remain over mainly open waters.",
+    "instruction": "Move to safe harbor until hazardous weather passes.\n\nReport severe weather to the Coast Guard or the National Weather\nService. You can also share your report with NWS Miami on Facebook\nand Twitter.",
+    "response": "Avoid",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SMWMFL"
+     ],
+     "WMOidentifier": [
+      "WHUS52 KMFL 220213"
+     ],
+     "eventMotionDescription": [
+      "2026-11-22T02:13:00-00:00...storm...209DEG...21KT...25.96,-79.5"
+     ],
+     "waterspoutDetection": [
+      "POSSIBLE"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.NEW.KMFL.MA.W.0406.261122T0213Z-261122T0300Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T22:00:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SMW"
+     ],
+     "NationalWeatherService": [
+      "MAW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.44b504e020ac0f27159cf2b46dd27170c5b78bd4.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -66.2,
+       18.12
+      ],
+      [
+       -65.96,
+       18.44
+      ],
+      [
+       -65.71,
+       18.33
+      ],
+      [
+       -65.87,
+       18.11
+      ],
+      [
+       -65.91,
+       18.13
+      ],
+      [
+       -65.93,
+       18.12
+      ],
+      [
+       -65.94,
+       18.09
+      ],
+      [
+       -65.98,
+       18.09
+      ],
+      [
+       -66.01,
+       18.08
+      ],
+      [
+       -66.02,
+       18.1
+      ],
+      [
+       -66.05,
+       18.11
+      ],
+      [
+       -66.11,
+       18.1
+      ],
+      [
+       -66.2,
+       18.12
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.44b504e020ac0f27159cf2b46dd27170c5b78bd4.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.44b504e020ac0f27159cf2b46dd27170c5b78bd4.001.1",
+    "areaDesc": "San Juan and Vicinity; Northeast; Eastern Interior",
+    "geocode": {
+     "SAME": [
+      "072021",
+      "072031",
+      "072033",
+      "072061",
+      "072127",
+      "072135",
+      "072137",
+      "072139",
+      "072029",
+      "072037",
+      "072053",
+      "072069",
+      "072087",
+      "072089",
+      "072103",
+      "072119",
+      "072007",
+      "072025",
+      "072035",
+      "072041",
+      "072045",
+      "072063",
+      "072077",
+      "072085",
+      "072129"
+     ],
+     "UGC": [
+      "PRZ001",
+      "PRZ002",
+      "PRZ004"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/PRZ001",
+     "https://api.weather.gov/zones/forecast/PRZ002",
+     "https://api.weather.gov/zones/forecast/PRZ004"
+    ],
+    "references": [],
+    "sent": "2026-11-21T21:59:00-04:00",
+    "effective": "2026-11-21T21:59:00-04:00",
+    "onset": "2026-11-21T21:59:00-04:00",
+    "expires": "2026-11-21T22:45:00-04:00",
+    "ends": null,
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Moderate",
+    "certainty": "Observed",
+    "urgency": "Expected",
+    "event": "Special Weather Statement",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS San Juan PR",
+    "headline": "Special Weather Statement issued November 21 at 9:59PM AST by NWS San Juan PR",
+    "description": "At 959 PM AST, Doppler radar was tracking an area of strong\nthunderstorms over Juncos, moving west at 15 mph.\n\nHAZARD...Wind gusts up to 30 mph.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects.",
+    "instruction": "Monitor the weather situation closely and be alert for threatening\nweather conditions.\n\nFrequent cloud to ground lightning is occurring with this storm.\nLightning can strike 10 miles away from a thunderstorm. Seek a safe\nshelter inside a building or vehicle.\n\nTorrential rainfall is also occurring with this storm and may lead to\nflash flooding. Do not drive your vehicle through flooded roadways.",
+    "response": "Execute",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SPSSJU"
+     ],
+     "WMOidentifier": [
+      "WWCA82 TJSJ 220159"
+     ],
+     "NWSheadline": [
+      "AN AREA OF STRONG THUNDERSTORMS WILL IMPACT EASTERN INTERIOR AND NORTHEASTERN MUNICIPALITIES.  UNTIL 1045 PM AST"
+     ],
+     "eventMotionDescription": [
+      "2026-11-22T01:59:00-00:00...storm...106DEG...14KT...18.21,-65.94"
+     ],
+     "maxWindGust": [
+      "30 MPH"
+     ],
+     "maxHailSize": [
+      "0.00"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SPS"
+     ],
+     "NationalWeatherService": [
+      "SPS"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3fcc1260e28a875c2212340034ab6ed2f0778a65.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.54,
+       27.88
+      ],
+      [
+       -80.12,
+       27.97
+      ],
+      [
+       -80.09,
+       27.89
+      ],
+      [
+       -80.06,
+       27.9
+      ],
+      [
+       -79.88,
+       27.56
+      ],
+      [
+       -80.34,
+       27.43
+      ],
+      [
+       -80.34,
+       27.44
+      ],
+      [
+       -80.36,
+       27.46
+      ],
+      [
+       -80.4,
+       27.65
+      ],
+      [
+       -80.54,
+       27.88
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3fcc1260e28a875c2212340034ab6ed2f0778a65.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.3fcc1260e28a875c2212340034ab6ed2f0778a65.001.1",
+    "areaDesc": "Volusia-Brevard County Line to Sebastian Inlet 0-20 nm; Sebastian Inlet to Jupiter Inlet 0-20 nm; Sebastian Inlet to Jupiter Inlet 20-60 nm",
+    "geocode": {
+     "SAME": [
+      "075552",
+      "075555",
+      "075575"
+     ],
+     "UGC": [
+      "AMZ552",
+      "AMZ555",
+      "AMZ575"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/AMZ552",
+     "https://api.weather.gov/zones/forecast/AMZ555",
+     "https://api.weather.gov/zones/forecast/AMZ575"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.20c2722eb0536c625aa7c7d32ad6ed532ae617d3.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.20c2722eb0536c625aa7c7d32ad6ed532ae617d3.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T20:28:00-05:00"
+     }
+    ],
+    "sent": "2026-11-21T20:54:00-05:00",
+    "effective": "2026-11-21T20:54:00-05:00",
+    "onset": "2026-11-21T20:54:00-05:00",
+    "expires": "2026-11-21T21:30:00-05:00",
+    "ends": "2026-11-21T21:30:00-05:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Severe",
+    "certainty": "Likely",
+    "urgency": "Immediate",
+    "event": "Special Marine Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Melbourne FL",
+    "headline": "Special Marine Warning issued November 21 at 8:54PM EST until November 21 at 9:30PM EST by NWS Melbourne FL",
+    "description": "For the following areas...\nVolusia-Brevard County Line to Sebastian Inlet 0-20 nm...\nSebastian Inlet to Jupiter Inlet 0-20 nm...\nSebastian Inlet to Jupiter Inlet 20-60 nm...\n\nAt 854 PM EST, a severe thunderstorm capable of producing waterspouts\nwas located over Vero Beach South, moving northeast at 20 knots.\n\nHAZARD...Waterspouts and wind gusts to 40 knots.\n\nSOURCE...Radar indicated.\n\nIMPACT...Waterspouts can easily overturn boats and create locally\nhazardous seas. Small craft could be damaged in briefly\nhigher winds and suddenly higher waves.\n\nLocations impacted include...\nJaycee Beach, Floralton Beach, Moorings Of Vero Beach, Indian River\nShores, South Beach, Vero Beach, Disneys Vero Beach Resort, Wabasso\nBeach, Gifford, Winter Beach, Florida Ridge, Orchid, Queens Cove,\nVero Beach South, Pepper Beach Park, Wabasso, Indrio, North Beach,\nLakewood Park and Saint Lucie Village.",
+    "instruction": "Move to safe harbor until hazardous weather passes.",
+    "response": "Avoid",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "MWSMLB"
+     ],
+     "WMOidentifier": [
+      "FZUS72 KMLB 220154"
+     ],
+     "NWSheadline": [
+      "SPECIAL MARINE WARNING REMAINS IN EFFECT UNTIL 930 PM EST"
+     ],
+     "eventMotionDescription": [
+      "2026-11-22T01:28:00-00:00...storm...237DEG...18KT...27.57,-80.55"
+     ],
+     "maxWindGust": [
+      "40 knots"
+     ],
+     "maxHailSize": [
+      "0.00"
+     ],
+     "waterspoutDetection": [
+      "POSSIBLE"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "VTEC": [
+      "/O.CON.KMLB.MA.W.0355.000000T0000Z-261122T0230Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T21:30:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "NWS"
+     ],
+     "NationalWeatherService": [
+      "MAW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5cc9bd6f6815c290e916c10b85e61a52cce9063e.002.1",
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5cc9bd6f6815c290e916c10b85e61a52cce9063e.002.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.5cc9bd6f6815c290e916c10b85e61a52cce9063e.002.1",
+    "areaDesc": "Indian River, FL; Martin, FL; St. Lucie, FL",
+    "geocode": {
+     "SAME": [
+      "012061",
+      "012085",
+      "012111"
+     ],
+     "UGC": [
+      "FLC061",
+      "FLC085",
+      "FLC111"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC061",
+     "https://api.weather.gov/zones/county/FLC085",
+     "https://api.weather.gov/zones/county/FLC111"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2e48559ebe7aaafcb6cd1e3e928432556d0e4227.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.2e48559ebe7aaafcb6cd1e3e928432556d0e4227.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T18:23:00-05:00"
+     }
+    ],
+    "sent": "2026-11-21T20:46:00-05:00",
+    "effective": "2026-11-21T20:46:00-05:00",
+    "onset": "2026-11-21T20:46:00-05:00",
+    "expires": "2026-11-21T22:00:00-05:00",
+    "ends": "2026-11-21T22:00:00-05:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Possible",
+    "urgency": "Future",
+    "event": "Tornado Watch",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Melbourne FL",
+    "headline": "Tornado Watch issued November 21 at 8:46PM EST until November 21 at 10:00PM EST by NWS Melbourne FL",
+    "description": "TORNADO WATCH 706 REMAINS VALID UNTIL 10 PM EST THIS EVENING FOR\nTHE FOLLOWING AREAS\n\nIN FLORIDA THIS WATCH INCLUDES 3 COUNTIES\n\nIN EAST CENTRAL FLORIDA\n\nINDIAN RIVER          MARTIN                ST. LUCIE\n\nTHIS INCLUDES THE CITIES OF FORT PIERCE, GROVENOR ESTATES,\nHOBE SOUND, HOBE SOUND BEACH, INDIANTOWN, JAYCEE BEACH,\nJENSEN BEACH, PALM CITY, PORT SAINT LUCIE, PORT SALERNO,\nSEBASTIAN, SEBASTIAN INLET, STUART, VERO BEACH, VERO BEACH SOUTH,\nAND VERO LAKE ESTATES.",
+    "instruction": null,
+    "response": "Monitor",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "WCNMLB"
+     ],
+     "WMOidentifier": [
+      "WWUS62 KMLB 220146"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.CON.KMLB.TO.A.0706.000000T0000Z-261122T0300Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T22:00:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "TOA"
+     ],
+     "NationalWeatherService": [
+      "TOA"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5cc9bd6f6815c290e916c10b85e61a52cce9063e.003.1",
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5cc9bd6f6815c290e916c10b85e61a52cce9063e.003.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.5cc9bd6f6815c290e916c10b85e61a52cce9063e.003.1",
+    "areaDesc": "Sebastian Inlet to Jupiter Inlet 0-20 nm",
+    "geocode": {
+     "SAME": [
+      "075555"
+     ],
+     "UGC": [
+      "AMZ555"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/AMZ555"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2e48559ebe7aaafcb6cd1e3e928432556d0e4227.002.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.2e48559ebe7aaafcb6cd1e3e928432556d0e4227.002.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T18:23:00-05:00"
+     }
+    ],
+    "sent": "2026-11-21T20:46:00-05:00",
+    "effective": "2026-11-21T20:46:00-05:00",
+    "onset": "2026-11-21T20:46:00-05:00",
+    "expires": "2026-11-21T22:00:00-05:00",
+    "ends": "2026-11-21T22:00:00-05:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Possible",
+    "urgency": "Future",
+    "event": "Tornado Watch",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Melbourne FL",
+    "headline": "Tornado Watch issued November 21 at 8:46PM EST until November 21 at 10:00PM EST by NWS Melbourne FL",
+    "description": "TORNADO WATCH 706 REMAINS VALID UNTIL 10 PM EST THIS EVENING FOR\nTHE FOLLOWING AREAS\n\nTHIS WATCH INCLUDES THE FOLLOWING ADJACENT COASTAL WATERS\n\nSEBASTIAN INLET TO JUPITER INLET 0-20 NM",
+    "instruction": null,
+    "response": "Monitor",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "WCNMLB"
+     ],
+     "WMOidentifier": [
+      "WWUS62 KMLB 220146"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.CON.KMLB.TO.A.0706.000000T0000Z-261122T0300Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T22:00:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "TOA"
+     ],
+     "NationalWeatherService": [
+      "TOA"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.86dc20c7a4fa6f100772f4db49ef8d3cf6e7fb20.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.71,
+       27.16
+      ],
+      [
+       -80.66,
+       27.11
+      ],
+      [
+       -80.66,
+       27.08
+      ],
+      [
+       -80.62,
+       26.99
+      ],
+      [
+       -80.61,
+       26.96
+      ],
+      [
+       -80.59,
+       26.96
+      ],
+      [
+       -80.59,
+       26.89
+      ],
+      [
+       -80.66,
+       26.8
+      ],
+      [
+       -80.66,
+       26.74
+      ],
+      [
+       -80.74,
+       26.66
+      ],
+      [
+       -80.83,
+       26.67
+      ],
+      [
+       -80.86,
+       26.7
+      ],
+      [
+       -80.76,
+       27.19
+      ],
+      [
+       -80.71,
+       27.16
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.86dc20c7a4fa6f100772f4db49ef8d3cf6e7fb20.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.86dc20c7a4fa6f100772f4db49ef8d3cf6e7fb20.001.1",
+    "areaDesc": "Lake Okeechobee",
+    "geocode": {
+     "SAME": [
+      "075610"
+     ],
+     "UGC": [
+      "AMZ610"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/AMZ610"
+    ],
+    "references": [],
+    "sent": "2026-11-21T20:45:00-05:00",
+    "effective": "2026-11-21T20:45:00-05:00",
+    "onset": "2026-11-21T20:45:00-05:00",
+    "expires": "2026-11-21T21:45:00-05:00",
+    "ends": "2026-11-21T21:45:00-05:00",
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Severe",
+    "certainty": "Likely",
+    "urgency": "Immediate",
+    "event": "Special Marine Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Miami FL",
+    "headline": "Special Marine Warning issued November 21 at 8:45PM EST until November 21 at 9:45PM EST by NWS Miami FL",
+    "description": "SMWMFL\n\nThe National Weather Service in Miami has issued a\n\n* Special Marine Warning for...\nLake Okeechobee...\n\n* Until 945 PM EST.\n\n* At 844 PM EST, severe thunderstorms capable of producing\nwaterspouts were located along a line extending from 9 nm north of\nSand Cut to near Lake Harbor, moving east at 10 knots.\n\nHAZARD...Waterspouts and wind gusts 34 knots or greater.\n\nSOURCE...Radar.\n\nIMPACT...Waterspouts can easily overturn boats and create locally\nhazardous seas. Small craft could be damaged in briefly\nhigher winds and suddenly higher waves.\n\n* Locations impacted include...\nCanal Point, Sand Cut, Pahokee, and Lake Harbor.",
+    "instruction": "A Tornado Watch remains in effect until 1000 PM EST for southeastern\nFlorida.\n\nThunderstorms can produce sudden waterspouts. Waterspouts can easily\noverturn boats and create locally hazardous seas. Seek safe harbor\nimmediately.\n\nReport severe weather to the Coast Guard or the National Weather\nService. You can also share your report with NWS Miami on Facebook\nand Twitter.",
+    "response": "Avoid",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SMWMFL"
+     ],
+     "WMOidentifier": [
+      "WHUS52 KMFL 220145"
+     ],
+     "eventMotionDescription": [
+      "2026-11-22T01:44:00-00:00...storm...260DEG...12KT...27.07,-80.66 26.78,-80.77"
+     ],
+     "waterspoutDetection": [
+      "POSSIBLE"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.NEW.KMFL.MA.W.0405.261122T0145Z-261122T0245Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T21:45:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SMW"
+     ],
+     "NationalWeatherService": [
+      "MAW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4eab8c7c3b674e930a0311d364fbd008d924794c.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -79.97,
+       28.47
+      ],
+      [
+       -80.19,
+       28.52
+      ],
+      [
+       -80.16,
+       28.86
+      ],
+      [
+       -79.81,
+       28.74
+      ],
+      [
+       -79.97,
+       28.47
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4eab8c7c3b674e930a0311d364fbd008d924794c.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.4eab8c7c3b674e930a0311d364fbd008d924794c.001.1",
+    "areaDesc": "Volusia-Brevard County Line to Sebastian Inlet 20-60 nm",
+    "geocode": {
+     "SAME": [
+      "075572"
+     ],
+     "UGC": [
+      "AMZ572"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/AMZ572"
+    ],
+    "references": [],
+    "sent": "2026-11-21T20:30:00-05:00",
+    "effective": "2026-11-21T20:30:00-05:00",
+    "onset": "2026-11-21T20:30:00-05:00",
+    "expires": "2026-11-21T21:30:00-05:00",
+    "ends": "2026-11-21T21:30:00-05:00",
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Severe",
+    "certainty": "Likely",
+    "urgency": "Immediate",
+    "event": "Special Marine Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Melbourne FL",
+    "headline": "Special Marine Warning issued November 21 at 8:30PM EST until November 21 at 9:30PM EST by NWS Melbourne FL",
+    "description": "SMWMLB\n\nThe National Weather Service in Melbourne has issued a\n\n* Special Marine Warning for...\nVolusia-Brevard County Line to Sebastian Inlet 20-60 nm...\n\n* Until 930 PM EST.\n\n* At 830 PM EST, a severe thunderstorm capable of producing\nwaterspouts was located 29 NM east of Port Canaveral, moving north\nat 10 knots.\n\nHAZARD...Waterspouts and wind gusts 34 knots or greater.\n\nSOURCE...Radar indicated.\n\nIMPACT...Waterspouts can easily overturn boats and create locally\nhazardous seas. Small craft could be damaged in briefly\nhigher winds and suddenly higher waves.\n\n* Locations impacted include...\nMainly open waters of Volusia-Brevard County Line to Sebastian\nInlet 20-60 nm.",
+    "instruction": "Boaters should seek safe harbor immediately until this storm passes.\nWind gusts 34 knots or greater, high waves, dangerous lightning, and\nheavy rain are possible with this storm.\n\nThunderstorms can produce sudden waterspouts. Waterspouts can easily\noverturn boats and create locally hazardous seas. Seek safe harbor\nimmediately.",
+    "response": "Avoid",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SMWMLB"
+     ],
+     "WMOidentifier": [
+      "WHUS52 KMLB 220130"
+     ],
+     "eventMotionDescription": [
+      "2026-11-22T01:29:00-00:00...storm...195DEG...11KT...28.56,-80.07"
+     ],
+     "maxWindGust": [
+      "34 knots"
+     ],
+     "maxHailSize": [
+      "Up to .75"
+     ],
+     "waterspoutDetection": [
+      "POSSIBLE"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.NEW.KMLB.MA.W.0356.261122T0130Z-261122T0230Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T21:30:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SMW"
+     ],
+     "NationalWeatherService": [
+      "MAW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.236f3aaea916b744e16c394c8cf0f43ded3a01cf.001.1",
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.236f3aaea916b744e16c394c8cf0f43ded3a01cf.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.236f3aaea916b744e16c394c8cf0f43ded3a01cf.001.1",
+    "areaDesc": "Foothills of the Northern Blue Mountains of Oregon; Foothills of the Southern Blue Mountains of Oregon; North Central Oregon; Foothills of the Blue Mountains of Washington",
+    "geocode": {
+     "SAME": [
+      "041059",
+      "041021",
+      "041049",
+      "041069",
+      "041055",
+      "041065",
+      "053013",
+      "053071"
+     ],
+     "UGC": [
+      "ORZ507",
+      "ORZ508",
+      "ORZ510",
+      "WAZ029"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/ORZ507",
+     "https://api.weather.gov/zones/forecast/ORZ508",
+     "https://api.weather.gov/zones/forecast/ORZ510",
+     "https://api.weather.gov/zones/forecast/WAZ029"
+    ],
+    "references": [],
+    "sent": "2026-11-21T17:15:00-08:00",
+    "effective": "2026-11-21T17:15:00-08:00",
+    "onset": "2026-11-21T17:15:00-08:00",
+    "expires": "2026-11-21T22:00:00-08:00",
+    "ends": null,
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Moderate",
+    "certainty": "Observed",
+    "urgency": "Expected",
+    "event": "Special Weather Statement",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Pendleton OR",
+    "headline": "Special Weather Statement issued November 21 at 5:15PM PST by NWS Pendleton OR",
+    "description": "Patchy dense fog and freezing fog is present across north-central\nOregon and along the foothills of the northern and southern Blue\nMountains. Visibilities as low as one quarter mile with spots to\nnear zero visibility are ongoing and will be possible through this\nevening. Motorists are urged to use caution.",
+    "instruction": null,
+    "response": "Execute",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SPSPDT"
+     ],
+     "WMOidentifier": [
+      "WWUS86 KPDT 220115"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SPS"
+     ],
+     "NationalWeatherService": [
+      "SPS"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.81984a7dca2dfc491ceed71335994398a0ed8038.001.1",
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.81984a7dca2dfc491ceed71335994398a0ed8038.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.81984a7dca2dfc491ceed71335994398a0ed8038.001.1",
+    "areaDesc": "Northern High Plains; Eastern Glacier, Western Toole, and Central Pondera; Eastern Toole and Liberty; Southern High Plains; Eastern Pondera and Eastern Teton; Western and Central Chouteau County; Cascade County below 5000ft; Judith Basin County and Judith Gap; Gates of the Mountains",
+    "geocode": {
+     "SAME": [
+      "030035",
+      "030073",
+      "030101",
+      "030051",
+      "030049",
+      "030099",
+      "030015",
+      "030013",
+      "030045",
+      "030027"
+     ],
+     "UGC": [
+      "MTZ302",
+      "MTZ303",
+      "MTZ304",
+      "MTZ308",
+      "MTZ309",
+      "MTZ310",
+      "MTZ312",
+      "MTZ313",
+      "MTZ316"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/MTZ302",
+     "https://api.weather.gov/zones/forecast/MTZ303",
+     "https://api.weather.gov/zones/forecast/MTZ304",
+     "https://api.weather.gov/zones/forecast/MTZ308",
+     "https://api.weather.gov/zones/forecast/MTZ309",
+     "https://api.weather.gov/zones/forecast/MTZ310",
+     "https://api.weather.gov/zones/forecast/MTZ312",
+     "https://api.weather.gov/zones/forecast/MTZ313",
+     "https://api.weather.gov/zones/forecast/MTZ316"
+    ],
+    "references": [],
+    "sent": "2026-11-21T17:26:00-07:00",
+    "effective": "2026-11-21T17:26:00-07:00",
+    "onset": "2026-11-21T17:26:00-07:00",
+    "expires": "2026-11-21T19:30:00-07:00",
+    "ends": null,
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Moderate",
+    "certainty": "Observed",
+    "urgency": "Expected",
+    "event": "Special Weather Statement",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Great Falls MT",
+    "headline": "Special Weather Statement issued November 21 at 5:26PM MST by NWS Great Falls MT",
+    "description": "Wet road surfaces will quickly become icy with the loss of daytime\nheating. High surface moisture and partial clearing skies will\nlead to increased fog development across portions of Central\nMontana through Sunday morning. Conditions may vary over short\ndistances, with visibility dropping to a quarter of a mile or less\nat times. Also, frost deposition make may some roads slippery,\nespecially bridges and other elevated surfaces.\n\nThose with travel plans should be prepared for sudden changes to\nvisibility and road conditions. Slow down and use your low-beam\nheadlights when traveling and leave extra space between vehicles.",
+    "instruction": null,
+    "response": "Execute",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SPSTFX"
+     ],
+     "WMOidentifier": [
+      "WWUS85 KTFX 220026"
+     ],
+     "NWSheadline": [
+      "Wet roads are becoming icy and slippery this evening with patchy dense fog possible tonight into Sunday morning"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SPS"
+     ],
+     "NationalWeatherService": [
+      "SPS"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.fee0b817a0750ed9efea7a73cbc5d6759c140baf.001.1",
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.fee0b817a0750ed9efea7a73cbc5d6759c140baf.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.fee0b817a0750ed9efea7a73cbc5d6759c140baf.001.1",
+    "areaDesc": "Lower Kobuk Valley; Baldwin Peninsula; Northern Seward Peninsula; Shishmaref; Bering Strait Coast; Southern Seward Peninsula Coast; Eastern Norton Sound and Nulato Hills; Yukon Delta Coast",
+    "geocode": {
+     "SAME": [
+      "002188",
+      "002180",
+      "002158"
+     ],
+     "UGC": [
+      "AKZ816",
+      "AKZ817",
+      "AKZ818",
+      "AKZ820",
+      "AKZ821",
+      "AKZ822",
+      "AKZ824",
+      "AKZ825"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/AKZ816",
+     "https://api.weather.gov/zones/forecast/AKZ817",
+     "https://api.weather.gov/zones/forecast/AKZ818",
+     "https://api.weather.gov/zones/forecast/AKZ820",
+     "https://api.weather.gov/zones/forecast/AKZ821",
+     "https://api.weather.gov/zones/forecast/AKZ822",
+     "https://api.weather.gov/zones/forecast/AKZ824",
+     "https://api.weather.gov/zones/forecast/AKZ825"
+    ],
+    "references": [],
+    "sent": "2026-11-21T14:56:00-09:00",
+    "effective": "2026-11-21T14:56:00-09:00",
+    "onset": "2026-11-21T14:56:00-09:00",
+    "expires": "2026-11-22T07:00:00-09:00",
+    "ends": null,
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Moderate",
+    "certainty": "Observed",
+    "urgency": "Expected",
+    "event": "Special Weather Statement",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Fairbanks AK",
+    "headline": "Special Weather Statement issued November 21 at 2:56PM AKST by NWS Fairbanks AK",
+    "description": "Minor coastal erosion and high surf conditions are expected for\nparts of the West Coast as a Bering Sea low passes by Sunday\nthrough early Tuesday. Primarily South to Southeast wind\ndirections could help water levels reach 2-4 feet above the mean\nhigh tide level. No flooding is expected.",
+    "instruction": null,
+    "response": "Execute",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SPSWCZ"
+     ],
+     "WMOidentifier": [
+      "WWAK82 PAFG 212356"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SPS"
+     ],
+     "NationalWeatherService": [
+      "SPS"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bc2448dd1a1c540f7353251c819504d60a79c54c.001.1",
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bc2448dd1a1c540f7353251c819504d60a79c54c.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.bc2448dd1a1c540f7353251c819504d60a79c54c.001.1",
+    "areaDesc": "Palm Beach, FL",
+    "geocode": {
+     "SAME": [
+      "012099"
+     ],
+     "UGC": [
+      "FLC099"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC099"
+    ],
+    "references": [],
+    "sent": "2026-11-21T18:23:00-05:00",
+    "effective": "2026-11-21T18:23:00-05:00",
+    "onset": "2026-11-21T18:25:00-05:00",
+    "expires": "2026-11-21T22:00:00-05:00",
+    "ends": "2026-11-21T22:00:00-05:00",
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Possible",
+    "urgency": "Future",
+    "event": "Tornado Watch",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Miami FL",
+    "headline": "Tornado Watch issued November 21 at 6:23PM EST until November 21 at 10:00PM EST by NWS Miami FL",
+    "description": "THE NATIONAL WEATHER SERVICE HAS ISSUED TORNADO WATCH 706 IN\nEFFECT UNTIL 10 PM EST THIS EVENING FOR THE FOLLOWING AREAS\n\nIN FLORIDA THIS WATCH INCLUDES 1 COUNTY\n\nIN SOUTHEAST FLORIDA\n\nPALM BEACH\n\nTHIS INCLUDES THE CITIES OF BOCA RATON, BOYNTON BEACH,\nDELRAY BEACH, JUPITER, LION COUNTRY SAFARI PARK, WELLINGTON,\nAND WEST PALM BEACH.",
+    "instruction": null,
+    "response": "Monitor",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "WCNMFL"
+     ],
+     "WMOidentifier": [
+      "WWUS62 KMFL 212323"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.NEW.KMFL.TO.A.0706.261121T2325Z-261122T0300Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T22:00:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "TOA"
+     ],
+     "NationalWeatherService": [
+      "TOA"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bc2448dd1a1c540f7353251c819504d60a79c54c.002.1",
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bc2448dd1a1c540f7353251c819504d60a79c54c.002.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.bc2448dd1a1c540f7353251c819504d60a79c54c.002.1",
+    "areaDesc": "Coastal waters from Jupiter Inlet to Deerfield Beach FL out 20 NM",
+    "geocode": {
+     "SAME": [
+      "075650"
+     ],
+     "UGC": [
+      "AMZ650"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/AMZ650"
+    ],
+    "references": [],
+    "sent": "2026-11-21T18:23:00-05:00",
+    "effective": "2026-11-21T18:23:00-05:00",
+    "onset": "2026-11-21T18:25:00-05:00",
+    "expires": "2026-11-21T22:00:00-05:00",
+    "ends": "2026-11-21T22:00:00-05:00",
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Possible",
+    "urgency": "Future",
+    "event": "Tornado Watch",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Miami FL",
+    "headline": "Tornado Watch issued November 21 at 6:23PM EST until November 21 at 10:00PM EST by NWS Miami FL",
+    "description": "THE NATIONAL WEATHER SERVICE HAS ISSUED TORNADO WATCH 706 IN\nEFFECT UNTIL 10 PM EST THIS EVENING FOR THE FOLLOWING AREAS\n\nTHIS WATCH INCLUDES THE FOLLOWING ADJACENT COASTAL WATERS\n\nCOASTAL WATERS FROM JUPITER INLET TO DEERFIELD BEACH FL OUT 20 NM",
+    "instruction": null,
+    "response": "Monitor",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "WCNMFL"
+     ],
+     "WMOidentifier": [
+      "WWUS62 KMFL 212323"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.NEW.KMFL.TO.A.0706.261121T2325Z-261122T0300Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T22:00:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "TOA"
+     ],
+     "NationalWeatherService": [
+      "TOA"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e1d00359662eedfba4906b39cebee769bd3f193a.001.1",
+   "type": "Feature",
+   "geometry": null,
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e1d00359662eedfba4906b39cebee769bd3f193a.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.e1d00359662eedfba4906b39cebee769bd3f193a.001.1",
+    "areaDesc": "West Polk; Kittson; Roseau; Lake Of The Woods; West Marshall; East Marshall; North Beltrami; Pennington; Red Lake; East Polk; North Clearwater; South Beltrami; Towner; Cavalier; Pembina; Benson; Ramsey; Eastern Walsh County; Nelson; Grand Forks; Western Walsh County",
+    "geocode": {
+     "SAME": [
+      "027119",
+      "027069",
+      "027135",
+      "027077",
+      "027089",
+      "027007",
+      "027113",
+      "027125",
+      "027029",
+      "038095",
+      "038019",
+      "038067",
+      "038005",
+      "038071",
+      "038099",
+      "038063",
+      "038035"
+     ],
+     "UGC": [
+      "MNZ001",
+      "MNZ004",
+      "MNZ005",
+      "MNZ006",
+      "MNZ007",
+      "MNZ008",
+      "MNZ009",
+      "MNZ013",
+      "MNZ014",
+      "MNZ015",
+      "MNZ016",
+      "MNZ017",
+      "NDZ006",
+      "NDZ007",
+      "NDZ008",
+      "NDZ014",
+      "NDZ015",
+      "NDZ016",
+      "NDZ026",
+      "NDZ027",
+      "NDZ054"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/forecast/MNZ001",
+     "https://api.weather.gov/zones/forecast/MNZ004",
+     "https://api.weather.gov/zones/forecast/MNZ005",
+     "https://api.weather.gov/zones/forecast/MNZ006",
+     "https://api.weather.gov/zones/forecast/MNZ007",
+     "https://api.weather.gov/zones/forecast/MNZ008",
+     "https://api.weather.gov/zones/forecast/MNZ009",
+     "https://api.weather.gov/zones/forecast/MNZ013",
+     "https://api.weather.gov/zones/forecast/MNZ014",
+     "https://api.weather.gov/zones/forecast/MNZ015",
+     "https://api.weather.gov/zones/forecast/MNZ016",
+     "https://api.weather.gov/zones/forecast/MNZ017",
+     "https://api.weather.gov/zones/forecast/NDZ006",
+     "https://api.weather.gov/zones/forecast/NDZ007",
+     "https://api.weather.gov/zones/forecast/NDZ008",
+     "https://api.weather.gov/zones/forecast/NDZ014",
+     "https://api.weather.gov/zones/forecast/NDZ015",
+     "https://api.weather.gov/zones/forecast/NDZ016",
+     "https://api.weather.gov/zones/forecast/NDZ026",
+     "https://api.weather.gov/zones/forecast/NDZ027",
+     "https://api.weather.gov/zones/forecast/NDZ054"
+    ],
+    "references": [],
+    "sent": "2026-11-21T14:40:00-06:00",
+    "effective": "2026-11-21T14:40:00-06:00",
+    "onset": "2026-11-21T14:40:00-06:00",
+    "expires": "2026-11-22T12:00:00-06:00",
+    "ends": null,
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Moderate",
+    "certainty": "Observed",
+    "urgency": "Expected",
+    "event": "Special Weather Statement",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Grand Forks ND",
+    "headline": "Special Weather Statement issued November 21 at 2:40PM CST by NWS Grand Forks ND",
+    "description": "Light snow tomorrow north of Highway 2 may lead to slippery\nroads. Snowfall totals will be light, but a few spots could see up\nto an inch of accumulation. If you plan on traveling Sunday,\nremember your winter driving skill and allow extra time to reach\nyour destination. Don't use cruise control. Be especially careful\naround stop lights and intersections.\n\nCheck road conditions...\nBy Phone: call 511\nWebsite for North Dakota: travel.dot.nd.gov\nWebsite for Minnesota: 511mn.org",
+    "instruction": null,
+    "response": "Execute",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SPSFGF"
+     ],
+     "WMOidentifier": [
+      "WWUS83 KFGF 212040"
+     ],
+     "NWSheadline": [
+      "LIGHT SNOW WILL AFFECT NORTHEASTERN NORTH DAKOTA AND NORTHWESTERN MINNESOTA SUNDAY"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SPS"
+     ],
+     "NationalWeatherService": [
+      "SPS"
+     ]
+    }
+   }
+  }
+ ],
+ "title": "Current watches, warnings, and advisories",
+ "updated": "2026-11-22T02:15:38+00:00"
+}

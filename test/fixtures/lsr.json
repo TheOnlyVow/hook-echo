@@ -1,0 +1,1805 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "id": "0",
+   "type": "Feature",
+   "properties": {
+    "wfo": "FSD",
+    "type": "N",
+    "magf": 45,
+    "county": "Clay",
+    "typetext": "NON-TSTM WND GST",
+    "state": "IA",
+    "remark": null,
+    "city": "3 SE Spencer",
+    "source": "Mesonet",
+    "unit": "MPH",
+    "valid": "2026-11-20T19:45:00Z",
+    "lon": -95.09,
+    "lat": 43.13,
+    "qualifier": "M",
+    "product_id": "202611210217-KFSD-NWUS53-LSRFSD",
+    "st": "IA",
+    "magnitude": "45"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -95.09,
+     43.13
+    ]
+   }
+  },
+  {
+   "id": "1",
+   "type": "Feature",
+   "properties": {
+    "wfo": "TFX",
+    "type": "S",
+    "magf": 3.4,
+    "county": "Cascade",
+    "typetext": "SNOW",
+    "state": "MT",
+    "remark": "The period of the Snow report was 24 hours.",
+    "city": "2 NW Great Falls",
+    "source": "Public",
+    "unit": "Inch",
+    "valid": "2026-11-21T13:00:00Z",
+    "lon": -111.32,
+    "lat": 47.52,
+    "qualifier": "M",
+    "product_id": "202611220103-KTFX-NWUS55-LSRTFX",
+    "st": "MT",
+    "magnitude": "3.4"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -111.32,
+     47.52
+    ]
+   }
+  },
+  {
+   "id": "2",
+   "type": "Feature",
+   "properties": {
+    "wfo": "PUB",
+    "type": "N",
+    "magf": 74,
+    "county": "Huerfano",
+    "typetext": "NON-TSTM WND GST",
+    "state": "CO",
+    "remark": null,
+    "city": "5 SW La Veta",
+    "source": "Mesonet",
+    "unit": "MPH",
+    "valid": "2026-11-20T11:16:00Z",
+    "lon": -105.07,
+    "lat": 37.46,
+    "qualifier": "M",
+    "product_id": "202611202225-KPUB-NWUS55-LSRPUB",
+    "st": "CO",
+    "magnitude": "74"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.07,
+     37.46
+    ]
+   }
+  },
+  {
+   "id": "3",
+   "type": "Feature",
+   "properties": {
+    "wfo": "LOX",
+    "type": "x",
+    "magf": null,
+    "county": "San Luis Obispo",
+    "typetext": "DEBRIS FLOW",
+    "state": "CA",
+    "remark": "California Highway Patrol reported several large rocks on the number 1 lane on northbound Highway 101.",
+    "city": "2 S Santa Margarita",
+    "source": "Law Enforcement",
+    "unit": null,
+    "valid": "2026-11-19T17:38:00Z",
+    "lon": -120.63,
+    "lat": 35.35,
+    "qualifier": null,
+    "product_id": "202611191825-KLOX-NWUS56-LSRLOX",
+    "st": "CA",
+    "magnitude": ""
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -120.63,
+     35.35
+    ]
+   }
+  },
+  {
+   "id": "4",
+   "type": "Feature",
+   "properties": {
+    "wfo": "VEF",
+    "type": "S",
+    "magf": 8,
+    "county": "Clark",
+    "typetext": "SNOW",
+    "state": "NV",
+    "remark": "The Rainbow Canyon SNOTEL recorded 8 inches of new snow from 0200 PST on November 19th through 1700 PST on November 19th. This SNOTEL is at an elevation of 7860 feet.",
+    "city": "1 SE Mt. Charleston",
+    "source": "Mesonet",
+    "unit": "Inch",
+    "valid": "2026-11-20T01:00:00Z",
+    "lon": -115.63,
+    "lat": 36.25,
+    "qualifier": "E",
+    "product_id": "202611210001-KVEF-NWUS55-LSRVEF",
+    "st": "NV",
+    "magnitude": "8"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -115.63,
+     36.25
+    ]
+   }
+  },
+  {
+   "id": "5",
+   "type": "Feature",
+   "properties": {
+    "wfo": "STO",
+    "type": "S",
+    "magf": 24,
+    "county": "Nevada",
+    "typetext": "SNOW",
+    "state": "CA",
+    "remark": "24 hour total.",
+    "city": "Soda Springs",
+    "source": "Department of Hig",
+    "unit": "Inch",
+    "valid": "2026-11-19T16:00:00Z",
+    "lon": -120.38,
+    "lat": 39.32,
+    "qualifier": "M",
+    "product_id": "202611191835-KSTO-NWUS56-LSRSTO",
+    "st": "CA",
+    "magnitude": "24"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -120.38,
+     39.32
+    ]
+   }
+  },
+  {
+   "id": "6",
+   "type": "Feature",
+   "properties": {
+    "wfo": "JAX",
+    "type": "R",
+    "magf": 4.92,
+    "county": "Putnam",
+    "typetext": "RAIN",
+    "state": "FL",
+    "remark": "Personal weather station RMROutside - KFLCRESC36 measured 4.92 inches of rain. Rain began around 115 AM.",
+    "city": "1 NE Lake Como",
+    "source": "Mesonet",
+    "unit": "Inch",
+    "valid": "2026-11-20T03:21:00Z",
+    "lon": -81.56,
+    "lat": 29.5,
+    "qualifier": "M",
+    "product_id": "202611200322-KJAX-NWUS52-LSRJAX",
+    "st": "FL",
+    "magnitude": "4.92"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -81.56,
+     29.5
+    ]
+   }
+  },
+  {
+   "id": "7",
+   "type": "Feature",
+   "properties": {
+    "wfo": "STO",
+    "type": "E",
+    "magf": null,
+    "county": "El Dorado",
+    "typetext": "FLOOD",
+    "state": "CA",
+    "remark": "Roadway flooding.",
+    "city": "1 S Shingle Springs",
+    "source": "Law Enforcement",
+    "unit": null,
+    "valid": "2026-11-19T15:10:00Z",
+    "lon": -120.94,
+    "lat": 38.66,
+    "qualifier": null,
+    "product_id": "202611191709-KSTO-NWUS56-LSRSTO",
+    "st": "CA",
+    "magnitude": ""
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -120.94,
+     38.66
+    ]
+   }
+  },
+  {
+   "id": "8",
+   "type": "Feature",
+   "properties": {
+    "wfo": "LKN",
+    "type": "A",
+    "magf": 40,
+    "county": "Elko",
+    "typetext": "HIGH SUST WINDS",
+    "state": "NV",
+    "remark": "CWOP Station D6485, elevation 5221 ft.",
+    "city": "1 NE Ryndon",
+    "source": "Mesonet",
+    "unit": "MPH",
+    "valid": "2026-11-19T11:20:00Z",
+    "lon": -115.59,
+    "lat": 40.96,
+    "qualifier": "M",
+    "product_id": "202611212225-KLKN-NWUS55-LSRLKN",
+    "st": "NV",
+    "magnitude": "40"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -115.59,
+     40.96
+    ]
+   }
+  },
+  {
+   "id": "9",
+   "type": "Feature",
+   "properties": {
+    "wfo": "HNX",
+    "type": "J",
+    "magf": 0.25,
+    "county": "Tulare",
+    "typetext": "FOG",
+    "state": "CA",
+    "remark": "Visibility below 1/4 mile at KVIS AWOS (since 5:51 AM PST).",
+    "city": "3 SE Goshen",
+    "source": "ASOS/AWOS",
+    "unit": "M",
+    "valid": "2026-11-21T16:56:00Z",
+    "lon": -119.39,
+    "lat": 36.32,
+    "qualifier": null,
+    "product_id": "202611211738-KHNX-NWUS56-LSRHNX",
+    "st": "CA",
+    "magnitude": "0.25"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -119.39,
+     36.32
+    ]
+   }
+  },
+  {
+   "id": "10",
+   "type": "Feature",
+   "properties": {
+    "wfo": "CYS",
+    "type": "S",
+    "magf": 1.1,
+    "county": "Carbon",
+    "typetext": "SNOW",
+    "state": "WY",
+    "remark": "CoCoRAHS Station WY-CR-4.",
+    "city": "2.1 S Elk Mountain",
+    "source": "CoCoRaHS",
+    "unit": "Inch",
+    "valid": "2026-11-20T14:00:00Z",
+    "lon": -106.41,
+    "lat": 41.66,
+    "qualifier": "M",
+    "product_id": "202611211345-KCYS-NWUS55-LSRCYS",
+    "st": "WY",
+    "magnitude": "1.1"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -106.41,
+     41.66
+    ]
+   }
+  },
+  {
+   "id": "11",
+   "type": "Feature",
+   "properties": {
+    "wfo": "DDC",
+    "type": "J",
+    "magf": 0.24,
+    "county": "Grant",
+    "typetext": "FOG",
+    "state": "KS",
+    "remark": "AWOS KULS Ulysses Airport recorded less than quarter-mile visibility in dense fog.",
+    "city": "2 NW Ulysses",
+    "source": "ASOS/AWOS",
+    "unit": "M",
+    "valid": "2026-11-19T09:55:00Z",
+    "lon": -101.37,
+    "lat": 37.6,
+    "qualifier": null,
+    "product_id": "202611191541-KDDC-NWUS53-LSRDDC",
+    "st": "KS",
+    "magnitude": "0.24"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -101.37,
+     37.6
+    ]
+   }
+  },
+  {
+   "id": "12",
+   "type": "Feature",
+   "properties": {
+    "wfo": "TFX",
+    "type": "S",
+    "magf": 6,
+    "county": "Jefferson",
+    "typetext": "SNOW",
+    "state": "MT",
+    "remark": "&&",
+    "city": "Frohner Meadows SNOTEL",
+    "source": "Mesonet",
+    "unit": "Inch",
+    "valid": "2026-11-21T18:00:00Z",
+    "lon": -112.19,
+    "lat": 46.43,
+    "qualifier": "E",
+    "product_id": "202611211951-KTFX-NWUS55-LSRTFX",
+    "st": "MT",
+    "magnitude": "6"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -112.19,
+     46.43
+    ]
+   }
+  },
+  {
+   "id": "13",
+   "type": "Feature",
+   "properties": {
+    "wfo": "BYZ",
+    "type": "S",
+    "magf": 0.8,
+    "county": "Yellowstone",
+    "typetext": "SNOW",
+    "state": "MT",
+    "remark": null,
+    "city": "3 SE Billings",
+    "source": "Mesonet",
+    "unit": "Inch",
+    "valid": "2026-11-21T16:00:00Z",
+    "lon": -108.48,
+    "lat": 45.77,
+    "qualifier": "M",
+    "product_id": "202611211934-KBYZ-NWUS55-LSRBYZ",
+    "st": "MT",
+    "magnitude": "0.8"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -108.48,
+     45.77
+    ]
+   }
+  },
+  {
+   "id": "14",
+   "type": "Feature",
+   "properties": {
+    "wfo": "PUB",
+    "type": "N",
+    "magf": 61,
+    "county": "Custer",
+    "typetext": "NON-TSTM WND GST",
+    "state": "CO",
+    "remark": "&&",
+    "city": "2 N Silver Cliff",
+    "source": "Mesonet",
+    "unit": "MPH",
+    "valid": "2026-11-20T15:39:00Z",
+    "lon": -105.44,
+    "lat": 38.17,
+    "qualifier": "M",
+    "product_id": "202611202221-KPUB-NWUS55-LSRPUB",
+    "st": "CO",
+    "magnitude": "61"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.44,
+     38.17
+    ]
+   }
+  },
+  {
+   "id": "15",
+   "type": "Feature",
+   "properties": {
+    "wfo": "BYZ",
+    "type": "S",
+    "magf": 2.8,
+    "county": "Stillwater",
+    "typetext": "SNOW",
+    "state": "MT",
+    "remark": null,
+    "city": "6 WSW Park City",
+    "source": "CoCoRaHS",
+    "unit": "Inch",
+    "valid": "2026-11-21T15:00:00Z",
+    "lon": -109.03,
+    "lat": 45.6,
+    "qualifier": "M",
+    "product_id": "202611212120-KBYZ-NWUS55-LSRBYZ",
+    "st": "MT",
+    "magnitude": "2.8"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -109.03,
+     45.6
+    ]
+   }
+  },
+  {
+   "id": "16",
+   "type": "Feature",
+   "properties": {
+    "wfo": "LOX",
+    "type": "F",
+    "magf": null,
+    "county": "Los Angeles",
+    "typetext": "FLASH FLOOD",
+    "state": "CA",
+    "remark": "California Highway Patrol reported significant flooding at the intersection of Highway 101 and State Route 170.",
+    "city": "4 SW Burbank",
+    "source": "Mesonet",
+    "unit": null,
+    "valid": "2026-11-19T16:35:00Z",
+    "lon": -118.37,
+    "lat": 34.15,
+    "qualifier": null,
+    "product_id": "202611191657-KLOX-NWUS56-LSRLOX",
+    "st": "CA",
+    "magnitude": ""
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -118.37,
+     34.15
+    ]
+   }
+  },
+  {
+   "id": "17",
+   "type": "Feature",
+   "properties": {
+    "wfo": "CYS",
+    "type": "S",
+    "magf": 6,
+    "county": "Carbon",
+    "typetext": "SNOW",
+    "state": "WY",
+    "remark": "LITTLE SNAKE RIVER SNOTEL IN THE SIERRA MADRE RANGE. ELEVATION 8928 FEET. SNOW WATER EQUIVALENT IS 0.5 INCHES AND THE AVERAGE SNOW TO LIQUID RATIO USED WAS 11.9 TO 1. ACCUMULATION WAS OVER 12 HOURS ENDING AT 10 AM Nov 20.",
+    "city": "12 SW Encampment",
+    "source": "Park/Forest Servi",
+    "unit": "Inch",
+    "valid": "2026-11-20T17:00:00Z",
+    "lon": -106.94,
+    "lat": 41.07,
+    "qualifier": "E",
+    "product_id": "202611211345-KCYS-NWUS55-LSRCYS",
+    "st": "WY",
+    "magnitude": "6"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -106.94,
+     41.07
+    ]
+   }
+  },
+  {
+   "id": "18",
+   "type": "Feature",
+   "properties": {
+    "wfo": "CYS",
+    "type": "S",
+    "magf": 8.3,
+    "county": "Carbon",
+    "typetext": "SNOW",
+    "state": "WY",
+    "remark": "SAGE CREEK BASIN SNOTEL IN THE SIERRA MADRE RANGE. ELEVATION 7850 FEET. SNOW WATER EQUIVALENT IS 0.8 INCHES AND THE AVERAGE SNOW TO LIQUID RATIO USED WAS 10.4 TO 1. ACCUMULATION WAS OVER 14 HOURS ENDING AT 9 AM Nov 20.",
+    "city": "27 S Rawlins",
+    "source": "Park/Forest Servi",
+    "unit": "Inch",
+    "valid": "2026-11-20T16:00:00Z",
+    "lon": -107.26,
+    "lat": 41.4,
+    "qualifier": "E",
+    "product_id": "202611211345-KCYS-NWUS55-LSRCYS",
+    "st": "WY",
+    "magnitude": "8.3"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -107.26,
+     41.4
+    ]
+   }
+  },
+  {
+   "id": "19",
+   "type": "Feature",
+   "properties": {
+    "wfo": "TFX",
+    "type": "S",
+    "magf": 11,
+    "county": "Gallatin",
+    "typetext": "SNOW",
+    "state": "MT",
+    "remark": "Shower Falls SNOTEL.",
+    "city": "14 N Miner",
+    "source": "Mesonet",
+    "unit": "Inch",
+    "valid": "2026-11-21T19:47:00Z",
+    "lon": -110.95,
+    "lat": 45.4,
+    "qualifier": "M",
+    "product_id": "202611211948-KTFX-NWUS55-LSRTFX",
+    "st": "MT",
+    "magnitude": "11"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -110.95,
+     45.4
+    ]
+   }
+  },
+  {
+   "id": "20",
+   "type": "Feature",
+   "properties": {
+    "wfo": "CYS",
+    "type": "S",
+    "magf": 4.4,
+    "county": "Carbon",
+    "typetext": "SNOW",
+    "state": "WY",
+    "remark": "MEDICINE BOW SNOTEL IN THE SNOWY RANGE. ELEVATION 10512 FEET. SNOW WATER EQUIVALENT IS 0.3 INCHES AND THE AVERAGE SNOW TO LIQUID RATIO USED WAS 14.6 TO 1. ACCUMULATION WAS OVER 9 HOURS ENDING AT 12 PM Nov 20.",
+    "city": "16 SW Arlington",
+    "source": "Park/Forest Servi",
+    "unit": "Inch",
+    "valid": "2026-11-20T19:00:00Z",
+    "lon": -106.35,
+    "lat": 41.38,
+    "qualifier": "E",
+    "product_id": "202611211345-KCYS-NWUS55-LSRCYS",
+    "st": "WY",
+    "magnitude": "4.4"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -106.35,
+     41.38
+    ]
+   }
+  },
+  {
+   "id": "21",
+   "type": "Feature",
+   "properties": {
+    "wfo": "FSD",
+    "type": "N",
+    "magf": 45,
+    "county": "Lyon",
+    "typetext": "NON-TSTM WND GST",
+    "state": "MN",
+    "remark": null,
+    "city": "Florence",
+    "source": "Mesonet",
+    "unit": "MPH",
+    "valid": "2026-11-20T18:05:00Z",
+    "lon": -96.05,
+    "lat": 44.24,
+    "qualifier": "M",
+    "product_id": "202611210217-KFSD-NWUS53-LSRFSD",
+    "st": "MN",
+    "magnitude": "45"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -96.05,
+     44.24
+    ]
+   }
+  },
+  {
+   "id": "22",
+   "type": "Feature",
+   "properties": {
+    "wfo": "CYS",
+    "type": "S",
+    "magf": 2.8,
+    "county": "Carbon",
+    "typetext": "SNOW",
+    "state": "WY",
+    "remark": "NORTH FRENCH CREEK SNOTEL IN THE SNOWY RANGE. ELEVATION 10153 FEET. SNOW WATER EQUIVALENT IS 0.2 INCHES AND THE AVERAGE SNOW TO LIQUID RATIO USED WAS 13.8 TO 1. ACCUMULATION WAS OVER 8 HOURS ENDING AT 11 AM Nov 20.",
+    "city": "14 W Centennial",
+    "source": "Park/Forest Servi",
+    "unit": "Inch",
+    "valid": "2026-11-20T18:00:00Z",
+    "lon": -106.38,
+    "lat": 41.33,
+    "qualifier": "E",
+    "product_id": "202611211345-KCYS-NWUS55-LSRCYS",
+    "st": "WY",
+    "magnitude": "2.8"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -106.38,
+     41.33
+    ]
+   }
+  },
+  {
+   "id": "23",
+   "type": "Feature",
+   "properties": {
+    "wfo": "HNX",
+    "type": "J",
+    "magf": 0.1,
+    "county": "Kings",
+    "typetext": "FOG",
+    "state": "CA",
+    "remark": "Visibility 500-800 feet observed along 6th Ave from Kingsburg to Grangeville Rd.",
+    "city": "7 NE Hanford",
+    "source": "NWS Employee",
+    "unit": "E",
+    "valid": "2026-11-21T15:30:00Z",
+    "lon": -119.56,
+    "lat": 36.4,
+    "qualifier": null,
+    "product_id": "202611211738-KHNX-NWUS56-LSRHNX",
+    "st": "CA",
+    "magnitude": "0.1"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -119.56,
+     36.4
+    ]
+   }
+  },
+  {
+   "id": "24",
+   "type": "Feature",
+   "properties": {
+    "wfo": "BYZ",
+    "type": "S",
+    "magf": 1.5,
+    "county": "Carter",
+    "typetext": "SNOW",
+    "state": "MT",
+    "remark": null,
+    "city": "1.7 NNE Boyes",
+    "source": "CoCoRaHS",
+    "unit": "Inch",
+    "valid": "2026-11-21T15:00:00Z",
+    "lon": -105.02,
+    "lat": 45.29,
+    "qualifier": "M",
+    "product_id": "202611212120-KBYZ-NWUS55-LSRBYZ",
+    "st": "MT",
+    "magnitude": "1.5"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.02,
+     45.29
+    ]
+   }
+  },
+  {
+   "id": "25",
+   "type": "Feature",
+   "properties": {
+    "wfo": "MTR",
+    "type": "E",
+    "magf": null,
+    "county": "Santa Clara",
+    "typetext": "FLOOD",
+    "state": "CA",
+    "remark": "Two lanes of northbound California Highway 87 and two lanes of southbound California Highway 87 were flooded at Julian Street.",
+    "city": "4 NW San Jose",
+    "source": "Law Enforcement",
+    "unit": null,
+    "valid": "2026-11-19T19:55:00Z",
+    "lon": -121.9,
+    "lat": 37.34,
+    "qualifier": null,
+    "product_id": "202611192007-KMTR-NWUS56-LSRMTR",
+    "st": "CA",
+    "magnitude": ""
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -121.9,
+     37.34
+    ]
+   }
+  },
+  {
+   "id": "26",
+   "type": "Feature",
+   "properties": {
+    "wfo": "PUB",
+    "type": "N",
+    "magf": 59,
+    "county": "Huerfano",
+    "typetext": "NON-TSTM WND GST",
+    "state": "CO",
+    "remark": "&&",
+    "city": "5 NE La Veta Pass",
+    "source": "Mesonet",
+    "unit": "MPH",
+    "valid": "2026-11-20T11:59:00Z",
+    "lon": -105.13,
+    "lat": 37.64,
+    "qualifier": "M",
+    "product_id": "202611201221-KPUB-NWUS55-LSRPUB",
+    "st": "CO",
+    "magnitude": "59"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.13,
+     37.64
+    ]
+   }
+  },
+  {
+   "id": "27",
+   "type": "Feature",
+   "properties": {
+    "wfo": "GJT",
+    "type": "R",
+    "magf": 1.1,
+    "county": "Uintah",
+    "typetext": "RAIN",
+    "state": "UT",
+    "remark": null,
+    "city": "18 S Manila",
+    "source": "Mesonet",
+    "unit": "Inch",
+    "valid": "2026-11-20T15:00:00Z",
+    "lon": -109.67,
+    "lat": 40.74,
+    "qualifier": "M",
+    "product_id": "202611201629-KGJT-NWUS55-LSRGJT",
+    "st": "UT",
+    "magnitude": "1.1"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -109.67,
+     40.74
+    ]
+   }
+  },
+  {
+   "id": "28",
+   "type": "Feature",
+   "properties": {
+    "wfo": "BOU",
+    "type": "S",
+    "magf": 6.6,
+    "county": "COC059",
+    "typetext": "SNOW",
+    "state": "CO",
+    "remark": "Storm total snowfall.",
+    "city": "1 N Genesee",
+    "source": "Trained Spotter",
+    "unit": "Inch",
+    "valid": "2026-11-21T18:04:00Z",
+    "lon": -105.28,
+    "lat": 39.7,
+    "qualifier": "M",
+    "product_id": "202611211942-KBOU-NWUS55-LSRBOU",
+    "st": "CO",
+    "magnitude": "6.6"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.28,
+     39.7
+    ]
+   }
+  },
+  {
+   "id": "29",
+   "type": "Feature",
+   "properties": {
+    "wfo": "CYS",
+    "type": "S",
+    "magf": 8.4,
+    "county": "Carbon",
+    "typetext": "SNOW",
+    "state": "WY",
+    "remark": "DIVIDE PEAK SNOTEL IN THE SIERRA MADRE RANGE. ELEVATION 8730 FEET. SNOW WATER EQUIVALENT IS 0.7 INCHES AND THE AVERAGE SNOW TO LIQUID RATIO USED WAS 11.9 TO 1. ACCUMULATION WAS OVER 14 HOURS ENDING AT 10 AM Nov 20.",
+    "city": "20 W Encampment",
+    "source": "Park/Forest Servi",
+    "unit": "Inch",
+    "valid": "2026-11-20T17:00:00Z",
+    "lon": -107.15,
+    "lat": 41.3,
+    "qualifier": "E",
+    "product_id": "202611211345-KCYS-NWUS55-LSRCYS",
+    "st": "WY",
+    "magnitude": "8.4"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -107.15,
+     41.3
+    ]
+   }
+  },
+  {
+   "id": "30",
+   "type": "Feature",
+   "properties": {
+    "wfo": "DDC",
+    "type": "J",
+    "magf": 0.24,
+    "county": "Hamilton",
+    "typetext": "FOG",
+    "state": "KS",
+    "remark": "AWOS K3K3 Syracuse-Hamilton County Municipal Airport reported less than quarter-mile visibility in dense fog.",
+    "city": "1 N Syracuse",
+    "source": "ASOS/AWOS",
+    "unit": "M",
+    "valid": "2026-11-19T12:35:00Z",
+    "lon": -101.75,
+    "lat": 38,
+    "qualifier": null,
+    "product_id": "202611191541-KDDC-NWUS53-LSRDDC",
+    "st": "KS",
+    "magnitude": "0.24"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -101.75,
+     38
+    ]
+   }
+  },
+  {
+   "id": "31",
+   "type": "Feature",
+   "properties": {
+    "wfo": "CYS",
+    "type": "S",
+    "magf": 6.9,
+    "county": "Converse",
+    "typetext": "SNOW",
+    "state": "WY",
+    "remark": "LAPRELE CREEK SNOTEL IN THE LARAMIE RANGE. ELEVATION 8390 FEET. SNOW WATER EQUIVALENT IS 0.6 INCHES AND THE AVERAGE SNOW TO LIQUID RATIO USED WAS 11.5 TO 1. ACCUMULATION WAS OVER 7 HOURS ENDING AT 11 AM Nov 20.",
+    "city": "19 E Shirley Basin",
+    "source": "Park/Forest Servi",
+    "unit": "Inch",
+    "valid": "2026-11-20T18:00:00Z",
+    "lon": -105.86,
+    "lat": 42.44,
+    "qualifier": "E",
+    "product_id": "202611211345-KCYS-NWUS55-LSRCYS",
+    "st": "WY",
+    "magnitude": "6.9"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.86,
+     42.44
+    ]
+   }
+  },
+  {
+   "id": "32",
+   "type": "Feature",
+   "properties": {
+    "wfo": "MTR",
+    "type": "E",
+    "magf": null,
+    "county": "Santa Clara",
+    "typetext": "FLOOD",
+    "state": "CA",
+    "remark": "Road flooding blocking right two lanes.",
+    "city": "2 SW East Foothills",
+    "source": "Law Enforcement",
+    "unit": null,
+    "valid": "2026-11-19T03:03:00Z",
+    "lon": -121.84,
+    "lat": 37.36,
+    "qualifier": null,
+    "product_id": "202611190312-KMTR-NWUS56-LSRMTR",
+    "st": "CA",
+    "magnitude": ""
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -121.84,
+     37.36
+    ]
+   }
+  },
+  {
+   "id": "33",
+   "type": "Feature",
+   "properties": {
+    "wfo": "ABQ",
+    "type": "S",
+    "magf": 1,
+    "county": "Rio Arriba",
+    "typetext": "SNOW",
+    "state": "NM",
+    "remark": "Bateman SNOTEL.",
+    "city": "7 E Canjilon",
+    "source": "Other Federal",
+    "unit": "Inch",
+    "valid": "2026-11-21T20:00:00Z",
+    "lon": -106.32,
+    "lat": 36.51,
+    "qualifier": "E",
+    "product_id": "202611212055-KABQ-NWUS55-LSRABQ",
+    "st": "NM",
+    "magnitude": "1"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -106.32,
+     36.51
+    ]
+   }
+  },
+  {
+   "id": "34",
+   "type": "Feature",
+   "properties": {
+    "wfo": "VEF",
+    "type": "N",
+    "magf": 58,
+    "county": "Inyo",
+    "typetext": "NON-TSTM WND GST",
+    "state": "CA",
+    "remark": "Single gust of 58 mph measured at Five Mile RAWS sensor. FMRC1.",
+    "city": "14 N Indian Wells Valle",
+    "source": "Mesonet",
+    "unit": "MPH",
+    "valid": "2026-11-19T23:26:00Z",
+    "lon": -117.92,
+    "lat": 35.87,
+    "qualifier": "M",
+    "product_id": "202611210001-KVEF-NWUS55-LSRVEF",
+    "st": "CA",
+    "magnitude": "58"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -117.92,
+     35.87
+    ]
+   }
+  },
+  {
+   "id": "35",
+   "type": "Feature",
+   "properties": {
+    "wfo": "MTR",
+    "type": "O",
+    "magf": null,
+    "county": "Santa Cruz",
+    "typetext": "NON-TSTM WND DMG",
+    "state": "CA",
+    "remark": "Tree down on Felton Empire Road partially blocking the eastbound lane from Empire Grade to California Highway 9.",
+    "city": "3 W Felton",
+    "source": "Law Enforcement",
+    "unit": null,
+    "valid": "2026-11-19T14:43:00Z",
+    "lon": -122.12,
+    "lat": 37.06,
+    "qualifier": null,
+    "product_id": "202611191457-KMTR-NWUS56-LSRMTR",
+    "st": "CA",
+    "magnitude": ""
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -122.12,
+     37.06
+    ]
+   }
+  },
+  {
+   "id": "36",
+   "type": "Feature",
+   "properties": {
+    "wfo": "REV",
+    "type": "S",
+    "magf": 14,
+    "county": "Mono",
+    "typetext": "SNOW",
+    "state": "CA",
+    "remark": "June Mountain Ski Base measured 14 inches of snow in the last 24 hours.",
+    "city": "June Mountain Ski Base",
+    "source": "Public",
+    "unit": "Inch",
+    "valid": "2026-11-19T16:00:00Z",
+    "lon": -119.09,
+    "lat": 37.76,
+    "qualifier": "M",
+    "product_id": "202611191731-KREV-NWUS55-LSRREV",
+    "st": "CA",
+    "magnitude": "14"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -119.09,
+     37.76
+    ]
+   }
+  },
+  {
+   "id": "37",
+   "type": "Feature",
+   "properties": {
+    "wfo": "STO",
+    "type": "S",
+    "magf": 16,
+    "county": "Plumas",
+    "typetext": "SNOW",
+    "state": "CA",
+    "remark": "48 hour total. 12.5 inches in the last 24 hours.",
+    "city": "5 NE Bucks Lake",
+    "source": "CoCoRaHS",
+    "unit": "Inch",
+    "valid": "2026-11-19T15:30:00Z",
+    "lon": -121.1,
+    "lat": 39.92,
+    "qualifier": "M",
+    "product_id": "202611191709-KSTO-NWUS56-LSRSTO",
+    "st": "CA",
+    "magnitude": "16"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -121.1,
+     39.92
+    ]
+   }
+  },
+  {
+   "id": "38",
+   "type": "Feature",
+   "properties": {
+    "wfo": "ABQ",
+    "type": "S",
+    "magf": 4.1,
+    "county": "Taos",
+    "typetext": "SNOW",
+    "state": "NM",
+    "remark": "Taos Ski Valley Shalako Gully.",
+    "city": "2 S Taos Ski Valley",
+    "source": "Public",
+    "unit": "Inch",
+    "valid": "2026-11-21T22:12:00Z",
+    "lon": -105.45,
+    "lat": 36.57,
+    "qualifier": "M",
+    "product_id": "202611212329-KABQ-NWUS55-LSRABQ",
+    "st": "NM",
+    "magnitude": "4.1"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.45,
+     36.57
+    ]
+   }
+  },
+  {
+   "id": "39",
+   "type": "Feature",
+   "properties": {
+    "wfo": "JAX",
+    "type": "v",
+    "magf": null,
+    "county": "St. Johns",
+    "typetext": "COASTAL FLOOD",
+    "state": "FL",
+    "remark": "The Deep Creek at Spuds gauge near Hastings in St Johns County is reporting Major Flood due to the combination of runoff rainwater and an ongoing reverse flow event in the St Johns River. At this time, the gauge has reached at stage height of 4.24 feet.",
+    "city": "1 SW Spuds",
+    "source": "Official NWS Obse",
+    "unit": null,
+    "valid": "2026-11-21T11:34:00Z",
+    "lon": -81.49,
+    "lat": 29.73,
+    "qualifier": null,
+    "product_id": "202611211138-KJAX-NWUS52-LSRJAX",
+    "st": "FL",
+    "magnitude": ""
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -81.49,
+     29.73
+    ]
+   }
+  },
+  {
+   "id": "40",
+   "type": "Feature",
+   "properties": {
+    "wfo": "MTR",
+    "type": "x",
+    "magf": null,
+    "county": "Marin",
+    "typetext": "LANDSLIDE",
+    "state": "CA",
+    "remark": "A rockslide was reported into the northbound lane of California Highway 1 near the Keys Creek Fishing Access location.",
+    "city": "9 SE Bodega Bay",
+    "source": "Law Enforcement",
+    "unit": null,
+    "valid": "2026-11-19T15:11:00Z",
+    "lon": -122.91,
+    "lat": 38.23,
+    "qualifier": null,
+    "product_id": "202611191516-KMTR-NWUS56-LSRMTR",
+    "st": "CA",
+    "magnitude": ""
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -122.91,
+     38.23
+    ]
+   }
+  },
+  {
+   "id": "41",
+   "type": "Feature",
+   "properties": {
+    "wfo": "LOX",
+    "type": "N",
+    "magf": 73,
+    "county": "Los Angeles",
+    "typetext": "NON-TSTM WND GST",
+    "state": "CA",
+    "remark": null,
+    "city": "8 S Agua Dulce",
+    "source": "Mesonet",
+    "unit": "MPH",
+    "valid": "2026-11-19T14:30:00Z",
+    "lon": -118.34,
+    "lat": 34.39,
+    "qualifier": "M",
+    "product_id": "202611191501-KLOX-NWUS56-LSRLOX",
+    "st": "CA",
+    "magnitude": "73"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -118.34,
+     34.39
+    ]
+   }
+  },
+  {
+   "id": "42",
+   "type": "Feature",
+   "properties": {
+    "wfo": "TFX",
+    "type": "S",
+    "magf": 4,
+    "county": "Lewis and Clark",
+    "typetext": "SNOW",
+    "state": "MT",
+    "remark": "Copper Camp SNOTEL.",
+    "city": "9 N Lincoln",
+    "source": "Mesonet",
+    "unit": "Inch",
+    "valid": "2026-11-21T19:59:00Z",
+    "lon": -112.73,
+    "lat": 47.08,
+    "qualifier": "M",
+    "product_id": "202611212000-KTFX-NWUS55-LSRTFX",
+    "st": "MT",
+    "magnitude": "4"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -112.73,
+     47.08
+    ]
+   }
+  },
+  {
+   "id": "43",
+   "type": "Feature",
+   "properties": {
+    "wfo": "LOX",
+    "type": "G",
+    "magf": 69,
+    "county": "Los Angeles",
+    "typetext": "TSTM WND GST",
+    "state": "CA",
+    "remark": "Thunderstorm wind gust of 69 MPH reported at Magic Mountain Truck Trail.",
+    "city": "8 S Agua Dulce",
+    "source": "Mesonet",
+    "unit": "MPH",
+    "valid": "2026-11-19T15:20:00Z",
+    "lon": -118.34,
+    "lat": 34.39,
+    "qualifier": "M",
+    "product_id": "202611191543-KLOX-NWUS56-LSRLOX",
+    "st": "CA",
+    "magnitude": "69"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -118.34,
+     34.39
+    ]
+   }
+  },
+  {
+   "id": "44",
+   "type": "Feature",
+   "properties": {
+    "wfo": "TFX",
+    "type": "S",
+    "magf": 7,
+    "county": "Gallatin",
+    "typetext": "SNOW",
+    "state": "MT",
+    "remark": "Brackett Creek SNOTEL.",
+    "city": "16 N Bozeman",
+    "source": "Mesonet",
+    "unit": "Inch",
+    "valid": "2026-11-21T19:49:00Z",
+    "lon": -110.93,
+    "lat": 45.89,
+    "qualifier": "M",
+    "product_id": "202611211950-KTFX-NWUS55-LSRTFX",
+    "st": "MT",
+    "magnitude": "7"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -110.93,
+     45.89
+    ]
+   }
+  },
+  {
+   "id": "45",
+   "type": "Feature",
+   "properties": {
+    "wfo": "CYS",
+    "type": "N",
+    "magf": 58,
+    "county": "Laramie",
+    "typetext": "NON-TSTM WND GST",
+    "state": "WY",
+    "remark": "&&",
+    "city": "5 S Hillsdale",
+    "source": "Mesonet",
+    "unit": "MPH",
+    "valid": "2026-11-20T20:33:00Z",
+    "lon": -104.49,
+    "lat": 41.15,
+    "qualifier": "M",
+    "product_id": "202611202109-KCYS-NWUS55-LSRCYS",
+    "st": "WY",
+    "magnitude": "58"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -104.49,
+     41.15
+    ]
+   }
+  },
+  {
+   "id": "46",
+   "type": "Feature",
+   "properties": {
+    "wfo": "BYZ",
+    "type": "S",
+    "magf": 2.5,
+    "county": "Golden Valley",
+    "typetext": "SNOW",
+    "state": "MT",
+    "remark": null,
+    "city": "9 NE Hedgesville",
+    "source": "Mesonet",
+    "unit": "Inch",
+    "valid": "2026-11-21T14:00:00Z",
+    "lon": -109.34,
+    "lat": 46.53,
+    "qualifier": "M",
+    "product_id": "202611212120-KBYZ-NWUS55-LSRBYZ",
+    "st": "MT",
+    "magnitude": "2.5"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -109.34,
+     46.53
+    ]
+   }
+  },
+  {
+   "id": "47",
+   "type": "Feature",
+   "properties": {
+    "wfo": "BOU",
+    "type": "S",
+    "magf": 3,
+    "county": "Park",
+    "typetext": "SNOW",
+    "state": "CO",
+    "remark": null,
+    "city": "1 NW Grant",
+    "source": "Mesonet",
+    "unit": "Inch",
+    "valid": "2026-11-21T14:30:00Z",
+    "lon": -105.68,
+    "lat": 39.46,
+    "qualifier": "M",
+    "product_id": "202611211942-KBOU-NWUS55-LSRBOU",
+    "st": "CO",
+    "magnitude": "3"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -105.68,
+     39.46
+    ]
+   }
+  },
+  {
+   "id": "48",
+   "type": "Feature",
+   "properties": {
+    "wfo": "GLD",
+    "type": "J",
+    "magf": 0.25,
+    "county": "Norton",
+    "typetext": "FOG",
+    "state": "KS",
+    "remark": "KNRN measured quarter mile visibility in fog.",
+    "city": "1 N Norton",
+    "source": "ASOS/AWOS",
+    "unit": "M",
+    "valid": "2026-11-19T16:15:00Z",
+    "lon": -99.89,
+    "lat": 39.85,
+    "qualifier": null,
+    "product_id": "202611191643-KGLD-NWUS53-LSRGLD",
+    "st": "KS",
+    "magnitude": "0.25"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -99.89,
+     39.85
+    ]
+   }
+  },
+  {
+   "id": "49",
+   "type": "Feature",
+   "properties": {
+    "wfo": "VEF",
+    "type": "S",
+    "magf": 5,
+    "county": "Clark",
+    "typetext": "SNOW",
+    "state": "NV",
+    "remark": "The Lee Canyon SNOTEL recorded 5 inches of new snow from 0300 PST on November 19th through 1700 PST on November 19th. This SNOTEL is at an elevation of 8626 feet.",
+    "city": "4 NW Mt. Charleston",
+    "source": "Mesonet",
+    "unit": "Inch",
+    "valid": "2026-11-20T01:00:00Z",
+    "lon": -115.68,
+    "lat": 36.31,
+    "qualifier": "E",
+    "product_id": "202611201147-KVEF-NWUS55-LSRVEF",
+    "st": "NV",
+    "magnitude": "5"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -115.68,
+     36.31
+    ]
+   }
+  },
+  {
+   "id": "50",
+   "type": "Feature",
+   "properties": {
+    "wfo": "HNX",
+    "type": "N",
+    "magf": 72,
+    "county": "Kern",
+    "typetext": "NON-TSTM WND GST",
+    "state": "CA",
+    "remark": null,
+    "city": "16 S Taft",
+    "source": "Mesonet",
+    "unit": "MPH",
+    "valid": "2026-11-19T08:00:00Z",
+    "lon": -119.41,
+    "lat": 34.92,
+    "qualifier": "M",
+    "product_id": "202611191427-KHNX-NWUS56-LSRHNX",
+    "st": "CA",
+    "magnitude": "72"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -119.41,
+     34.92
+    ]
+   }
+  },
+  {
+   "id": "51",
+   "type": "Feature",
+   "properties": {
+    "wfo": "MTR",
+    "type": "E",
+    "magf": null,
+    "county": "Santa Clara",
+    "typetext": "FLOOD",
+    "state": "CA",
+    "remark": "Roadway flooding was reported on westbound California Highway 152 just south of Ferguson Road.",
+    "city": "3 E Gilroy",
+    "source": "Law Enforcement",
+    "unit": null,
+    "valid": "2026-11-19T14:00:00Z",
+    "lon": -121.52,
+    "lat": 37.01,
+    "qualifier": null,
+    "product_id": "202611191410-KMTR-NWUS56-LSRMTR",
+    "st": "CA",
+    "magnitude": ""
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -121.52,
+     37.01
+    ]
+   }
+  },
+  {
+   "id": "52",
+   "type": "Feature",
+   "properties": {
+    "wfo": "GJT",
+    "type": "N",
+    "magf": 56,
+    "county": "Garfield",
+    "typetext": "NON-TSTM WND GST",
+    "state": "CO",
+    "remark": null,
+    "city": "2 SE Rifle",
+    "source": "Mesonet",
+    "unit": "MPH",
+    "valid": "2026-11-20T12:51:00Z",
+    "lon": -107.75,
+    "lat": 39.51,
+    "qualifier": "M",
+    "product_id": "202611201628-KGJT-NWUS55-LSRGJT",
+    "st": "CO",
+    "magnitude": "56"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -107.75,
+     39.51
+    ]
+   }
+  },
+  {
+   "id": "53",
+   "type": "Feature",
+   "properties": {
+    "wfo": "LKN",
+    "type": "S",
+    "magf": 7,
+    "county": "Elko",
+    "typetext": "SNOW",
+    "state": "NV",
+    "remark": null,
+    "city": "SeventySix Creek Snotel",
+    "source": "Mesonet",
+    "unit": "Inch",
+    "valid": "2026-11-20T20:00:00Z",
+    "lon": -115.47,
+    "lat": 41.74,
+    "qualifier": "M",
+    "product_id": "202611210240-KLKN-NWUS55-LSRLKN",
+    "st": "NV",
+    "magnitude": "7"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -115.47,
+     41.74
+    ]
+   }
+  },
+  {
+   "id": "54",
+   "type": "Feature",
+   "properties": {
+    "wfo": "CHS",
+    "type": "R",
+    "magf": 2.5,
+    "county": "Chatham",
+    "typetext": "RAIN",
+    "state": "GA",
+    "remark": "The Savannah River at Savannah USGS site measured 2.50 inches of rain over the last 24 hours.",
+    "city": "1 NW Lepageville",
+    "source": "Other Federal",
+    "unit": "Inch",
+    "valid": "2026-11-21T23:15:00Z",
+    "lon": -81.08,
+    "lat": 32.08,
+    "qualifier": "M",
+    "product_id": "202611220035-KCHS-NWUS52-LSRCHS",
+    "st": "GA",
+    "magnitude": "2.5"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -81.08,
+     32.08
+    ]
+   }
+  },
+  {
+   "id": "55",
+   "type": "Feature",
+   "properties": {
+    "wfo": "FSD",
+    "type": "N",
+    "magf": 48,
+    "county": "Plymouth",
+    "typetext": "NON-TSTM WND GST",
+    "state": "IA",
+    "remark": null,
+    "city": "5 N Sioux City",
+    "source": "Mesonet",
+    "unit": "MPH",
+    "valid": "2026-11-20T18:30:00Z",
+    "lon": -96.37,
+    "lat": 42.57,
+    "qualifier": "M",
+    "product_id": "202611210217-KFSD-NWUS53-LSRFSD",
+    "st": "IA",
+    "magnitude": "48"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -96.37,
+     42.57
+    ]
+   }
+  },
+  {
+   "id": "56",
+   "type": "Feature",
+   "properties": {
+    "wfo": "GJT",
+    "type": "N",
+    "magf": 49,
+    "county": "Daggett",
+    "typetext": "NON-TSTM WND GST",
+    "state": "UT",
+    "remark": null,
+    "city": "1 S Manila",
+    "source": "Mesonet",
+    "unit": "MPH",
+    "valid": "2026-11-19T20:50:00Z",
+    "lon": -109.72,
+    "lat": 40.97,
+    "qualifier": "M",
+    "product_id": "202611201628-KGJT-NWUS55-LSRGJT",
+    "st": "UT",
+    "magnitude": "49"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -109.72,
+     40.97
+    ]
+   }
+  },
+  {
+   "id": "57",
+   "type": "Feature",
+   "properties": {
+    "wfo": "MTR",
+    "type": "x",
+    "magf": null,
+    "county": "Monterey",
+    "typetext": "LANDSLIDE",
+    "state": "CA",
+    "remark": "Four small rock slides impacting both lanes of Arroyo Seco Road.",
+    "city": "16 SW Soledad",
+    "source": "Law Enforcement",
+    "unit": null,
+    "valid": "2026-11-19T04:41:00Z",
+    "lon": -121.48,
+    "lat": 36.24,
+    "qualifier": null,
+    "product_id": "202611190540-KMTR-NWUS56-LSRMTR",
+    "st": "CA",
+    "magnitude": ""
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -121.48,
+     36.24
+    ]
+   }
+  },
+  {
+   "id": "58",
+   "type": "Feature",
+   "properties": {
+    "wfo": "JAX",
+    "type": "E",
+    "magf": null,
+    "county": "Flagler",
+    "typetext": "FLOOD",
+    "state": "FL",
+    "remark": "Multiple flooded roads with overflowing ditches in the R and L sections of Palm Coast. Time was estimated. Photos were relayed via social media.",
+    "city": "3 NE Bunnell",
+    "source": "Emergency Manager",
+    "unit": null,
+    "valid": "2026-11-20T19:34:00Z",
+    "lon": -81.23,
+    "lat": 29.5,
+    "qualifier": null,
+    "product_id": "202611210337-KJAX-NWUS52-LSRJAX",
+    "st": "FL",
+    "magnitude": ""
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -81.23,
+     29.5
+    ]
+   }
+  },
+  {
+   "id": "59",
+   "type": "Feature",
+   "properties": {
+    "wfo": "VEF",
+    "type": "S",
+    "magf": 7,
+    "county": "Clark",
+    "typetext": "SNOW",
+    "state": "NV",
+    "remark": "The Bristlecone Trail SNOTEL recorded 7 inches of new snow from 2300 PST on November 18th through 1900 PST on November 19th. This SNOTEL is at an elevation of 8890 feet.",
+    "city": "5 NW Mt. Charleston",
+    "source": "Mesonet",
+    "unit": "Inch",
+    "valid": "2026-11-20T03:00:00Z",
+    "lon": -115.7,
+    "lat": 36.32,
+    "qualifier": "E",
+    "product_id": "202611210001-KVEF-NWUS55-LSRVEF",
+    "st": "NV",
+    "magnitude": "7"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -115.7,
+     36.32
+    ]
+   }
+  }
+ ]
+}

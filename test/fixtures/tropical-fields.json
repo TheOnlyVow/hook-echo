@@ -1,0 +1,400 @@
+{
+ "points": [
+  {
+   "name": "objectid",
+   "type": "esriFieldTypeOID",
+   "alias": "FID"
+  },
+  {
+   "name": "stormname",
+   "type": "esriFieldTypeString",
+   "alias": "Storm Name"
+  },
+  {
+   "name": "stormtype",
+   "type": "esriFieldTypeString",
+   "alias": "Storm Type"
+  },
+  {
+   "name": "dvlbl",
+   "type": "esriFieldTypeString",
+   "alias": "Forecast Storm Type"
+  },
+  {
+   "name": "basin",
+   "type": "esriFieldTypeString",
+   "alias": "Basin"
+  },
+  {
+   "name": "advdate",
+   "type": "esriFieldTypeString",
+   "alias": "Advisory Date"
+  },
+  {
+   "name": "advisnum",
+   "type": "esriFieldTypeString",
+   "alias": "Advisories Number"
+  },
+  {
+   "name": "fcstprd",
+   "type": "esriFieldTypeDouble",
+   "alias": "Forecast Tropical Cyclone Time"
+  },
+  {
+   "name": "gust",
+   "type": "esriFieldTypeDouble",
+   "alias": "Wind Gust"
+  },
+  {
+   "name": "maxwind",
+   "type": "esriFieldTypeDouble",
+   "alias": "Maximum Wind"
+  },
+  {
+   "name": "mslp",
+   "type": "esriFieldTypeDouble",
+   "alias": "Mean Sea Level Pressure"
+  },
+  {
+   "name": "ssnum",
+   "type": "esriFieldTypeDouble",
+   "alias": "Hurricane Category"
+  },
+  {
+   "name": "datelbl",
+   "type": "esriFieldTypeString",
+   "alias": "Date Label"
+  },
+  {
+   "name": "tcdvlp",
+   "type": "esriFieldTypeString",
+   "alias": "Tropical Cyclone Category"
+  },
+  {
+   "name": "tcdir",
+   "type": "esriFieldTypeDouble",
+   "alias": "Storm Direction"
+  },
+  {
+   "name": "tcspd",
+   "type": "esriFieldTypeDouble",
+   "alias": "Storm Speed"
+  },
+  {
+   "name": "fldatelbl",
+   "type": "esriFieldTypeString",
+   "alias": "Full Date Label"
+  },
+  {
+   "name": "lat",
+   "type": "esriFieldTypeDouble",
+   "alias": "Lat"
+  },
+  {
+   "name": "lon",
+   "type": "esriFieldTypeDouble",
+   "alias": "Lon"
+  },
+  {
+   "name": "stormnum",
+   "type": "esriFieldTypeDouble",
+   "alias": "Storm Basin Number"
+  },
+  {
+   "name": "stormsrc",
+   "type": "esriFieldTypeString",
+   "alias": "Tropical Cyclone Type"
+  },
+  {
+   "name": "tau",
+   "type": "esriFieldTypeDouble",
+   "alias": "Time Beyond Valid Time"
+  },
+  {
+   "name": "timezone",
+   "type": "esriFieldTypeString",
+   "alias": "Time Zone"
+  },
+  {
+   "name": "validtime",
+   "type": "esriFieldTypeString",
+   "alias": "Valid Time"
+  },
+  {
+   "name": "idp_source",
+   "type": "esriFieldTypeString",
+   "alias": "GIS Source"
+  },
+  {
+   "name": "idp_filedate",
+   "type": "esriFieldTypeDate",
+   "alias": "GIS File Date"
+  },
+  {
+   "name": "idp_ingestdate",
+   "type": "esriFieldTypeDate",
+   "alias": "GIS Ingest Date"
+  },
+  {
+   "name": "shape",
+   "type": "esriFieldTypeGeometry",
+   "alias": "shape"
+  },
+  {
+   "name": "binnumber",
+   "type": "esriFieldTypeString",
+   "alias": "Bin Number"
+  }
+ ],
+ "track": [
+  {
+   "name": "objectid",
+   "type": "esriFieldTypeOID",
+   "alias": "FID"
+  },
+  {
+   "name": "stormname",
+   "type": "esriFieldTypeString",
+   "alias": "Storm Name"
+  },
+  {
+   "name": "stormtype",
+   "type": "esriFieldTypeString",
+   "alias": "Storm Type"
+  },
+  {
+   "name": "basin",
+   "type": "esriFieldTypeString",
+   "alias": "Basin"
+  },
+  {
+   "name": "advdate",
+   "type": "esriFieldTypeString",
+   "alias": "Advisory Date"
+  },
+  {
+   "name": "advisnum",
+   "type": "esriFieldTypeString",
+   "alias": "Advisory Number"
+  },
+  {
+   "name": "fcstprd",
+   "type": "esriFieldTypeDouble",
+   "alias": "Forecast Time"
+  },
+  {
+   "name": "stormnum",
+   "type": "esriFieldTypeDouble",
+   "alias": "Storm Basin Number"
+  },
+  {
+   "name": "idp_source",
+   "type": "esriFieldTypeString",
+   "alias": "GIS Source"
+  },
+  {
+   "name": "idp_filedate",
+   "type": "esriFieldTypeDate",
+   "alias": "GIS File Date"
+  },
+  {
+   "name": "idp_ingestdate",
+   "type": "esriFieldTypeDate",
+   "alias": "GIS Ingest Date"
+  },
+  {
+   "name": "shape",
+   "type": "esriFieldTypeGeometry",
+   "alias": "shape"
+  },
+  {
+   "name": "st_length(shape)",
+   "type": "esriFieldTypeDouble",
+   "alias": "length"
+  },
+  {
+   "name": "binnumber",
+   "type": "esriFieldTypeString",
+   "alias": "Bin Number"
+  }
+ ],
+ "cone": [
+  {
+   "name": "objectid",
+   "type": "esriFieldTypeOID",
+   "alias": "FID"
+  },
+  {
+   "name": "stormname",
+   "type": "esriFieldTypeString",
+   "alias": "Storm Name"
+  },
+  {
+   "name": "stormtype",
+   "type": "esriFieldTypeString",
+   "alias": "Storm Type"
+  },
+  {
+   "name": "basin",
+   "type": "esriFieldTypeString",
+   "alias": "Basin"
+  },
+  {
+   "name": "advdate",
+   "type": "esriFieldTypeString",
+   "alias": "Advisory Date"
+  },
+  {
+   "name": "advisnum",
+   "type": "esriFieldTypeString",
+   "alias": "Advisory Number"
+  },
+  {
+   "name": "fcstprd",
+   "type": "esriFieldTypeDouble",
+   "alias": "Forecast Time"
+  },
+  {
+   "name": "stormnum",
+   "type": "esriFieldTypeDouble",
+   "alias": "Storm Basin Number"
+  },
+  {
+   "name": "idp_source",
+   "type": "esriFieldTypeString",
+   "alias": "GIS Source"
+  },
+  {
+   "name": "idp_filedate",
+   "type": "esriFieldTypeDate",
+   "alias": "GIS File Date"
+  },
+  {
+   "name": "idp_ingestdate",
+   "type": "esriFieldTypeDate",
+   "alias": "GIS Ingest Date"
+  },
+  {
+   "name": "shape",
+   "type": "esriFieldTypeGeometry",
+   "alias": "shape"
+  },
+  {
+   "name": "st_area(shape)",
+   "type": "esriFieldTypeDouble",
+   "alias": "area"
+  },
+  {
+   "name": "st_perimeter(shape)",
+   "type": "esriFieldTypeDouble",
+   "alias": "perimeter"
+  },
+  {
+   "name": "binnumber",
+   "type": "esriFieldTypeString",
+   "alias": "Bin Number"
+  }
+ ],
+ "pastPoints": [
+  {
+   "name": "objectid",
+   "type": "esriFieldTypeOID",
+   "alias": "FID"
+  },
+  {
+   "name": "stormname",
+   "type": "esriFieldTypeString",
+   "alias": "Storm Name"
+  },
+  {
+   "name": "stormtype",
+   "type": "esriFieldTypeString",
+   "alias": "Storm Type"
+  },
+  {
+   "name": "stormnum",
+   "type": "esriFieldTypeDouble",
+   "alias": "Storm Basin Number"
+  },
+  {
+   "name": "intensity",
+   "type": "esriFieldTypeDouble",
+   "alias": "Intensity"
+  },
+  {
+   "name": "basin",
+   "type": "esriFieldTypeString",
+   "alias": "Basin"
+  },
+  {
+   "name": "mslp",
+   "type": "esriFieldTypeDouble",
+   "alias": "Mean Sea Level Pressure"
+  },
+  {
+   "name": "dtg",
+   "type": "esriFieldTypeDouble",
+   "alias": "Date Time Group"
+  },
+  {
+   "name": "year",
+   "type": "esriFieldTypeDouble",
+   "alias": "Year"
+  },
+  {
+   "name": "month",
+   "type": "esriFieldTypeString",
+   "alias": "Month"
+  },
+  {
+   "name": "day",
+   "type": "esriFieldTypeDouble",
+   "alias": "Day"
+  },
+  {
+   "name": "hhmm",
+   "type": "esriFieldTypeString",
+   "alias": "Hour Minute"
+  },
+  {
+   "name": "lat",
+   "type": "esriFieldTypeDouble",
+   "alias": "Lat"
+  },
+  {
+   "name": "lon",
+   "type": "esriFieldTypeDouble",
+   "alias": "Lon"
+  },
+  {
+   "name": "ss",
+   "type": "esriFieldTypeDouble",
+   "alias": "Saffir-Simpson Hurricane Scale"
+  },
+  {
+   "name": "idp_source",
+   "type": "esriFieldTypeString",
+   "alias": "GIS Source"
+  },
+  {
+   "name": "idp_filedate",
+   "type": "esriFieldTypeDate",
+   "alias": "GIS File Date"
+  },
+  {
+   "name": "idp_ingestdate",
+   "type": "esriFieldTypeDate",
+   "alias": "GIS Ingest Date"
+  },
+  {
+   "name": "shape",
+   "type": "esriFieldTypeGeometry",
+   "alias": "shape"
+  },
+  {
+   "name": "binnumber",
+   "type": "esriFieldTypeString",
+   "alias": "Bin Number"
+  }
+ ]
+}

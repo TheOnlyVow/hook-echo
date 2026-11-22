@@ -1,0 +1,2671 @@
+{
+ "@context": [
+  "https://geojson.org/geojson-ld/geojson-context.jsonld",
+  {
+   "@version": "1.1",
+   "wx": "https://api.weather.gov/ontology#",
+   "@vocab": "https://api.weather.gov/ontology#"
+  }
+ ],
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b64f0fbf7b1cbb92bb6c2df016832d09087dfdbd.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.82,
+       27.43
+      ],
+      [
+       -80.85,
+       27.48
+      ],
+      [
+       -80.85,
+       27.53
+      ],
+      [
+       -80.69,
+       27.66
+      ],
+      [
+       -80.58,
+       27.51
+      ],
+      [
+       -80.82,
+       27.43
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b64f0fbf7b1cbb92bb6c2df016832d09087dfdbd.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.b64f0fbf7b1cbb92bb6c2df016832d09087dfdbd.001.1",
+    "areaDesc": "Indian River, FL; Okeechobee, FL; St. Lucie, FL",
+    "geocode": {
+     "SAME": [
+      "012061",
+      "012093",
+      "012111"
+     ],
+     "UGC": [
+      "FLC061",
+      "FLC093",
+      "FLC111"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC061",
+     "https://api.weather.gov/zones/county/FLC093",
+     "https://api.weather.gov/zones/county/FLC111"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.565ae0004781fcb6294912436e85b234d2b4bb5e.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.565ae0004781fcb6294912436e85b234d2b4bb5e.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T18:42:00-05:00"
+     },
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.07d174b3db1ce37334244aa5812018657cad467a.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.07d174b3db1ce37334244aa5812018657cad467a.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T18:53:00-05:00"
+     }
+    ],
+    "sent": "2026-11-21T19:11:00-05:00",
+    "effective": "2026-11-21T19:11:00-05:00",
+    "onset": "2026-11-21T19:11:00-05:00",
+    "expires": "2026-11-21T19:21:00-05:00",
+    "ends": "2026-11-21T19:15:00-05:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Melbourne FL",
+    "headline": "Tornado Warning issued November 21 at 7:11PM EST until November 21 at 7:15PM EST by NWS Melbourne FL",
+    "description": "The storm which prompted the warning has weakened below severe\nlimits, and no longer appears capable of producing a tornado.\nTherefore, the warning will be allowed to expire.\n\nA Tornado Watch remains in effect until 1000 PM EST for a portion of\neast central Florida.",
+    "instruction": null,
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SVSMLB"
+     ],
+     "WMOidentifier": [
+      "WWUS52 KMLB 220011"
+     ],
+     "NWSheadline": [
+      "TORNADO WARNING WILL EXPIRE AT 715 PM EST FOR SOUTH CENTRAL INDIAN RIVER, NORTHEASTERN OKEECHOBEE AND NORTHWESTERN ST. LUCIE COUNTIES"
+     ],
+     "eventMotionDescription": [
+      "2026-11-21T23:53:00-00:00...storm...237DEG...15KT...27.49,-80.81"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.EXP.KMLB.TO.W.0006.000000T0000Z-261122T0015Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T19:15:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SVS"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.07d174b3db1ce37334244aa5812018657cad467a.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.82,
+       27.43
+      ],
+      [
+       -80.85,
+       27.48
+      ],
+      [
+       -80.85,
+       27.53
+      ],
+      [
+       -80.69,
+       27.66
+      ],
+      [
+       -80.58,
+       27.51
+      ],
+      [
+       -80.82,
+       27.43
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.07d174b3db1ce37334244aa5812018657cad467a.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.07d174b3db1ce37334244aa5812018657cad467a.001.1",
+    "areaDesc": "Indian River, FL; Okeechobee, FL; St. Lucie, FL",
+    "geocode": {
+     "SAME": [
+      "012061",
+      "012093",
+      "012111"
+     ],
+     "UGC": [
+      "FLC061",
+      "FLC093",
+      "FLC111"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC061",
+     "https://api.weather.gov/zones/county/FLC093",
+     "https://api.weather.gov/zones/county/FLC111"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.565ae0004781fcb6294912436e85b234d2b4bb5e.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.565ae0004781fcb6294912436e85b234d2b4bb5e.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T18:42:00-05:00"
+     }
+    ],
+    "sent": "2026-11-21T18:53:00-05:00",
+    "effective": "2026-11-21T18:53:00-05:00",
+    "onset": "2026-11-21T18:53:00-05:00",
+    "expires": "2026-11-21T19:15:00-05:00",
+    "ends": "2026-11-21T19:15:00-05:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Melbourne FL",
+    "headline": "Tornado Warning issued November 21 at 6:53PM EST until November 21 at 7:15PM EST by NWS Melbourne FL",
+    "description": "At 653 PM EST, a severe thunderstorm capable of producing a tornado\nwas located over Fort Drum, moving northeast at 20 mph.\n\nHAZARD...Tornado.\n\nSOURCE...Radar indicated rotation.\n\nIMPACT...Flying debris will be dangerous to those caught without\nshelter. Mobile homes will be damaged or destroyed. Damage\nto roofs, windows and vehicles will occur. Tree damage is\nlikely.\n\nLocations impacted include...\nFort Drum.",
+    "instruction": "Move to an interior room on the lowest floor of a well-built building\naway from windows. If you are outdoors, in a mobile home, or in a\nvehicle, move to the closest substantial shelter and protect yourself\nfrom flying debris.\n\nHeavy rainfall is hiding this tornado. Do not wait to see or hear the\ntornado. Take cover now!",
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SVSMLB"
+     ],
+     "WMOidentifier": [
+      "WWUS52 KMLB 212353"
+     ],
+     "NWSheadline": [
+      "TORNADO WARNING REMAINS IN EFFECT UNTIL 715 PM EST FOR SOUTH CENTRAL INDIAN RIVER, NORTHEASTERN OKEECHOBEE AND NORTHWESTERN ST. LUCIE COUNTIES"
+     ],
+     "eventMotionDescription": [
+      "2026-11-21T23:42:00-00:00...storm...237DEG...15KT...27.47,-80.86"
+     ],
+     "maxHailSize": [
+      "0.00"
+     ],
+     "tornadoDetection": [
+      "RADAR INDICATED"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.CON.KMLB.TO.W.0006.000000T0000Z-261122T0015Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T19:15:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SVS"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    },
+    "replacedBy": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b64f0fbf7b1cbb92bb6c2df016832d09087dfdbd.001.1",
+    "replacedAt": "2026-11-21T19:11:00-05:00"
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a6971e6aa4ceb6f8736accaebe4e79ade695e92a.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.03,
+       26.52
+      ],
+      [
+       -80.04,
+       26.51
+      ],
+      [
+       -80.06,
+       26.52
+      ],
+      [
+       -80.11,
+       26.53
+      ],
+      [
+       -80.12,
+       26.58
+      ],
+      [
+       -80.03,
+       26.57
+      ],
+      [
+       -80.03,
+       26.52
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a6971e6aa4ceb6f8736accaebe4e79ade695e92a.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.a6971e6aa4ceb6f8736accaebe4e79ade695e92a.001.1",
+    "areaDesc": "Palm Beach, FL",
+    "geocode": {
+     "SAME": [
+      "012099"
+     ],
+     "UGC": [
+      "FLC099"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC099"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.628c6f9b72e886a49690eb3a4c3052290767e970.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.628c6f9b72e886a49690eb3a4c3052290767e970.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T18:26:00-05:00"
+     },
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.86091c727f0e71b74df22e8dc989811a6da93237.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.86091c727f0e71b74df22e8dc989811a6da93237.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T18:33:00-05:00"
+     },
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.88cb4e9c7f1bbaf36968c76183231e442e19d9e7.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.88cb4e9c7f1bbaf36968c76183231e442e19d9e7.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T18:43:00-05:00"
+     }
+    ],
+    "sent": "2026-11-21T18:50:00-05:00",
+    "effective": "2026-11-21T18:50:00-05:00",
+    "onset": "2026-11-21T18:50:00-05:00",
+    "expires": "2026-11-21T19:00:00-05:00",
+    "ends": "2026-11-21T19:00:00-05:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Miami FL",
+    "headline": "Tornado Warning issued November 21 at 6:50PM EST until November 21 at 7:00PM EST by NWS Miami FL",
+    "description": "The storm which prompted the warning has weakened below severe\nlimits, and has exited the warned area. Therefore, the warning will\nbe allowed to expire.\n\nA Tornado Watch remains in effect until 1000 PM EST for southeastern\nFlorida.\n\nTo report severe weather, contact your nearest law enforcement\nagency. They will relay your report to the National Weather Service\nMiami. You can also share your report with NWS Miami on\nFacebook and Twitter.",
+    "instruction": null,
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SVSMFL"
+     ],
+     "WMOidentifier": [
+      "WWUS52 KMFL 212350"
+     ],
+     "NWSheadline": [
+      "THE TORNADO WARNING FOR EAST CENTRAL PALM BEACH COUNTY WILL EXPIRE AT 700 PM EST"
+     ],
+     "eventMotionDescription": [
+      "2026-11-21T23:50:00-00:00...storm...208DEG...6KT...26.55,-80.07"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.EXP.KMFL.TO.W.0004.000000T0000Z-261122T0000Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T19:00:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SVS"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.92e18e770a8846f010bb8b46e875c67b99c72810.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.88,
+       27.38
+      ],
+      [
+       -80.95,
+       27.45
+      ],
+      [
+       -80.84,
+       27.63
+      ],
+      [
+       -80.78,
+       27.58
+      ],
+      [
+       -80.78,
+       27.56
+      ],
+      [
+       -80.76,
+       27.56
+      ],
+      [
+       -80.69,
+       27.5
+      ],
+      [
+       -80.88,
+       27.38
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.92e18e770a8846f010bb8b46e875c67b99c72810.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.92e18e770a8846f010bb8b46e875c67b99c72810.001.1",
+    "areaDesc": "Okeechobee, FL",
+    "geocode": {
+     "SAME": [
+      "012093"
+     ],
+     "UGC": [
+      "FLC093"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC093"
+    ],
+    "references": [],
+    "sent": "2026-11-21T18:44:00-05:00",
+    "effective": "2026-11-21T18:44:00-05:00",
+    "onset": "2026-11-21T18:44:00-05:00",
+    "expires": "2026-11-21T18:54:00-05:00",
+    "ends": "2026-11-21T18:45:00-05:00",
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Melbourne FL",
+    "headline": "Tornado Warning issued November 21 at 6:44PM EST until November 21 at 6:45PM EST by NWS Melbourne FL",
+    "description": "The Tornado Warning that was previously in effect has been reissued\nfor Okeechobee County and is in effect until 715 PM EST. Please refer\nto that bulletin for the latest severe weather information.\n\nA Tornado Watch remains in effect until 1000 PM EST for a portion of\neast central Florida.",
+    "instruction": null,
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SVSMLB"
+     ],
+     "WMOidentifier": [
+      "WWUS52 KMLB 212344"
+     ],
+     "NWSheadline": [
+      "TORNADO WARNING WILL EXPIRE AT 645 PM EST FOR NORTHEASTERN OKEECHOBEE COUNTY"
+     ],
+     "eventMotionDescription": [
+      "2026-11-21T23:33:00-00:00...storm...230DEG...26KT...27.44,-80.87"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.EXP.KMLB.TO.W.0005.000000T0000Z-261121T2345Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T18:45:00-05:00"
+     ],
+     "expiredReferences": [
+      "w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.00cc7bf7e2bcc43fa047533f336075df0d82e83c.001.1,2026-11-21T18:33:00-05:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.0e85c92cb107b7be03228f2538e05e395de5bf3e.001.1,2026-11-21T18:26:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SVS"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.88cb4e9c7f1bbaf36968c76183231e442e19d9e7.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.03,
+       26.52
+      ],
+      [
+       -80.04,
+       26.51
+      ],
+      [
+       -80.06,
+       26.52
+      ],
+      [
+       -80.11,
+       26.53
+      ],
+      [
+       -80.12,
+       26.58
+      ],
+      [
+       -80.03,
+       26.57
+      ],
+      [
+       -80.03,
+       26.52
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.88cb4e9c7f1bbaf36968c76183231e442e19d9e7.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.88cb4e9c7f1bbaf36968c76183231e442e19d9e7.001.1",
+    "areaDesc": "Palm Beach, FL",
+    "geocode": {
+     "SAME": [
+      "012099"
+     ],
+     "UGC": [
+      "FLC099"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC099"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.628c6f9b72e886a49690eb3a4c3052290767e970.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.628c6f9b72e886a49690eb3a4c3052290767e970.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T18:26:00-05:00"
+     },
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.86091c727f0e71b74df22e8dc989811a6da93237.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.86091c727f0e71b74df22e8dc989811a6da93237.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T18:33:00-05:00"
+     }
+    ],
+    "sent": "2026-11-21T18:43:00-05:00",
+    "effective": "2026-11-21T18:43:00-05:00",
+    "onset": "2026-11-21T18:43:00-05:00",
+    "expires": "2026-11-21T19:00:00-05:00",
+    "ends": "2026-11-21T19:00:00-05:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Miami FL",
+    "headline": "Tornado Warning issued November 21 at 6:43PM EST until November 21 at 7:00PM EST by NWS Miami FL",
+    "description": "At 643 PM EST, a severe thunderstorm capable of producing a tornado\nwas located over Boynton Beach, moving northeast at 10 mph.\n\nHAZARD...Tornado.\n\nSOURCE...Radar indicated rotation.\n\nIMPACT...Flying debris will be dangerous to those caught without\nshelter. Mobile homes will be damaged or destroyed. Damage\nto roofs, windows, and vehicles will occur.  Tree damage is\nlikely.\n\nLocations impacted include...\nBoynton Beach, Ocean Ridge, Lantana, Hypoluxo, and Manalapan.",
+    "instruction": "TAKE COVER NOW! Move to an interior room on the lowest floor of a\nsturdy building. Avoid windows. If you are outdoors, in a mobile\nhome, or in a vehicle, move to the closest substantial shelter and\nprotect yourself from flying debris.",
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SVSMFL"
+     ],
+     "WMOidentifier": [
+      "WWUS52 KMFL 212343"
+     ],
+     "NWSheadline": [
+      "A TORNADO WARNING REMAINS IN EFFECT UNTIL 700 PM EST FOR EAST CENTRAL PALM BEACH COUNTY"
+     ],
+     "eventMotionDescription": [
+      "2026-11-21T23:43:00-00:00...storm...210DEG...10KT...26.54,-80.08"
+     ],
+     "maxHailSize": [
+      "Up to .75"
+     ],
+     "tornadoDetection": [
+      "RADAR INDICATED"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.CON.KMFL.TO.W.0004.000000T0000Z-261122T0000Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T19:00:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SVS"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    },
+    "replacedBy": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a6971e6aa4ceb6f8736accaebe4e79ade695e92a.001.1",
+    "replacedAt": "2026-11-21T18:50:00-05:00"
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.565ae0004781fcb6294912436e85b234d2b4bb5e.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.87,
+       27.41
+      ],
+      [
+       -80.92,
+       27.48
+      ],
+      [
+       -80.69,
+       27.66
+      ],
+      [
+       -80.58,
+       27.51
+      ],
+      [
+       -80.87,
+       27.41
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.565ae0004781fcb6294912436e85b234d2b4bb5e.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.565ae0004781fcb6294912436e85b234d2b4bb5e.001.1",
+    "areaDesc": "Indian River, FL; Okeechobee, FL; St. Lucie, FL",
+    "geocode": {
+     "SAME": [
+      "012061",
+      "012093",
+      "012111"
+     ],
+     "UGC": [
+      "FLC061",
+      "FLC093",
+      "FLC111"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC061",
+     "https://api.weather.gov/zones/county/FLC093",
+     "https://api.weather.gov/zones/county/FLC111"
+    ],
+    "references": [],
+    "sent": "2026-11-21T18:42:00-05:00",
+    "effective": "2026-11-21T18:42:00-05:00",
+    "onset": "2026-11-21T18:42:00-05:00",
+    "expires": "2026-11-21T19:15:00-05:00",
+    "ends": "2026-11-21T19:15:00-05:00",
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Melbourne FL",
+    "headline": "Tornado Warning issued November 21 at 6:42PM EST until November 21 at 7:15PM EST by NWS Melbourne FL",
+    "description": "TORMLB\n\nThe National Weather Service in Melbourne has issued a\n\n* Tornado Warning for...\nFar southwestern Indian River County in east central Florida...\nNortheastern Okeechobee County in east central Florida...\nFar northwestern St. Lucie County in east central Florida...\n\n* Until 715 PM EST.\n\n* At 642 PM EST, a severe thunderstorm capable of producing a tornado\nwas located near Fort Drum, moving northeast at 20 mph.\n\nHAZARD...Tornado.\n\nSOURCE...Radar indicated rotation.\n\nIMPACT...Flying debris will be dangerous to those caught without\nshelter. Mobile homes will be damaged or destroyed. Damage\nto roofs, windows and vehicles will occur. Tree damage is\nlikely.\n\n* Locations impacted include...\nFort Drum.",
+    "instruction": "Move to an interior room on the lowest floor of a well-built building\naway from windows. If you are outdoors, in a mobile home, or in a\nvehicle, move to the closest substantial shelter and protect yourself\nfrom flying debris.\n\nHeavy rainfall is hiding this tornado. Do not wait to see or hear the\ntornado. Take cover now!",
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "TORMLB"
+     ],
+     "WMOidentifier": [
+      "WFUS52 KMLB 212342"
+     ],
+     "eventMotionDescription": [
+      "2026-11-21T23:42:00-00:00...storm...241DEG...18KT...27.47,-80.84"
+     ],
+     "maxHailSize": [
+      "0.00"
+     ],
+     "tornadoDetection": [
+      "RADAR INDICATED"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.NEW.KMLB.TO.W.0006.261121T2342Z-261122T0015Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T19:15:00-05:00"
+     ],
+     "WEAHandling": [
+      "Imminent Threat"
+     ],
+     "CMAMtext": [
+      "NWS: TORNADO WARNING in this area til 7:15 PM EST. Take shelter now. Check media."
+     ],
+     "CMAMlongtext": [
+      "National Weather Service: TORNADO WARNING in this area until 7:15 PM EST. Take shelter now in a basement or an interior room on the lowest floor of a sturdy building. If you are outdoors, in a mobile home, or in a vehicle, move to the closest substantial shelter and protect yourself from flying debris. Check media."
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "TOR"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    },
+    "replacedBy": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b64f0fbf7b1cbb92bb6c2df016832d09087dfdbd.001.1",
+    "replacedAt": "2026-11-21T19:11:00-05:00"
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.86091c727f0e71b74df22e8dc989811a6da93237.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.03,
+       26.57
+      ],
+      [
+       -80.03,
+       26.53
+      ],
+      [
+       -80.06,
+       26.48
+      ],
+      [
+       -80.14,
+       26.48
+      ],
+      [
+       -80.14,
+       26.58
+      ],
+      [
+       -80.03,
+       26.57
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.86091c727f0e71b74df22e8dc989811a6da93237.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.86091c727f0e71b74df22e8dc989811a6da93237.001.1",
+    "areaDesc": "Palm Beach, FL",
+    "geocode": {
+     "SAME": [
+      "012099"
+     ],
+     "UGC": [
+      "FLC099"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC099"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.628c6f9b72e886a49690eb3a4c3052290767e970.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.628c6f9b72e886a49690eb3a4c3052290767e970.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T18:26:00-05:00"
+     }
+    ],
+    "sent": "2026-11-21T18:33:00-05:00",
+    "effective": "2026-11-21T18:33:00-05:00",
+    "onset": "2026-11-21T18:33:00-05:00",
+    "expires": "2026-11-21T19:00:00-05:00",
+    "ends": "2026-11-21T19:00:00-05:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Miami FL",
+    "headline": "Tornado Warning issued November 21 at 6:33PM EST until November 21 at 7:00PM EST by NWS Miami FL",
+    "description": "At 633 PM EST, a severe thunderstorm capable of producing a tornado\nwas located over Village Of Golf, or over Boynton Beach, moving\nnortheast at 15 mph.\n\nHAZARD...Tornado.\n\nSOURCE...Radar indicated rotation.\n\nIMPACT...Flying debris will be dangerous to those caught without\nshelter. Mobile homes will be damaged or destroyed. Damage\nto roofs, windows, and vehicles will occur.  Tree damage is\nlikely.\n\nLocations impacted include...\nBoynton Beach, Delray Beach, Ocean Ridge, Lantana, Dunes Road,\nVillage Of Golf, Hypoluxo, Gulf Stream, Briny Breezes, and Manalapan.",
+    "instruction": "TAKE COVER NOW! Move to an interior room on the lowest floor of a\nsturdy building. Avoid windows. If you are outdoors, in a mobile\nhome, or in a vehicle, move to the closest substantial shelter and\nprotect yourself from flying debris.",
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SVSMFL"
+     ],
+     "WMOidentifier": [
+      "WWUS52 KMFL 212333"
+     ],
+     "NWSheadline": [
+      "A TORNADO WARNING REMAINS IN EFFECT UNTIL 700 PM EST FOR EAST CENTRAL PALM BEACH COUNTY"
+     ],
+     "eventMotionDescription": [
+      "2026-11-21T23:33:00-00:00...storm...216DEG...12KT...26.51,-80.1"
+     ],
+     "maxHailSize": [
+      "Up to .75"
+     ],
+     "tornadoDetection": [
+      "RADAR INDICATED"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.CON.KMFL.TO.W.0004.000000T0000Z-261122T0000Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T19:00:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SVS"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    },
+    "replacedBy": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a6971e6aa4ceb6f8736accaebe4e79ade695e92a.001.1",
+    "replacedAt": "2026-11-21T18:50:00-05:00"
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.00cc7bf7e2bcc43fa047533f336075df0d82e83c.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.88,
+       27.38
+      ],
+      [
+       -80.95,
+       27.45
+      ],
+      [
+       -80.84,
+       27.63
+      ],
+      [
+       -80.78,
+       27.58
+      ],
+      [
+       -80.78,
+       27.56
+      ],
+      [
+       -80.76,
+       27.56
+      ],
+      [
+       -80.69,
+       27.5
+      ],
+      [
+       -80.88,
+       27.38
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.00cc7bf7e2bcc43fa047533f336075df0d82e83c.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.00cc7bf7e2bcc43fa047533f336075df0d82e83c.001.1",
+    "areaDesc": "Okeechobee, FL",
+    "geocode": {
+     "SAME": [
+      "012093"
+     ],
+     "UGC": [
+      "FLC093"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC093"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0e85c92cb107b7be03228f2538e05e395de5bf3e.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.0e85c92cb107b7be03228f2538e05e395de5bf3e.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T18:26:00-05:00"
+     }
+    ],
+    "sent": "2026-11-21T18:33:00-05:00",
+    "effective": "2026-11-21T18:33:00-05:00",
+    "onset": "2026-11-21T18:33:00-05:00",
+    "expires": "2026-11-21T18:45:00-05:00",
+    "ends": "2026-11-21T18:45:00-05:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Melbourne FL",
+    "headline": "Tornado Warning issued November 21 at 6:33PM EST until November 21 at 6:45PM EST by NWS Melbourne FL",
+    "description": "At 633 PM EST, a severe thunderstorm capable of producing a tornado\nwas located 7 miles southwest of Fort Drum, moving northeast at 30\nmph.\n\nHAZARD...Tornado.\n\nSOURCE...Radar indicated rotation.\n\nIMPACT...Flying debris will be dangerous to those caught without\nshelter. Mobile homes will be damaged or destroyed. Damage\nto roofs, windows and vehicles will occur. Tree damage is\nlikely.\n\nLocations impacted include...\nFort Drum.",
+    "instruction": "Move to an interior room on the lowest floor of a well-built building\naway from windows. If you are outdoors, in a mobile home, or in a\nvehicle, move to the closest substantial shelter and protect yourself\nfrom flying debris.",
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SVSMLB"
+     ],
+     "WMOidentifier": [
+      "WWUS52 KMLB 212333"
+     ],
+     "NWSheadline": [
+      "TORNADO WARNING REMAINS IN EFFECT UNTIL 645 PM EST FOR NORTHEASTERN OKEECHOBEE COUNTY"
+     ],
+     "eventMotionDescription": [
+      "2026-11-21T23:26:00-00:00...storm...230DEG...26KT...27.41,-80.92"
+     ],
+     "maxHailSize": [
+      "0.00"
+     ],
+     "tornadoDetection": [
+      "RADAR INDICATED"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.CON.KMLB.TO.W.0005.000000T0000Z-261121T2345Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T18:45:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SVS"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    },
+    "replacedBy": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.92e18e770a8846f010bb8b46e875c67b99c72810.001.1",
+    "replacedAt": "2026-11-21T18:44:00-05:00"
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.628c6f9b72e886a49690eb3a4c3052290767e970.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.08,
+       26.45
+      ],
+      [
+       -80.18,
+       26.45
+      ],
+      [
+       -80.21,
+       26.58
+      ],
+      [
+       -80.01,
+       26.57
+      ],
+      [
+       -80.08,
+       26.45
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.628c6f9b72e886a49690eb3a4c3052290767e970.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.628c6f9b72e886a49690eb3a4c3052290767e970.001.1",
+    "areaDesc": "Palm Beach, FL",
+    "geocode": {
+     "SAME": [
+      "012099"
+     ],
+     "UGC": [
+      "FLC099"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC099"
+    ],
+    "references": [],
+    "sent": "2026-11-21T18:26:00-05:00",
+    "effective": "2026-11-21T18:26:00-05:00",
+    "onset": "2026-11-21T18:26:00-05:00",
+    "expires": "2026-11-21T19:00:00-05:00",
+    "ends": "2026-11-21T19:00:00-05:00",
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Miami FL",
+    "headline": "Tornado Warning issued November 21 at 6:26PM EST until November 21 at 7:00PM EST by NWS Miami FL",
+    "description": "TORMFL\n\nThe National Weather Service in Miami has issued a\n\n* Tornado Warning for...\nEast central Palm Beach County in southeastern Florida...\n\n* Until 700 PM EST.\n\n* At 626 PM EST, a severe thunderstorm capable of producing a tornado\nwas located over Dunes Road, or near Delray Beach, moving northeast\nat 5 mph.\n\nHAZARD...Tornado.\n\nSOURCE...Radar indicated rotation.\n\nIMPACT...Flying debris will be dangerous to those caught without\nshelter. Mobile homes will be damaged or destroyed.\nDamage to roofs, windows, and vehicles will occur.  Tree\ndamage is likely.\n\n* Locations impacted include...\nBoynton Beach, Delray Beach, Ocean Ridge, Village Of Golf, Dunes\nRoad, Kings Point, Hypoluxo, Gulf Stream, Briny Breezes, Manalapan,\nAberdeen, Aberdeen Golf Course, and Villages Of Oriole.",
+    "instruction": "TAKE COVER NOW! Move to an interior room on the lowest floor of a\nsturdy building. Avoid windows. If you are outdoors, in a mobile\nhome, or in a vehicle, move to the closest substantial shelter and\nprotect yourself from flying debris.",
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "TORMFL"
+     ],
+     "WMOidentifier": [
+      "WFUS52 KMFL 212326"
+     ],
+     "eventMotionDescription": [
+      "2026-11-21T23:26:00-00:00...storm...208DEG...6KT...26.48,-80.13"
+     ],
+     "maxHailSize": [
+      "Up to .75"
+     ],
+     "tornadoDetection": [
+      "RADAR INDICATED"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.NEW.KMFL.TO.W.0004.261121T2326Z-261122T0000Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T19:00:00-05:00"
+     ],
+     "WEAHandling": [
+      "Imminent Threat"
+     ],
+     "CMAMtext": [
+      "NWS: TORNADO WARNING in this area til 7:00 PM EST. Take shelter now. Check media."
+     ],
+     "CMAMlongtext": [
+      "National Weather Service: TORNADO WARNING in this area until 7:00 PM EST. Take shelter now in a basement or an interior room on the lowest floor of a sturdy building. If you are outdoors, in a mobile home, or in a vehicle, move to the closest substantial shelter and protect yourself from flying debris. Check media."
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "TOR"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    },
+    "replacedBy": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a6971e6aa4ceb6f8736accaebe4e79ade695e92a.001.1",
+    "replacedAt": "2026-11-21T18:50:00-05:00"
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0e85c92cb107b7be03228f2538e05e395de5bf3e.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.92,
+       27.35
+      ],
+      [
+       -81.01,
+       27.43
+      ],
+      [
+       -80.84,
+       27.63
+      ],
+      [
+       -80.78,
+       27.58
+      ],
+      [
+       -80.78,
+       27.56
+      ],
+      [
+       -80.76,
+       27.56
+      ],
+      [
+       -80.69,
+       27.5
+      ],
+      [
+       -80.92,
+       27.35
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0e85c92cb107b7be03228f2538e05e395de5bf3e.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.0e85c92cb107b7be03228f2538e05e395de5bf3e.001.1",
+    "areaDesc": "Okeechobee, FL",
+    "geocode": {
+     "SAME": [
+      "012093"
+     ],
+     "UGC": [
+      "FLC093"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC093"
+    ],
+    "references": [],
+    "sent": "2026-11-21T18:26:00-05:00",
+    "effective": "2026-11-21T18:26:00-05:00",
+    "onset": "2026-11-21T18:26:00-05:00",
+    "expires": "2026-11-21T18:45:00-05:00",
+    "ends": "2026-11-21T18:45:00-05:00",
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Melbourne FL",
+    "headline": "Tornado Warning issued November 21 at 6:26PM EST until November 21 at 6:45PM EST by NWS Melbourne FL",
+    "description": "TORMLB\n\nThe National Weather Service in Melbourne has issued a\n\n* Tornado Warning for...\nNortheastern Okeechobee County in east central Florida...\n\n* Until 645 PM EST.\n\n* At 626 PM EST, a severe thunderstorm capable of producing a tornado\nwas located 7 miles east of Basinger, moving northeast at 35 mph.\n\nHAZARD...Tornado.\n\nSOURCE...Radar indicated rotation.\n\nIMPACT...Flying debris will be dangerous to those caught without\nshelter. Mobile homes will be damaged or destroyed. Damage\nto roofs, windows and vehicles will occur. Tree damage is\nlikely.\n\n* Locations impacted include...\nFort Drum.",
+    "instruction": "Move to an interior room on the lowest floor of a well-built building\naway from windows. If you are outdoors, in a mobile home, or in a\nvehicle, move to the closest substantial shelter and protect yourself\nfrom flying debris.",
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "TORMLB"
+     ],
+     "WMOidentifier": [
+      "WFUS52 KMLB 212326"
+     ],
+     "eventMotionDescription": [
+      "2026-11-21T23:25:00-00:00...storm...227DEG...28KT...27.43,-80.92"
+     ],
+     "maxHailSize": [
+      "0.00"
+     ],
+     "tornadoDetection": [
+      "RADAR INDICATED"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.NEW.KMLB.TO.W.0005.261121T2326Z-261121T2345Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T18:45:00-05:00"
+     ],
+     "WEAHandling": [
+      "Imminent Threat"
+     ],
+     "CMAMtext": [
+      "NWS: TORNADO WARNING in this area til 6:45 PM EST. Take shelter now. Check media."
+     ],
+     "CMAMlongtext": [
+      "National Weather Service: TORNADO WARNING in this area until 6:45 PM EST. Take shelter now in a basement or an interior room on the lowest floor of a sturdy building. If you are outdoors, in a mobile home, or in a vehicle, move to the closest substantial shelter and protect yourself from flying debris. Check media."
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "TOR"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    },
+    "replacedBy": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.92e18e770a8846f010bb8b46e875c67b99c72810.001.1",
+    "replacedAt": "2026-11-21T18:44:00-05:00"
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c8909ba395a3ef5e6a9f619f6c5a4b2e2539c44d.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.03,
+       26.52
+      ],
+      [
+       -80.03,
+       26.37
+      ],
+      [
+       -80.2,
+       26.38
+      ],
+      [
+       -80.23,
+       26.47
+      ],
+      [
+       -80.04,
+       26.59
+      ],
+      [
+       -80.03,
+       26.52
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c8909ba395a3ef5e6a9f619f6c5a4b2e2539c44d.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.c8909ba395a3ef5e6a9f619f6c5a4b2e2539c44d.001.1",
+    "areaDesc": "Palm Beach, FL",
+    "geocode": {
+     "SAME": [
+      "012099"
+     ],
+     "UGC": [
+      "FLC099"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC099"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ad1c63b82436f6514ed1c240384f8a28ce9ffb97.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.ad1c63b82436f6514ed1c240384f8a28ce9ffb97.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T17:59:00-05:00"
+     },
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5ef51ef588e7074d27b733c8c84a1ceb8567620f.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.5ef51ef588e7074d27b733c8c84a1ceb8567620f.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T18:07:00-05:00"
+     }
+    ],
+    "sent": "2026-11-21T18:19:00-05:00",
+    "effective": "2026-11-21T18:19:00-05:00",
+    "onset": "2026-11-21T18:19:00-05:00",
+    "expires": "2026-11-21T18:30:00-05:00",
+    "ends": "2026-11-21T18:30:00-05:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Miami FL",
+    "headline": "Tornado Warning issued November 21 at 6:19PM EST until November 21 at 6:30PM EST by NWS Miami FL",
+    "description": "At 619 PM EST, a confirmed tornado was located over Kings Point, or\nnear Delray Beach, moving northeast at 15 mph.\n\nHAZARD...Damaging tornado.\n\nSOURCE...Public confirmed tornado.\n\nIMPACT...Flying debris will be dangerous to those caught without\nshelter. Mobile homes will be damaged or destroyed. Damage\nto roofs, windows, and vehicles will occur.  Tree damage is\nlikely.\n\nLocations impacted include...\nBoca Raton, Boynton Beach, Delray Beach, Highland Beach, Ocean Ridge,\nLantana, Hamptons At Boca Raton, Village Of Golf, Kings Point, Dunes\nRoad, Whisper Walk, Hypoluxo, South Palm Beach, Gulf Stream, Briny\nBreezes, Manalapan, Boca West, Morikami Park, Villages Of Oriole, and\nBoca Raton Equestrian.",
+    "instruction": "To repeat, a tornado is on the ground. TAKE COVER NOW! Move to an\ninterior room on the lowest floor of a sturdy building. Avoid\nwindows. If you are outdoors, in a mobile home, or in a vehicle, move\nto the closest substantial shelter and protect yourself from flying\ndebris.",
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SVSMFL"
+     ],
+     "WMOidentifier": [
+      "WWUS52 KMFL 212319"
+     ],
+     "NWSheadline": [
+      "A TORNADO WARNING REMAINS IN EFFECT UNTIL 630 PM EST FOR SOUTHEASTERN PALM BEACH COUNTY"
+     ],
+     "eventMotionDescription": [
+      "2026-11-21T23:19:00-00:00...storm...233DEG...13KT...26.46,-80.14"
+     ],
+     "maxHailSize": [
+      "Up to .75"
+     ],
+     "tornadoDetection": [
+      "OBSERVED"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.CON.KMFL.TO.W.0003.000000T0000Z-261121T2330Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T18:30:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SVS"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5ef51ef588e7074d27b733c8c84a1ceb8567620f.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.03,
+       26.52
+      ],
+      [
+       -80.03,
+       26.37
+      ],
+      [
+       -80.2,
+       26.38
+      ],
+      [
+       -80.23,
+       26.47
+      ],
+      [
+       -80.04,
+       26.59
+      ],
+      [
+       -80.03,
+       26.52
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5ef51ef588e7074d27b733c8c84a1ceb8567620f.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.5ef51ef588e7074d27b733c8c84a1ceb8567620f.001.1",
+    "areaDesc": "Palm Beach, FL",
+    "geocode": {
+     "SAME": [
+      "012099"
+     ],
+     "UGC": [
+      "FLC099"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC099"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ad1c63b82436f6514ed1c240384f8a28ce9ffb97.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.ad1c63b82436f6514ed1c240384f8a28ce9ffb97.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T17:59:00-05:00"
+     }
+    ],
+    "sent": "2026-11-21T18:07:00-05:00",
+    "effective": "2026-11-21T18:07:00-05:00",
+    "onset": "2026-11-21T18:07:00-05:00",
+    "expires": "2026-11-21T18:30:00-05:00",
+    "ends": "2026-11-21T18:30:00-05:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Miami FL",
+    "headline": "Tornado Warning issued November 21 at 6:07PM EST until November 21 at 6:30PM EST by NWS Miami FL",
+    "description": "At 606 PM EST, a severe thunderstorm capable of producing a tornado\nwas located over Kings Point, or near Boca Raton, moving northeast at\n25 mph.\n\nHAZARD...TORNADO.\n\nSOURCE...Radar indicated rotation.\n\nIMPACT...Expect damage to mobile homes, roofs, and vehicles. Tree\ndamage is likely.\n\nLocations impacted include...\nBoca Raton, Boynton Beach, Delray Beach, Highland Beach, Ocean Ridge,\nLantana, Hamptons At Boca Raton, Village Of Golf, Kings Point, Dunes\nRoad, Whisper Walk, Hypoluxo, South Palm Beach, Gulf Stream, Briny\nBreezes, Manalapan, Boca West, Morikami Park, Villages Of Oriole, and\nBoca Raton Equestrian.",
+    "instruction": "TAKE COVER NOW! Move to an interior room on the lowest floor of a\nsturdy building. Avoid windows. If you are outdoors, in a mobile\nhome, or in a vehicle, move to the closest substantial shelter and\nprotect yourself from flying debris.",
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SVSMFL"
+     ],
+     "WMOidentifier": [
+      "WWUS52 KMFL 212307"
+     ],
+     "NWSheadline": [
+      "A TORNADO WARNING REMAINS IN EFFECT UNTIL 630 PM EST FOR SOUTHEASTERN PALM BEACH COUNTY"
+     ],
+     "eventMotionDescription": [
+      "2026-11-21T23:06:00-00:00...storm...234DEG...22KT...26.43,-80.17"
+     ],
+     "maxHailSize": [
+      "Up to .75"
+     ],
+     "tornadoDetection": [
+      "RADAR INDICATED"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.CON.KMFL.TO.W.0003.000000T0000Z-261121T2330Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T18:30:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SVS"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    },
+    "replacedBy": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c8909ba395a3ef5e6a9f619f6c5a4b2e2539c44d.001.1",
+    "replacedAt": "2026-11-21T18:19:00-05:00"
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ad1c63b82436f6514ed1c240384f8a28ce9ffb97.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.22,
+       26.35
+      ],
+      [
+       -80.32,
+       26.42
+      ],
+      [
+       -80.04,
+       26.59
+      ],
+      [
+       -80,
+       26.37
+      ],
+      [
+       -80.22,
+       26.35
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ad1c63b82436f6514ed1c240384f8a28ce9ffb97.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.ad1c63b82436f6514ed1c240384f8a28ce9ffb97.001.1",
+    "areaDesc": "Palm Beach, FL",
+    "geocode": {
+     "SAME": [
+      "012099"
+     ],
+     "UGC": [
+      "FLC099"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC099"
+    ],
+    "references": [],
+    "sent": "2026-11-21T17:59:00-05:00",
+    "effective": "2026-11-21T17:59:00-05:00",
+    "onset": "2026-11-21T17:59:00-05:00",
+    "expires": "2026-11-21T18:30:00-05:00",
+    "ends": "2026-11-21T18:30:00-05:00",
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Miami FL",
+    "headline": "Tornado Warning issued November 21 at 5:59PM EST until November 21 at 6:30PM EST by NWS Miami FL",
+    "description": "TORMFL\n\nThe National Weather Service in Miami has issued a\n\n* Tornado Warning for...\nSoutheastern Palm Beach County in southeastern Florida...\n\n* Until 630 PM EST.\n\n* At 559 PM EST, a severe thunderstorm capable of producing a tornado\nwas located over Whisper Walk, or near Boca Raton, moving northeast\nat 35 mph.\n\nHAZARD...Tornado.\n\nSOURCE...Radar indicated rotation.\n\nIMPACT...Expect damage to mobile homes, roofs, and vehicles. Tree\ndamage is likely.\n\n* Locations impacted include...\nBoca Raton, Boynton Beach, Delray Beach, Highland Beach, Ocean\nRidge, Lantana, Mission Bay, Hamptons At Boca Raton, Village Of\nGolf, Whisper Walk, Kings Point, Dunes Road, Boca Del Mar,\nLoxahatchee NWR, Hypoluxo, South Palm Beach, Gulf Stream, Briny\nBreezes, Manalapan, and Fau South Campus.",
+    "instruction": "TAKE COVER NOW! Move to an interior room on the lowest floor of a\nsturdy building. Avoid windows. If you are outdoors, in a mobile\nhome, or in a vehicle, move to the closest substantial shelter and\nprotect yourself from flying debris.",
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "TORMFL"
+     ],
+     "WMOidentifier": [
+      "WFUS52 KMFL 212259"
+     ],
+     "eventMotionDescription": [
+      "2026-11-21T22:59:00-00:00...storm...239DEG...31KT...26.41,-80.17"
+     ],
+     "maxHailSize": [
+      "Up to .75"
+     ],
+     "tornadoDetection": [
+      "RADAR INDICATED"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.NEW.KMFL.TO.W.0003.261121T2259Z-261121T2330Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T18:30:00-05:00"
+     ],
+     "WEAHandling": [
+      "Imminent Threat"
+     ],
+     "CMAMtext": [
+      "NWS: TORNADO WARNING in this area til 6:30 PM EST. Take shelter now. Check media."
+     ],
+     "CMAMlongtext": [
+      "National Weather Service: TORNADO WARNING in this area until 6:30 PM EST. Take shelter now in a basement or an interior room on the lowest floor of a sturdy building. If you are outdoors, in a mobile home, or in a vehicle, move to the closest substantial shelter and protect yourself from flying debris. Check media."
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "TOR"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    },
+    "replacedBy": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c8909ba395a3ef5e6a9f619f6c5a4b2e2539c44d.001.1",
+    "replacedAt": "2026-11-21T18:19:00-05:00"
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.cbaa7bb5ea6429b41418504b692385e08284ebe7.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.38,
+       25.85
+      ],
+      [
+       -80.42,
+       25.96
+      ],
+      [
+       -80.27,
+       26.03
+      ],
+      [
+       -80.18,
+       25.88
+      ],
+      [
+       -80.38,
+       25.85
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.cbaa7bb5ea6429b41418504b692385e08284ebe7.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.cbaa7bb5ea6429b41418504b692385e08284ebe7.001.1",
+    "areaDesc": "Broward, FL; Miami-Dade, FL",
+    "geocode": {
+     "SAME": [
+      "012011",
+      "012086"
+     ],
+     "UGC": [
+      "FLC011",
+      "FLC086"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC011",
+     "https://api.weather.gov/zones/county/FLC086"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bb9ac67350a22b27dd1db3f65b496f2fdae8b1dc.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.bb9ac67350a22b27dd1db3f65b496f2fdae8b1dc.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-21T11:57:00-05:00"
+     }
+    ],
+    "sent": "2026-11-21T12:13:00-05:00",
+    "effective": "2026-11-21T12:13:00-05:00",
+    "onset": "2026-11-21T12:13:00-05:00",
+    "expires": "2026-11-21T12:28:58-05:00",
+    "ends": "2026-11-21T12:30:00-05:00",
+    "status": "Actual",
+    "messageType": "Cancel",
+    "category": "Met",
+    "severity": "Minor",
+    "certainty": "Observed",
+    "urgency": "Past",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Miami FL",
+    "headline": "The Tornado Warning has been cancelled.",
+    "description": "The Tornado Warning has been cancelled and is no longer in effect.",
+    "instruction": null,
+    "response": "AllClear",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SVSMFL"
+     ],
+     "WMOidentifier": [
+      "WWUS52 KMFL 211713"
+     ],
+     "NWSheadline": [
+      "THE TORNADO WARNING FOR NORTHERN MIAMI-DADE AND SOUTH CENTRAL BROWARD COUNTIES IS CANCELLED"
+     ],
+     "eventMotionDescription": [
+      "2026-11-21T17:12:00-00:00...storm...239DEG...14KT...25.93,-80.3"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.CAN.KMFL.TO.W.0002.000000T0000Z-261121T1730Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T12:30:00-05:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SVS"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bb9ac67350a22b27dd1db3f65b496f2fdae8b1dc.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -80.38,
+       25.85
+      ],
+      [
+       -80.42,
+       25.96
+      ],
+      [
+       -80.27,
+       26.03
+      ],
+      [
+       -80.18,
+       25.88
+      ],
+      [
+       -80.38,
+       25.85
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bb9ac67350a22b27dd1db3f65b496f2fdae8b1dc.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.bb9ac67350a22b27dd1db3f65b496f2fdae8b1dc.001.1",
+    "areaDesc": "Broward, FL; Miami-Dade, FL",
+    "geocode": {
+     "SAME": [
+      "012011",
+      "012086"
+     ],
+     "UGC": [
+      "FLC011",
+      "FLC086"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/FLC011",
+     "https://api.weather.gov/zones/county/FLC086"
+    ],
+    "references": [],
+    "sent": "2026-11-21T11:57:00-05:00",
+    "effective": "2026-11-21T11:57:00-05:00",
+    "onset": "2026-11-21T11:57:00-05:00",
+    "expires": "2026-11-21T12:30:00-05:00",
+    "ends": "2026-11-21T12:30:00-05:00",
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Miami FL",
+    "headline": "Tornado Warning issued November 21 at 11:57AM EST until November 21 at 12:30PM EST by NWS Miami FL",
+    "description": "TORMFL\n\nThe National Weather Service in Miami has issued a\n\n* Tornado Warning for...\nNorthern Miami-Dade County in southeastern Florida...\nSouth central Broward County in southeastern Florida...\n\n* Until 1230 PM EST.\n\n* At 1156 AM EST, a severe thunderstorm capable of producing a\ntornado was located over Hialeah Gardens, or near Hialeah, moving\nnortheast at 15 mph.\n\nHAZARD...Tornado.\n\nSOURCE...Radar indicated rotation.\n\nIMPACT...Expect damage to mobile homes, roofs, and vehicles. Tree\ndamage is likely.\n\n* Locations impacted include...\nHialeah, Pembroke Pines, Miramar, Miami Gardens, North Miami, Miami\nLakes, Hialeah Gardens, Opa-Locka, Miami Shores, Medley, Westview,\nPalm Springs North, Country Club, Miramar Parkway And University\nDrive, Pennsuco, Hard Rock Stadium, Golden Glades, Pinewood, West\nLittle River, and Biscayne Park.",
+    "instruction": "TAKE COVER NOW! Move to an interior room on the lowest floor of a\nsturdy building. Avoid windows. If you are outdoors, in a mobile\nhome, or in a vehicle, move to the closest substantial shelter and\nprotect yourself from flying debris.",
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "TORMFL"
+     ],
+     "WMOidentifier": [
+      "WFUS52 KMFL 211657"
+     ],
+     "eventMotionDescription": [
+      "2026-11-21T16:56:00-00:00...storm...239DEG...14KT...25.89,-80.36"
+     ],
+     "maxHailSize": [
+      "Up to .75"
+     ],
+     "tornadoDetection": [
+      "RADAR INDICATED"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.NEW.KMFL.TO.W.0002.261121T1657Z-261121T1730Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-21T12:30:00-05:00"
+     ],
+     "WEAHandling": [
+      "Imminent Threat"
+     ],
+     "CMAMtext": [
+      "NWS: TORNADO WARNING in this area til 12:30 PM EST. Take shelter now. Check media."
+     ],
+     "CMAMlongtext": [
+      "National Weather Service: TORNADO WARNING in this area until 12:30 PM EST. Take shelter now in a basement or an interior room on the lowest floor of a sturdy building. If you are outdoors, in a mobile home, or in a vehicle, move to the closest substantial shelter and protect yourself from flying debris. Check media."
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "TOR"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    },
+    "replacedBy": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.cbaa7bb5ea6429b41418504b692385e08284ebe7.001.1",
+    "replacedAt": "2026-11-21T12:13:00-05:00"
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6e08ac50e9ad609619ae138d3ae9f871d73f5522.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -120.82,
+       36.66
+      ],
+      [
+       -121.06,
+       36.6
+      ],
+      [
+       -121.08,
+       36.81
+      ],
+      [
+       -120.93,
+       36.75
+      ],
+      [
+       -120.82,
+       36.66
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6e08ac50e9ad609619ae138d3ae9f871d73f5522.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.6e08ac50e9ad609619ae138d3ae9f871d73f5522.001.1",
+    "areaDesc": "San Benito, CA",
+    "geocode": {
+     "SAME": [
+      "006069"
+     ],
+     "UGC": [
+      "CAC069"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/CAC069"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0e8dbc59557384ef98658eba096f5ccbcb28f23c.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.0e8dbc59557384ef98658eba096f5ccbcb28f23c.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-20T14:39:00-08:00"
+     },
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b4575e47e0e3e40037b640f7a1b35ec705fd66fb.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.b4575e47e0e3e40037b640f7a1b35ec705fd66fb.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-20T14:23:00-08:00"
+     }
+    ],
+    "sent": "2026-11-20T14:49:00-08:00",
+    "effective": "2026-11-20T14:49:00-08:00",
+    "onset": "2026-11-20T14:49:00-08:00",
+    "expires": "2026-11-20T15:04:11-08:00",
+    "ends": "2026-11-20T15:15:00-08:00",
+    "status": "Actual",
+    "messageType": "Cancel",
+    "category": "Met",
+    "severity": "Minor",
+    "certainty": "Observed",
+    "urgency": "Past",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS San Francisco CA",
+    "headline": "The Tornado Warning has been cancelled.",
+    "description": "The Tornado Warning has been cancelled and is no longer in effect.",
+    "instruction": null,
+    "response": "AllClear",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SVSMTR"
+     ],
+     "WMOidentifier": [
+      "WWUS56 KMTR 202249"
+     ],
+     "NWSheadline": [
+      "TORNADO WARNING IS CANCELLED FOR NORTHEASTERN SAN BENITO COUNTY"
+     ],
+     "eventMotionDescription": [
+      "2026-11-20T22:39:00-00:00...storm...333DEG...10KT...36.79,-121.01"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.CAN.KMTR.TO.W.0004.000000T0000Z-261120T2315Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-20T15:15:00-08:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SVS"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f3c5d981408b737db5e493b447fe3381a76a8f30.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -121.14,
+       36.9
+      ],
+      [
+       -121.01,
+       36.93
+      ],
+      [
+       -120.96,
+       36.77
+      ],
+      [
+       -121.09,
+       36.82
+      ],
+      [
+       -121.14,
+       36.9
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f3c5d981408b737db5e493b447fe3381a76a8f30.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.f3c5d981408b737db5e493b447fe3381a76a8f30.001.1",
+    "areaDesc": "Merced, CA",
+    "geocode": {
+     "SAME": [
+      "006047"
+     ],
+     "UGC": [
+      "CAC047"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/CAC047"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0d84450d18afd983e043af70c23e8e0bc1233afe.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.0d84450d18afd983e043af70c23e8e0bc1233afe.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-20T14:42:00-08:00"
+     },
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1513886d3513e9c33ced66d2e2a4773ff4b7f813.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.1513886d3513e9c33ced66d2e2a4773ff4b7f813.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-20T14:23:00-08:00"
+     }
+    ],
+    "sent": "2026-11-20T14:47:00-08:00",
+    "effective": "2026-11-20T14:47:00-08:00",
+    "onset": "2026-11-20T14:47:00-08:00",
+    "expires": "2026-11-20T15:03:03-08:00",
+    "ends": "2026-11-20T15:00:00-08:00",
+    "status": "Actual",
+    "messageType": "Cancel",
+    "category": "Met",
+    "severity": "Minor",
+    "certainty": "Observed",
+    "urgency": "Past",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Hanford CA",
+    "headline": "The Tornado Warning has been cancelled.",
+    "description": "The Tornado Warning has been cancelled and is no longer in effect.",
+    "instruction": null,
+    "response": "AllClear",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SVSHNX"
+     ],
+     "WMOidentifier": [
+      "WWUS56 KHNX 202247"
+     ],
+     "NWSheadline": [
+      "TORNADO WARNING IS CANCELLED FOR SOUTHWESTERN MERCED COUNTY"
+     ],
+     "eventMotionDescription": [
+      "2026-11-20T22:42:00-00:00...storm...340DEG...13KT...36.81,-121.03"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.CAN.KHNX.TO.W.0005.000000T0000Z-261120T2300Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-20T15:00:00-08:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SVS"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    }
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0d84450d18afd983e043af70c23e8e0bc1233afe.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -121.14,
+       36.9
+      ],
+      [
+       -121.01,
+       36.93
+      ],
+      [
+       -120.96,
+       36.77
+      ],
+      [
+       -121.09,
+       36.82
+      ],
+      [
+       -121.14,
+       36.9
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0d84450d18afd983e043af70c23e8e0bc1233afe.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.0d84450d18afd983e043af70c23e8e0bc1233afe.001.1",
+    "areaDesc": "Merced, CA",
+    "geocode": {
+     "SAME": [
+      "006047"
+     ],
+     "UGC": [
+      "CAC047"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/CAC047"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1513886d3513e9c33ced66d2e2a4773ff4b7f813.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.1513886d3513e9c33ced66d2e2a4773ff4b7f813.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-20T14:23:00-08:00"
+     }
+    ],
+    "sent": "2026-11-20T14:42:00-08:00",
+    "effective": "2026-11-20T14:42:00-08:00",
+    "onset": "2026-11-20T14:42:00-08:00",
+    "expires": "2026-11-20T15:00:00-08:00",
+    "ends": "2026-11-20T15:00:00-08:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Hanford CA",
+    "headline": "Tornado Warning issued November 20 at 2:42PM PST until November 20 at 3:00PM PST by NWS Hanford CA",
+    "description": "At 242 PM PST, A severe thunderstorm capable of producing a tornado\nwas located 21 miles southwest of Los Banos, or 45 miles southwest of\nAtwater, moving south at 15 mph.\n\nHAZARD...Tornado.\n\nSOURCE...Radar indicated rotation.\n\nIMPACT...Flying debris will be dangerous to those caught without\nshelter. Mobile homes will be damaged or destroyed. Damage\nto roofs, windows and vehicles will occur. Tree damage is\nlikely.\n\nLocations impacted include...\nMainly rural areas of Southwestern Merced County.",
+    "instruction": "Move to an interior room on the lowest floor of a well-built building\naway from windows. If you are outdoors, in a mobile home, or in a\nvehicle, move to the closest substantial shelter and protect yourself\nfrom flying debris.",
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SVSHNX"
+     ],
+     "WMOidentifier": [
+      "WWUS56 KHNX 202242"
+     ],
+     "NWSheadline": [
+      "TORNADO WARNING REMAINS IN EFFECT UNTIL 3 PM PST FOR SOUTHWESTERN MERCED COUNTY"
+     ],
+     "eventMotionDescription": [
+      "2026-11-20T22:23:00-00:00...storm...340DEG...13KT...36.87,-121.06"
+     ],
+     "maxHailSize": [
+      "0.00"
+     ],
+     "tornadoDetection": [
+      "RADAR INDICATED"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.CON.KHNX.TO.W.0005.000000T0000Z-261120T2300Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-20T15:00:00-08:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SVS"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    },
+    "replacedBy": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f3c5d981408b737db5e493b447fe3381a76a8f30.001.1",
+    "replacedAt": "2026-11-20T14:47:00-08:00"
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0e8dbc59557384ef98658eba096f5ccbcb28f23c.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -120.82,
+       36.66
+      ],
+      [
+       -121.06,
+       36.6
+      ],
+      [
+       -121.08,
+       36.81
+      ],
+      [
+       -120.93,
+       36.75
+      ],
+      [
+       -120.82,
+       36.66
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0e8dbc59557384ef98658eba096f5ccbcb28f23c.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.0e8dbc59557384ef98658eba096f5ccbcb28f23c.001.1",
+    "areaDesc": "San Benito, CA",
+    "geocode": {
+     "SAME": [
+      "006069"
+     ],
+     "UGC": [
+      "CAC069"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/CAC069"
+    ],
+    "references": [
+     {
+      "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b4575e47e0e3e40037b640f7a1b35ec705fd66fb.001.1",
+      "identifier": "urn:oid:2.49.0.1.840.0.b4575e47e0e3e40037b640f7a1b35ec705fd66fb.001.1",
+      "sender": "w-nws.webmaster@noaa.gov",
+      "sent": "2026-11-20T14:23:00-08:00"
+     }
+    ],
+    "sent": "2026-11-20T14:39:00-08:00",
+    "effective": "2026-11-20T14:39:00-08:00",
+    "onset": "2026-11-20T14:39:00-08:00",
+    "expires": "2026-11-20T15:15:00-08:00",
+    "ends": "2026-11-20T15:15:00-08:00",
+    "status": "Actual",
+    "messageType": "Update",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS San Francisco CA",
+    "headline": "Tornado Warning issued November 20 at 2:39PM PST until November 20 at 3:15PM PST by NWS San Francisco CA",
+    "description": "At 239 PM PST, a severe thunderstorm capable of producing a tornado\nwas located 19 miles east of Ridgemark, or 22 miles east of\nHollister, moving southeast at 10 mph.\n\nHAZARD...Tornado.\n\nSOURCE...Radar indicated rotation.\n\nIMPACT...Flying debris will be dangerous to those caught without\nshelter. Mobile homes will be damaged or destroyed. Damage\nto roofs, windows and vehicles will occur. Tree damage is\nlikely.\n\nLocations impacted include...\nMainly rural areas of Northeastern San Benito County.",
+    "instruction": "Move to an interior room on the lowest floor of a well-built building\naway from windows. If you are outdoors, in a mobile home, or in a\nvehicle, move to the closest substantial shelter and protect yourself\nfrom flying debris.",
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "SVSMTR"
+     ],
+     "WMOidentifier": [
+      "WWUS56 KMTR 202239"
+     ],
+     "NWSheadline": [
+      "TORNADO WARNING REMAINS IN EFFECT UNTIL 315 PM PST FOR NORTHEASTERN SAN BENITO COUNTY"
+     ],
+     "eventMotionDescription": [
+      "2026-11-20T22:23:00-00:00...storm...333DEG...10KT...36.83,-121.04"
+     ],
+     "maxHailSize": [
+      "0.00"
+     ],
+     "tornadoDetection": [
+      "RADAR INDICATED"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM",
+      "CMAS"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.CON.KMTR.TO.W.0004.000000T0000Z-261120T2315Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-20T15:15:00-08:00"
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "SVS"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    },
+    "replacedBy": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6e08ac50e9ad609619ae138d3ae9f871d73f5522.001.1",
+    "replacedAt": "2026-11-20T14:49:00-08:00"
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b4575e47e0e3e40037b640f7a1b35ec705fd66fb.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -120.82,
+       36.66
+      ],
+      [
+       -121.09,
+       36.59
+      ],
+      [
+       -121.11,
+       36.82
+      ],
+      [
+       -120.93,
+       36.75
+      ],
+      [
+       -120.82,
+       36.66
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b4575e47e0e3e40037b640f7a1b35ec705fd66fb.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.b4575e47e0e3e40037b640f7a1b35ec705fd66fb.001.1",
+    "areaDesc": "San Benito, CA",
+    "geocode": {
+     "SAME": [
+      "006069"
+     ],
+     "UGC": [
+      "CAC069"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/CAC069"
+    ],
+    "references": [],
+    "sent": "2026-11-20T14:23:00-08:00",
+    "effective": "2026-11-20T14:23:00-08:00",
+    "onset": "2026-11-20T14:23:00-08:00",
+    "expires": "2026-11-20T15:15:00-08:00",
+    "ends": "2026-11-20T15:15:00-08:00",
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS San Francisco CA",
+    "headline": "Tornado Warning issued November 20 at 2:23PM PST until November 20 at 3:15PM PST by NWS San Francisco CA",
+    "description": "TORMTR\n\nThe National Weather Service in San Francisco has issued a\n\n* Tornado Warning for...\nNortheastern San Benito County in central California...\n\n* Until 315 PM PST.\n\n* At 223 PM PST, a severe thunderstorm capable of producing a tornado\nwas located 18 miles east of Ridgemark, or 20 miles east of\nHollister, moving southeast at 20 mph.\n\nHAZARD...Tornado.\n\nSOURCE...Radar indicated rotation.\n\nIMPACT...Flying debris will be dangerous to those caught without\nshelter. Mobile homes will be damaged or destroyed. Damage\nto roofs, windows and vehicles will occur. Tree damage is\nlikely.\n\n* Locations impacted include...\nMainly rural areas of Northeastern San Benito County.",
+    "instruction": "Move to an interior room on the lowest floor of a well-built building\naway from windows. If you are outdoors, in a mobile home, or in a\nvehicle, move to the closest substantial shelter and protect yourself\nfrom flying debris.",
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "TORMTR"
+     ],
+     "WMOidentifier": [
+      "WFUS56 KMTR 202223"
+     ],
+     "eventMotionDescription": [
+      "2026-11-20T22:23:00-00:00...storm...335DEG...15KT...36.83,-121.04"
+     ],
+     "maxHailSize": [
+      "0.00"
+     ],
+     "tornadoDetection": [
+      "RADAR INDICATED"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.NEW.KMTR.TO.W.0004.261120T2223Z-261120T2315Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-20T15:15:00-08:00"
+     ],
+     "WEAHandling": [
+      "Imminent Threat"
+     ],
+     "CMAMtext": [
+      "NWS: TORNADO WARNING in this area til 3:15 PM PST. Take shelter now. Check media."
+     ],
+     "CMAMlongtext": [
+      "National Weather Service: TORNADO WARNING in this area until 3:15 PM PST. Take shelter now in a basement or an interior room on the lowest floor of a sturdy building. If you are outdoors, in a mobile home, or in a vehicle, move to the closest substantial shelter and protect yourself from flying debris. Check media."
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "TOR"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    },
+    "replacedBy": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6e08ac50e9ad609619ae138d3ae9f871d73f5522.001.1",
+    "replacedAt": "2026-11-20T14:49:00-08:00"
+   }
+  },
+  {
+   "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1513886d3513e9c33ced66d2e2a4773ff4b7f813.001.1",
+   "type": "Feature",
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       -121.14,
+       36.9
+      ],
+      [
+       -121.01,
+       36.93
+      ],
+      [
+       -120.96,
+       36.77
+      ],
+      [
+       -121.09,
+       36.82
+      ],
+      [
+       -121.14,
+       36.9
+      ]
+     ]
+    ]
+   },
+   "properties": {
+    "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1513886d3513e9c33ced66d2e2a4773ff4b7f813.001.1",
+    "@type": "wx:Alert",
+    "id": "urn:oid:2.49.0.1.840.0.1513886d3513e9c33ced66d2e2a4773ff4b7f813.001.1",
+    "areaDesc": "Merced, CA",
+    "geocode": {
+     "SAME": [
+      "006047"
+     ],
+     "UGC": [
+      "CAC047"
+     ]
+    },
+    "affectedZones": [
+     "https://api.weather.gov/zones/county/CAC047"
+    ],
+    "references": [],
+    "sent": "2026-11-20T14:23:00-08:00",
+    "effective": "2026-11-20T14:23:00-08:00",
+    "onset": "2026-11-20T14:23:00-08:00",
+    "expires": "2026-11-20T15:00:00-08:00",
+    "ends": "2026-11-20T15:00:00-08:00",
+    "status": "Actual",
+    "messageType": "Alert",
+    "category": "Met",
+    "severity": "Extreme",
+    "certainty": "Observed",
+    "urgency": "Immediate",
+    "event": "Tornado Warning",
+    "sender": "w-nws.webmaster@noaa.gov",
+    "senderName": "NWS Hanford CA",
+    "headline": "Tornado Warning issued November 20 at 2:23PM PST until November 20 at 3:00PM PST by NWS Hanford CA",
+    "description": "TORHNX\n\nThe National Weather Service in Hanford has issued a\n\n* Tornado Warning for...\nSouthwestern Merced County in central California...\n\n* Until 300 PM PST.\n\n* At 223 PM PST, A severe thunderstorm capable of producing a tornado\nwas located 18 miles southwest of Los Banos, or 42 miles southwest\nof Atwater, moving south at 15 mph.\n\nHAZARD...Tornado.\n\nSOURCE...Radar indicated rotation.\n\nIMPACT...Flying debris will be dangerous to those caught without\nshelter. Mobile homes will be damaged or destroyed. Damage\nto roofs, windows and vehicles will occur. Tree damage is\nlikely.\n\n* Locations impacted include...\nMainly rural areas of Southwestern Merced County.",
+    "instruction": "Move to an interior room on the lowest floor of a well-built building\naway from windows. If you are outdoors, in a mobile home, or in a\nvehicle, move to the closest substantial shelter and protect yourself\nfrom flying debris.",
+    "response": "Shelter",
+    "note": null,
+    "parameters": {
+     "AWIPSidentifier": [
+      "TORHNX"
+     ],
+     "WMOidentifier": [
+      "WFUS56 KHNX 202223"
+     ],
+     "eventMotionDescription": [
+      "2026-11-20T22:23:00-00:00...storm...340DEG...13KT...36.87,-121.06"
+     ],
+     "maxHailSize": [
+      "0.00"
+     ],
+     "tornadoDetection": [
+      "RADAR INDICATED"
+     ],
+     "BLOCKCHANNEL": [
+      "EAS",
+      "NWEM"
+     ],
+     "EAS-ORG": [
+      "WXR"
+     ],
+     "VTEC": [
+      "/O.NEW.KHNX.TO.W.0005.261120T2223Z-261120T2300Z/"
+     ],
+     "eventEndingTime": [
+      "2026-11-20T15:00:00-08:00"
+     ],
+     "WEAHandling": [
+      "Imminent Threat"
+     ],
+     "CMAMtext": [
+      "NWS: TORNADO WARNING in this area til 3:00 PM PST. Take shelter now. Check media."
+     ],
+     "CMAMlongtext": [
+      "National Weather Service: TORNADO WARNING in this area until 3:00 PM PST. Take shelter now in a basement or an interior room on the lowest floor of a sturdy building. If you are outdoors, in a mobile home, or in a vehicle, move to the closest substantial shelter and protect yourself from flying debris. Check media."
+     ]
+    },
+    "scope": "Public",
+    "code": "IPAWSv1.0",
+    "language": "en-US",
+    "web": "http://www.weather.gov",
+    "eventCode": {
+     "SAME": [
+      "TOR"
+     ],
+     "NationalWeatherService": [
+      "TOW"
+     ]
+    },
+    "replacedBy": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f3c5d981408b737db5e493b447fe3381a76a8f30.001.1",
+    "replacedAt": "2026-11-20T14:47:00-08:00"
+   }
+  }
+ ],
+ "title": "Tornado Warning events issued since Wed, Nov 18, 2026 2:16:29 AM +0000",
+ "updated": "2026-11-22T00:11:23+00:00",
+ "pagination": {
+  "next": "https://api.weather.gov/alerts?status%5B0%5D=actual&event%5B0%5D=Tornado%20Warning&start=2026-11-18T02:16:29Z&limit=80&cursor=eyJ0IjoxNzk1MjEzMzgwLCJpIjoidXJuOm9pZDoyLjQ5LjAuMS44NDAuMC4xNTEzODg2ZDM1MTNlOWMzM2NlZDY2ZDJlMmE0NzczZmY0YjdmODEzLjAwMS4xIn0%3D"
+ }
+}
