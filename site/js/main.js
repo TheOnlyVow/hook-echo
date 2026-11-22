@@ -4,42 +4,38 @@
 
 import { createStore, loadPersisted, savePersisted, safeLocalStorage } from './state/store.js';
 import { Feed } from './data/http.js';
-import { loadStormAlerts, loadLandAlerts, loadRecentWarnings } from './data/alerts.js';
+import { loadStormAlerts, loadLandAlerts, loadRecentWarnings, loadPointAlerts, mergeAlerts } from './data/alerts.js';
 import { loadShapes } from './data/shapes.js';
 import { loadRadar } from './data/radar.js';
 import { loadReports } from './data/reports.js';
 import { loadSurveys } from './data/surveys.js';
 import { loadDay1, loadDays23 } from './data/spc.js';
 import { loadTropical } from './data/tropical.js';
+import { loadForecast } from './data/points.js';
+import { searchPlaces, reversePlace } from './data/geocode.js';
 import { createDemo } from './data/demo.js';
 import { REFRESH, STALE_MS } from './config.js';
-import { projectMotion } from './lib/paths.js';
+import { projectMotion, nearestStorm } from './lib/paths.js';
 import { buildTrails } from './lib/trails.js';
-import { isInEffect } from './lib/status.js';
+import { isInEffect, placeStatus } from './lib/status.js';
 import { geometryBounds } from './lib/geo.js';
-import { clock, relative, statesIn } from './lib/format.js';
+import { clock, relative } from './lib/format.js';
+import { riskAt } from './lib/outlook.js';
+import { headlineFor, coversByAlert, worstLevel, sortBySeverity } from './lib/people.js';
+import { sanitizePlaces } from './lib/share.js';
+import { splitTrips, localDate } from './lib/trips.js';
+import { decideAlarms } from './lib/alarmRules.js';
+import { allowedEvents } from './lib/alarmText.js';
 import { createMap } from './map/map.js';
-import { alertFeatures, pathFeatures, trailFeatures, reportFeatures, surveyFeatures, outlookFeatures, tropicalFeatures } from './map/features.js';
+import { alertFeatures, pathFeatures, trailFeatures, reportFeatures, surveyFeatures, outlookFeatures, tropicalFeatures, circlePolygon } from './map/features.js';
 import { createReports, reportPopup, surveyPopup, tropicalPopup } from './ui/reports.js';
 import { createLayersMenu } from './ui/layersMenu.js';
 import { createPeople, createPlaceEditor, createPlaceMarkers } from './ui/places.js';
 import { createTrips } from './ui/trips.js';
 import { createAlarm } from './ui/alarm.js';
 import { createSettings } from './ui/settings.js';
-import { decideAlarms } from './lib/alarmRules.js';
-import { allowedEvents } from './lib/alarmText.js';
-import { splitTrips, localDate } from './lib/trips.js';
 import { sharePlaces, importFromHash } from './ui/shareFlow.js';
 import { toast } from './ui/toasts.js';
-import { placeStatus } from './lib/status.js';
-import { nearestStorm } from './lib/paths.js';
-import { riskAt } from './lib/outlook.js';
-import { headlineFor, coversByAlert, worstLevel, sortBySeverity } from './lib/people.js';
-import { sanitizePlaces } from './lib/share.js';
-import { loadPointAlerts } from './data/alerts.js';
-import { loadForecast } from './data/points.js';
-import { searchPlaces, reversePlace } from './data/geocode.js';
-import { circlePolygon } from './map/features.js';
 import { createPanel } from './ui/panel.js';
 import { createTimeline } from './ui/timeline.js';
 import { COUNTS, countAlerts, renderSummary, renderHeadline } from './ui/summary.js';
@@ -170,10 +166,7 @@ function computeStatuses(now = new Date()) {
 const everyone = () => [...(derived.meView ? [derived.meView] : []), ...derived.people];
 
 function computeAlerts(now = new Date()) {
-  const merged = new Map();
-  for (const a of snap('land').data ?? []) merged.set(a.id, a);
-  for (const a of snap('storm').data ?? []) merged.set(a.id, a);
-  derived.alerts = [...merged.values()].filter((a) => isInEffect(a, now));
+  derived.alerts = mergeAlerts(snap('storm').data, snap('land').data).filter((a) => isInEffect(a, now));
   derived.byId = new Map(derived.alerts.map((a) => [a.id, a]));
 }
 
@@ -479,10 +472,11 @@ function runAlarms() {
   if (allowed.length) alarm.trigger(allowed);
 }
 
+// Any click or key press counts as the gesture browsers require before sound.
 const unlockSound = () => {
   if (!alarm.unlocked() && alarm.unlock()) renderBanners();
 };
-document.addEventListener('pointerdown', unlockSound, { capture: true });
+document.addEventListener('click', unlockSound, { capture: true });
 document.addEventListener('keydown', unlockSound, { capture: true });
 
 // ---------- Settings ----------

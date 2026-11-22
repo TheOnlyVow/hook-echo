@@ -4,7 +4,7 @@
   "private": true,
   "description": "Live US storm, tornado path and warning tracker that watches the places your people are.",
   "type": "module",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "engines": {
     "node": ">=22"
   },

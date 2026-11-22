@@ -68,6 +68,22 @@ export function normalizeAlerts(fc) {
   return out;
 }
 
+/**
+ * One list from both alert feeds. The one-minute storm feed is the only
+ * source for storm events while it has data, so a warning that was updated
+ * or cancelled never lingers from the slower all-alerts snapshot. When the
+ * storm feed has nothing yet (or failed), the all-alerts copies stand in.
+ * @param {object[] | null} storm
+ * @param {object[] | null} land
+ */
+export function mergeAlerts(storm, land) {
+  const stormEvents = new Set(STORM_EVENTS);
+  const merged = new Map();
+  for (const a of land ?? []) if (!storm || !stormEvents.has(a.event)) merged.set(a.id, a);
+  for (const a of storm ?? []) merged.set(a.id, a);
+  return [...merged.values()];
+}
+
 const eventsParam = (events) => events.map(encodeURIComponent).join(',');
 
 export async function loadStormAlerts(signal) {

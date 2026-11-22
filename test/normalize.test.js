@@ -62,6 +62,19 @@ test('normalizeAlerts: every recorded alert normalizes, with unique ids', () => 
   }
 });
 
+test('mergeAlerts: the fast storm feed is the only source for storm events while it has data', async () => {
+  const { mergeAlerts } = await import('../site/js/data/alerts.js');
+  const { makeAlert } = await import('./helpers.js');
+  const updated = makeAlert({ id: 'new', event: 'Tornado Warning' });
+  const superseded = makeAlert({ id: 'old', event: 'Tornado Warning' });
+  const cancelledElsewhere = makeAlert({ id: 'gone', event: 'Severe Thunderstorm Warning' });
+  const winter = makeAlert({ id: 'w', event: 'Winter Storm Warning' });
+  const merged = mergeAlerts([updated], [superseded, cancelledElsewhere, winter]);
+  assert.deepEqual(merged.map((a) => a.id).sort(), ['new', 'w']);
+  const fallback = mergeAlerts(null, [superseded, winter]);
+  assert.deepEqual(fallback.map((a) => a.id).sort(), ['old', 'w'], 'land copies stand in when the storm feed has nothing');
+});
+
 test('loadPointAlerts: ids from the NWS point check, with rounded coordinates', async (t) => {
   const seen = stubFetch(t, [['/alerts/active', { features: [{ properties: { id: 'urn:oid:a' } }, { properties: { id: 'urn:oid:b' } }] }]]);
   const ids = await loadPointAlerts({ lat: 36.153987, lon: -95.992781 });
