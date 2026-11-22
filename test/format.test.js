@@ -1,6 +1,25 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { clock, relative, duration, miles, compass, mph, motionText, motionLabel } from '../site/js/lib/format.js';
+import { clock, relative, duration, miles, compass, mph, motionText, motionLabel, areaSummary, statesIn } from '../site/js/lib/format.js';
+
+test('areaSummary: counties grouped by state, long lists shortened', () => {
+  assert.equal(areaSummary('Cleveland, OK; McClain, OK; Grady, OK'), 'Cleveland, McClain and Grady, OK');
+  assert.equal(areaSummary('Cleveland, OK; Cooke, TX'), 'Cleveland, OK; Cooke, TX');
+  assert.equal(areaSummary('A, KS; B, KS; C, KS; D, KS; E, KS; F, KS'), 'A, B, C, D and 2 more, KS');
+  assert.equal(areaSummary('Coastal waters from Sebastian Inlet to Jupiter Inlet FL out 20 nm'), 'Coastal waters from Sebastian Inlet to Jupiter Inlet FL out 20 nm');
+  assert.equal(areaSummary(''), '');
+});
+
+test('motionShort: direction and speed without the arrow', async () => {
+  const { motionShort } = await import('../site/js/lib/format.js');
+  assert.equal(motionShort({ dirFrom: 221, speedKt: 30 }), 'NE at 35 mph');
+  assert.equal(motionShort({ dirFrom: 90, speedKt: 0.4 }), 'Nearly stationary');
+});
+
+test('statesIn: state codes named in an area description, in order', () => {
+  assert.deepEqual(statesIn('Cleveland, OK; Cooke, TX; Love, OK'), ['OK', 'TX']);
+  assert.deepEqual(statesIn('Northern Oklahoma'), []);
+});
 
 const NOW = new Date('2026-11-22T02:03:00Z');
 const plus = (ms) => new Date(NOW.getTime() + ms);

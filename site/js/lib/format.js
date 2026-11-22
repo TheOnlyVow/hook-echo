@@ -72,6 +72,48 @@ export function motionText(m) {
   return `→ ${compass(m.dirFrom + 180)} at ${mph(m.speedKt)}`;
 }
 
+const AREA_RE = /^(.+), ([A-Z]{2})$/;
+
+/**
+ * "Cleveland, OK; McClain, OK; Grady, OK" -> "Cleveland, McClain and Grady, OK".
+ * Descriptions that are not county lists come back unchanged.
+ */
+export function areaSummary(desc, max = 4) {
+  const parts = String(desc ?? '').split(';').map((p) => p.trim()).filter(Boolean);
+  if (!parts.length) return '';
+  const groups = new Map();
+  for (const part of parts) {
+    const m = AREA_RE.exec(part);
+    if (!m) return parts.join('; ');
+    if (!groups.has(m[2])) groups.set(m[2], []);
+    groups.get(m[2]).push(m[1]);
+  }
+  return [...groups]
+    .map(([state, names]) => {
+      let list;
+      if (names.length > max) list = `${names.slice(0, max).join(', ')} and ${names.length - max} more`;
+      else list = names.length === 1 ? names[0] : `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`;
+      return `${list}, ${state}`;
+    })
+    .join('; ');
+}
+
+/** State codes named in an area description, first appearance first. */
+export function statesIn(desc) {
+  const out = [];
+  for (const part of String(desc ?? '').split(';')) {
+    const m = AREA_RE.exec(part.trim());
+    if (m && !out.includes(m[2])) out.push(m[2]);
+  }
+  return out;
+}
+
+/** "NE at 35 mph" without the arrow, for places that draw their own. */
+export function motionShort(m) {
+  if (!m || m.speedKt < 1) return 'Nearly stationary';
+  return `${compass(m.dirFrom + 180)} at ${mph(m.speedKt)}`;
+}
+
 /** Spoken form of motionText, for screen readers. */
 export function motionLabel(m) {
   if (!m || m.speedKt < 1) return 'Nearly stationary';

@@ -215,8 +215,8 @@ h1, h2, h3, h4, p { margin: 0; }
 }
 .headline-card:hover { background: var(--raised-2); }
 .headline-card .icon { width: 22px; height: 22px; }
-.headline-title { font: 600 var(--fs-lg) / 1.2 var(--font-display); }
-.headline-text { font-size: var(--fs-sm); color: var(--ink-2); margin-top: 2px; }
+.headline-title { display: block; font: 600 var(--fs-lg) / 1.2 var(--font-display); }
+.headline-text { display: block; font-size: var(--fs-sm); color: var(--ink-2); margin-top: 2px; }
 .headline-card.is-shelter { background: var(--st-shelter-fill); border-color: transparent; color: var(--st-shelter-ink); }
 .headline-card.is-shelter .headline-text { color: rgb(255 255 255 / 0.88); }
 .headline-card.is-shelter:hover { filter: brightness(1.06); }
