@@ -23,6 +23,8 @@ import { alertFeatures, pathFeatures, trailFeatures, reportFeatures, surveyFeatu
 import { createReports, reportPopup, surveyPopup, tropicalPopup } from './ui/reports.js';
 import { createLayersMenu } from './ui/layersMenu.js';
 import { createPeople, createPlaceEditor, createPlaceMarkers } from './ui/places.js';
+import { createTrips } from './ui/trips.js';
+import { splitTrips, localDate } from './lib/trips.js';
 import { sharePlaces, importFromHash } from './ui/shareFlow.js';
 import { toast } from './ui/toasts.js';
 import { placeStatus } from './lib/status.js';
@@ -346,7 +348,34 @@ const peopleTab = createPeople({
   onShare: () => sharePlaces(store.get().places),
 });
 
+const tripsTab = createTrips({
+  el: $('#view-trips'),
+  onAdd: () => editor.open(null, { kind: 'trip' }),
+  onEdit: (id) => {
+    const p = store.get().places.find((x) => x.id === id);
+    if (p) editor.open(p);
+  },
+  onShow: showPlace,
+});
+
+const renderTrips = rafThrottle(() => {
+  const today = localDate();
+  const { upcoming, past } = splitTrips(store.get().places, today);
+  tripsTab.render({
+    upcoming,
+    past,
+    views: new Map(derived.people.map((p) => [p.place.id, p])),
+    outlooks: [snap('spc1').data?.cat, snap('spc23').data?.day2, snap('spc23').data?.day3],
+    forecasts,
+    today,
+    full: store.get().places.length >= 25,
+  });
+  const soon = upcoming.filter((s) => s.from <= today).length;
+  $('#tab-trips').innerHTML = `Trips${soon ? `<span class="tab-badge" aria-label="${soon} today">${soon}</span>` : ''}`;
+});
+
 const renderPeople = rafThrottle(() => {
+  renderTrips();
   const outlookLoaded = snap('spc1').status === 'ok' && Boolean(snap('spc1').data?.cat);
   peopleTab.render({
     people: sortBySeverity(derived.people.filter((p) => p.place.kind !== 'trip')),
@@ -676,7 +705,7 @@ function onFeed(id) {
   }
   if (id === 'spc1') pushOutlookToMap();
   if (id === 'tropical') pushTropicalToMap();
-  if (['storm', 'land', 'shapes', 'points', 'spc1'].includes(id)) {
+  if (['storm', 'land', 'shapes', 'points', 'spc1', 'spc23'].includes(id)) {
     computeStatuses(now);
     renderPeople();
     renderNow();
