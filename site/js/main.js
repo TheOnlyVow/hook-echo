@@ -11,6 +11,7 @@ import { loadReports } from './data/reports.js';
 import { loadSurveys } from './data/surveys.js';
 import { loadDay1, loadDays23 } from './data/spc.js';
 import { loadTropical } from './data/tropical.js';
+import { createDemo } from './data/demo.js';
 import { REFRESH, STALE_MS } from './config.js';
 import { projectMotion } from './lib/paths.js';
 import { buildTrails } from './lib/trails.js';
@@ -60,18 +61,24 @@ lightQuery.addEventListener('change', applyTheme);
 
 // ---------- Feeds ----------
 const MIN = 60_000;
+/** #demo replays a recorded event through the same pipeline. */
+const demo = location.hash === '#demo' ? createDemo() : null;
+const none = (value) => async () => value;
 const feeds = {
-  storm: new Feed({ id: 'storm', load: loadStormAlerts, intervalMs: REFRESH.stormAlerts.normal, staleMs: STALE_MS }),
-  land: new Feed({ id: 'land', load: loadLandAlerts, intervalMs: REFRESH.landAlerts.normal, saverIntervalMs: REFRESH.landAlerts.saver, staleMs: 15 * MIN }),
-  shapes: new Feed({ id: 'shapes', load: loadShapes, intervalMs: REFRESH.shapes.normal, saverIntervalMs: REFRESH.shapes.saver, staleMs: 20 * MIN }),
-  recent: new Feed({ id: 'recent', load: (signal) => loadRecentWarnings(signal), intervalMs: REFRESH.recentWarnings.normal, staleMs: 10 * MIN }),
-  radar: new Feed({ id: 'radar', load: loadRadar, intervalMs: REFRESH.radar.normal, saverIntervalMs: REFRESH.radar.saver, staleMs: 15 * MIN }),
-  reports: new Feed({ id: 'reports', load: loadReports, intervalMs: REFRESH.reports.normal, staleMs: 20 * MIN }),
-  surveys: new Feed({ id: 'surveys', load: (signal) => loadSurveys(signal), intervalMs: REFRESH.surveys.normal, staleMs: 2 * 60 * MIN }),
-  spc1: new Feed({ id: 'spc1', load: loadDay1, intervalMs: REFRESH.spcDay1.normal, staleMs: 60 * MIN }),
-  spc23: new Feed({ id: 'spc23', load: loadDays23, intervalMs: REFRESH.spcDays23.normal, staleMs: 3 * 60 * MIN }),
-  tropical: new Feed({ id: 'tropical', load: loadTropical, intervalMs: REFRESH.tropical.normal, staleMs: 60 * MIN }),
+  storm: new Feed({ id: 'storm', load: demo ? demo.storm : loadStormAlerts, intervalMs: REFRESH.stormAlerts.normal, staleMs: STALE_MS }),
+  land: new Feed({ id: 'land', load: demo ? none([]) : loadLandAlerts, intervalMs: REFRESH.landAlerts.normal, saverIntervalMs: REFRESH.landAlerts.saver, staleMs: 15 * MIN }),
+  shapes: new Feed({ id: 'shapes', load: demo ? none(new Map()) : loadShapes, intervalMs: REFRESH.shapes.normal, saverIntervalMs: REFRESH.shapes.saver, staleMs: 20 * MIN }),
+  recent: new Feed({ id: 'recent', load: demo ? demo.recent : (signal) => loadRecentWarnings(signal), intervalMs: REFRESH.recentWarnings.normal, staleMs: 10 * MIN }),
+  radar: new Feed({ id: 'radar', load: demo ? demo.radar : loadRadar, intervalMs: REFRESH.radar.normal, saverIntervalMs: REFRESH.radar.saver, staleMs: 15 * MIN }),
+  reports: new Feed({ id: 'reports', load: demo ? demo.reports : loadReports, intervalMs: REFRESH.reports.normal, staleMs: 20 * MIN }),
+  surveys: new Feed({ id: 'surveys', load: demo ? none([]) : (signal) => loadSurveys(signal), intervalMs: REFRESH.surveys.normal, staleMs: 2 * 60 * MIN }),
+  spc1: new Feed({ id: 'spc1', load: demo ? none({ cat: null, torn: null }) : loadDay1, intervalMs: REFRESH.spcDay1.normal, staleMs: 60 * MIN }),
+  spc23: new Feed({ id: 'spc23', load: demo ? none({ day2: null, day3: null }) : loadDays23, intervalMs: REFRESH.spcDays23.normal, staleMs: 3 * 60 * MIN }),
+  tropical: new Feed({ id: 'tropical', load: demo ? none([]) : loadTropical, intervalMs: REFRESH.tropical.normal, staleMs: 60 * MIN }),
 };
+addEventListener('hashchange', () => {
+  if ((location.hash === '#demo') !== Boolean(demo)) location.reload();
+});
 const snap = (id) => feeds[id].snapshot;
 
 function dataSaverOn() {
@@ -191,19 +198,46 @@ function renderLive() {
   const state = feedState(s);
   el.dataset.state = state;
   const age = s.updatedAt ? relative(new Date(s.updatedAt), new Date()) : '';
-  const text = state === 'loading' ? 'Loading' : state === 'error' ? "Can't reach NWS" : state === 'stale' ? `Delayed, ${age}` : `Updated ${age}`;
+  let text = state === 'loading' ? 'Loading' : state === 'error' ? "Can't reach NWS" : state === 'stale' ? `Delayed, ${age}` : `Updated ${age}`;
+  if (demo && state !== 'loading') text = 'Demo replay';
   el.querySelector('.live-text').textContent = text;
   el.setAttribute('aria-label', `Data status: ${text}. Open data sources.`);
 }
 
+let demoInfo = null;
 function renderBanners() {
   const html = [];
+  if (demo && demoInfo) {
+    html.push(`<div class="banner is-demo" role="status">${icon('info')}<span><strong>Demo replay.</strong> ${esc(demoInfo.label)}, with times shifted to now.${demoInfo.finished ? ' The replay has finished.' : ''}</span>
+      <span class="banner-actions">${demoInfo.finished ? '<button class="btn btn-small" type="button" data-demo-restart>Restart</button>' : ''}<button class="btn btn-small" type="button" data-demo-leave>Leave demo</button></span></div>`);
+  }
   if (!navigator.onLine) {
     html.push(`<div class="banner is-error" role="status">${icon('offline')}<span><strong>You're offline.</strong> Showing the last data received${snap('storm').updatedAt ? `, from ${esc(clock(new Date(snap('storm').updatedAt)))}` : ''}.</span></div>`);
   } else if (snap('storm').stale && snap('storm').data) {
     html.push(`<div class="banner is-warning" role="status">${icon('alert')}<span><strong>Warnings may be out of date.</strong> Last update ${esc(relative(new Date(snap('storm').updatedAt), new Date()))}. Retrying.</span></div>`);
   }
   $('#banners').innerHTML = html.join('');
+}
+$('#banners').addEventListener('click', (e) => {
+  if (e.target.closest('[data-demo-leave]')) {
+    demo?.restart();
+    history.replaceState(null, '', location.pathname + location.search);
+    location.reload();
+  }
+  if (e.target.closest('[data-demo-restart]')) {
+    demo?.restart();
+    location.reload();
+  }
+});
+async function refreshDemoInfo() {
+  if (!demo) return;
+  try {
+    demoInfo = await demo.info();
+    renderBanners();
+  } catch {
+    demoInfo = { label: 'Recorded event unavailable', finished: true };
+    renderBanners();
+  }
 }
 addEventListener('online', () => {
   renderBanners();
@@ -388,6 +422,23 @@ mapApi.ready.then(() => {
   timeline = createTimeline($('#timeline'), mapApi.radar);
   applyLayerVisibility();
   for (const id of Object.keys(feeds)) onFeed(id);
+  if (demo) {
+    refreshDemoInfo();
+    setInterval(refreshDemoInfo, 60_000);
+    // Frame the recorded event once its warnings arrive.
+    const frame = () => {
+      let b = null;
+      for (const a of snap('recent').data ?? []) {
+        const g = geometryBounds(a.geometry);
+        if (g) b = b ? [Math.min(b[0], g[0]), Math.min(b[1], g[1]), Math.max(b[2], g[2]), Math.max(b[3], g[3])] : g;
+      }
+      if (b) mapApi.fitBounds(b, panel.mapPadding(), 8.5);
+      return Boolean(b);
+    };
+    if (!frame()) {
+      const off = feeds.recent.subscribe(() => frame() && off());
+    }
+  }
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     // Start the loop once the frames have had a moment to load.
     setTimeout(() => mapApi.radar.state.frames.length && mapApi.radar.play(), 2500);

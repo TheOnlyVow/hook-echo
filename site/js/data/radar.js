@@ -11,14 +11,16 @@ const tileUrl = (layer) => `${IEM}/cache/tile.py/1.0.0/${layer}/{z}/{x}/{y}.png`
 
 /**
  * @param {string} validIso time of the newest mosaic
+ * @param {number} [count]
+ * @param {{live?: boolean}} [opts] live: false uses archived layers for every frame (for replays)
  * @returns {{time: Date, tiles: string}[]} oldest first
  */
-export function radarFrames(validIso, count = RADAR_FRAMES) {
+export function radarFrames(validIso, count = RADAR_FRAMES, { live = true } = {}) {
   const valid = new Date(validIso);
   const frames = [];
   for (let i = count - 1; i >= 0; i--) {
     const time = new Date(valid.getTime() - i * RADAR_STEP_MS);
-    const tiles = i === 0 ? `${tileUrl('nexrad-n0q-900913')}?v=${stamp(time)}` : tileUrl(`ridge::USCOMP-N0Q-${stamp(time)}`);
+    const tiles = i === 0 && live ? `${tileUrl('nexrad-n0q-900913')}?v=${stamp(time)}` : tileUrl(`ridge::USCOMP-N0Q-${stamp(time)}`);
     frames.push({ time, tiles });
   }
   return frames;
