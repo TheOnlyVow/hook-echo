@@ -14,6 +14,11 @@ const SIREN_MAX_MS = 3 * 60_000;
 const VIBRATE = [600, 300, 600, 300, 600];
 const endOf = (a) => new Date(Math.max(a.expires?.getTime() ?? 0, a.ends?.getTime() ?? 0));
 const nameOf = (place) => (place?.kind === 'me' ? 'Where you are' : place?.name ?? '');
+// Browsers refuse vibration until the viewer has interacted with the page.
+const vibrate = (pattern) => {
+  if (navigator.userActivation && !navigator.userActivation.hasBeenActive) return;
+  navigator.vibrate?.(pattern);
+};
 const names = (list) => (list.length <= 2 ? list.join(' and ') : `${list.slice(0, 2).join(', ')} and ${list.length - 2} more`);
 
 export function createAlarm({ dialog, onShowOnMap, demo = false }) {
@@ -61,7 +66,7 @@ export function createAlarm({ dialog, onShowOnMap, demo = false }) {
       if (Date.now() > sirenStop) return stopSiren();
       nodes = nodes.slice(-12);
       tone([853, 960], audio.currentTime + 0.03, SIREN_ON_S, 0.32);
-      navigator.vibrate?.(VIBRATE);
+      vibrate(VIBRATE);
     };
     sirenStop = Date.now() + SIREN_MAX_MS;
     burst();
@@ -80,7 +85,7 @@ export function createAlarm({ dialog, onShowOnMap, demo = false }) {
       }
     }
     nodes = [];
-    navigator.vibrate?.(0);
+    vibrate(0);
   }
 
   function chime() {
@@ -88,7 +93,7 @@ export function createAlarm({ dialog, onShowOnMap, demo = false }) {
     const t = audio.currentTime + 0.03;
     tone([880], t, 0.2, 0.22);
     tone([660], t + 0.24, 0.3, 0.22);
-    navigator.vibrate?.([200, 100, 200]);
+    vibrate([200, 100, 200]);
   }
 
   async function notify(event) {

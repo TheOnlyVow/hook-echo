@@ -106,7 +106,7 @@ export function labelLayers(theme) {
       filter: ['==', ['get', 'class'], 'city'],
       layout: {
         'text-field': name,
-        'text-font': ['step', ['zoom'], FONT, 6, FONT_BOLD],
+        'text-font': ['step', ['zoom'], ['literal', FONT], 6, ['literal', FONT_BOLD]],
         'text-size': ['interpolate', ['linear'], ['zoom'], 4, ['step', ['get', 'rank'], 12, 3, 11, 6, 10], 10, ['step', ['get', 'rank'], 16, 3, 15, 6, 13]],
         'symbol-sort-key': ['get', 'rank'],
         'text-max-width': 8,

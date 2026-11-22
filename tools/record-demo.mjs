@@ -7,7 +7,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const EVENT = {
-  label: 'South Florida tornado warnings, November 21, 2026',
+  label: 'South Florida tornadoes, Nov 21, 2026',
   area: 'FL',
   start: '2026-11-21T22:30:00Z',
   end: '2026-11-22T00:30:00Z',

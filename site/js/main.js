@@ -594,7 +594,7 @@ let demoInfo = null;
 function renderBanners() {
   const html = [];
   if (demo && demoInfo) {
-    html.push(`<div class="banner is-demo" role="status">${icon('info')}<span><strong>Demo replay.</strong> ${esc(demoInfo.label)}, with times shifted to now.${demoInfo.finished ? ' The replay has finished.' : ''}</span>
+    html.push(`<div class="banner is-demo" role="status" title="Times are shifted so the event plays as if it were happening now.">${icon('info')}<span><strong>Demo replay:</strong> ${esc(demoInfo.label)}.${demoInfo.finished ? ' The replay has finished.' : ''}</span>
       <span class="banner-actions">${demoInfo.finished ? '<button class="btn btn-small" type="button" data-demo-restart>Restart</button>' : ''}<button class="btn btn-small" type="button" data-demo-leave>Leave demo</button></span></div>`);
   }
   if (watchedPlaces().length && !alarm.unlocked()) {

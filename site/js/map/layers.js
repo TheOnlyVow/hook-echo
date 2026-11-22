@@ -21,7 +21,7 @@ export const GROUPS = {
 export const ALERT_LAYERS = ['warn-fill', 'watch-fill', 'zones-fill'];
 export const RADAR_SLOT = 'slot-radar';
 
-const SOURCES = ['spc', 'alerts', 'surveys', 'trails', 'trail-dots', 'cones', 'paths', 'path-ends', 'ticks', 'storms-now', 'reports', 'trop-cones', 'trop-past', 'trop-tracks', 'trop-points', 'me-acc'];
+export const SOURCES = ['spc', 'alerts', 'surveys', 'trails', 'trail-dots', 'cones', 'paths', 'path-ends', 'ticks', 'storms-now', 'reports', 'trop-cones', 'trop-past', 'trop-tracks', 'trop-points', 'me-acc'];
 
 /** Resolves CSS custom properties into colors MapLibre can parse. */
 export function readColors() {
@@ -51,12 +51,21 @@ function trailGradient(color) {
   return ['interpolate', ['linear'], ['line-progress'], 0, 'rgba(0,0,0,0)', 0.35, color.replace(/^#(..)(..)(..)$/, (_, r, g, b) => `rgba(${parseInt(r, 16)},${parseInt(g, 16)},${parseInt(b, 16)},0.45)`), 1, color];
 }
 
+/** The GeoJSON source definition for one overlay source. */
+export function sourceSpec(id) {
+  return { type: 'geojson', data: EMPTY, promoteId: 'id', lineMetrics: id === 'trails', buffer: 64, tolerance: 0.3 };
+}
+
 export function installLayers(map, c) {
-  for (const id of SOURCES) {
-    map.addSource(id, { type: 'geojson', data: EMPTY, promoteId: 'id', lineMetrics: id === 'trails', buffer: 64, tolerance: 0.3 });
-  }
+  for (const id of SOURCES) map.addSource(id, sourceSpec(id));
+  for (const layer of overlayLayers(c)) map.addLayer(layer);
+}
+
+/** Every overlay layer spec in stacking order. Pure, so tests can validate the whole style. */
+export function overlayLayers(c) {
+  const layers = [];
   const none = { visibility: 'none' };
-  const add = (layer) => map.addLayer(layer);
+  const add = (layer) => layers.push(layer);
 
   // SPC outlook (off by default)
   add({ id: 'spc-fill', type: 'fill', source: 'spc', layout: none, paint: { 'fill-color': ['get', 'fill'], 'fill-opacity': 0.3 } });
@@ -133,6 +142,7 @@ export function installLayers(map, c) {
   // Where I am: accuracy circle (the dot is an HTML marker)
   add({ id: 'me-acc-fill', type: 'fill', source: 'me-acc', paint: { 'fill-color': c.me, 'fill-opacity': 0.12 } });
   add({ id: 'me-acc-line', type: 'line', source: 'me-acc', paint: { 'line-color': c.me, 'line-width': 1, 'line-opacity': 0.5 } });
+  return layers;
 }
 
 /** Re-applies theme-dependent colors after a theme change. */
